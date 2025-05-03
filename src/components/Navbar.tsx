@@ -22,12 +22,12 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-black/90 sticky top-0 z-50 border-b border-gray-800">
+    <nav className="bg-[#0F1923]/90 backdrop-blur-md sticky top-0 z-50 border-b border-white/5 shadow-lg">
       <div className="aot-container">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-aot-red">AoT</span>
+            <span className="text-2xl font-bold text-[#FF4655]">AoT</span>
             <span className="ml-2 text-lg hidden sm:inline-block">Universe</span>
           </Link>
 
@@ -37,7 +37,7 @@ export default function Navbar() {
               <Link 
                 key={index} 
                 href={link.path}
-                className="text-gray-300 hover:text-white hover:underline decoration-aot-red decoration-2 underline-offset-8 transition-all duration-200"
+                className="text-gray-300 hover:text-white hover:underline decoration-[#FF4655] decoration-2 underline-offset-8 transition-all duration-200"
               >
                 {link.name}
               </Link>
@@ -59,7 +59,7 @@ export default function Navbar() {
                 href={social.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="social-icon p-1 text-lg"
+                className="social-icon p-1 text-lg text-gray-400 hover:text-[#FF4655] transition-colors"
                 aria-label={social.label}
               >
                 {social.icon}
@@ -70,13 +70,13 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu (Hidden by default) */}
-      <div className="hidden md:hidden bg-gray-900">
+      <div className="hidden md:hidden bg-[#0F1923]">
         <div className="px-2 pt-2 pb-3 space-y-1">
           {navLinks.map((link, index) => (
             <Link 
               key={index} 
               href={link.path}
-              className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800 rounded-md"
+              className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-[#1A242D]/70 rounded-md"
             >
               {link.name}
             </Link>
@@ -89,7 +89,7 @@ export default function Navbar() {
                 href={social.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="social-icon p-1 text-lg"
+                className="social-icon p-1 text-lg text-gray-400 hover:text-[#FF4655] transition-colors"
                 aria-label={social.label}
               >
                 {social.icon}

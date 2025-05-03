@@ -197,8 +197,8 @@ export default function Characters() {
             onClick={() => handlePageChange(i)}
             className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md transition-all duration-300 
               ${currentPage === i
-                ? 'bg-red-600 text-white font-medium scale-110'
-                : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+                ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
+                : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
               }`}
             aria-label={`Sayfa ${i}`}
             aria-current={currentPage === i ? 'page' : undefined}
@@ -216,8 +216,8 @@ export default function Characters() {
           onClick={() => handlePageChange(1)}
           className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md transition-all duration-300
             ${currentPage === 1
-              ? 'bg-red-600 text-white font-medium scale-110'
-              : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+              ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
+              : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
             }`}
           aria-label="İlk sayfa"
           aria-current={currentPage === 1 ? 'page' : undefined}
@@ -245,8 +245,8 @@ export default function Characters() {
             onClick={() => handlePageChange(2)}
             className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md transition-all duration-300
               ${currentPage === 2
-                ? 'bg-red-600 text-white font-medium scale-110'
-                : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+                ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
+                : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
               }`}
             aria-label="Sayfa 2"
             aria-current={currentPage === 2 ? 'page' : undefined}
@@ -265,8 +265,8 @@ export default function Characters() {
             onClick={() => handlePageChange(i)}
             className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md transition-all duration-300
               ${currentPage === i
-                ? 'bg-red-600 text-white font-medium scale-110'
-                : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+                ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
+                : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
               }`}
             aria-label={`Sayfa ${i}`}
             aria-current={currentPage === i ? 'page' : undefined}
@@ -292,8 +292,8 @@ export default function Characters() {
           onClick={() => handlePageChange(totalPages)}
           className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md transition-all duration-300
             ${currentPage === totalPages
-              ? 'bg-red-600 text-white font-medium scale-110'
-              : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+              ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
+              : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
             }`}
           aria-label="Son sayfa"
           aria-current={currentPage === totalPages ? 'page' : undefined}
@@ -331,7 +331,7 @@ export default function Characters() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
+    <div className="min-h-screen bg-[#0F1923] text-gray-100">
       {/* Wrap useSearchParams in Suspense boundary */}
       <Suspense fallback={null}>
         <SearchParamsWrapper>
@@ -341,7 +341,7 @@ export default function Characters() {
       
       <div ref={topRef} className="scroll-mt-20" id="top"></div> {/* Scroll target with offset for fixed header */}
       
-      {/* Hero Banner with more compact, improved design */}
+      {/* Hero Banner with improved design and single color scheme */}
       <motion.div 
         ref={bannerRef}
         initial={{ opacity: 0 }}
@@ -349,8 +349,8 @@ export default function Characters() {
         transition={{ duration: 0.7 }}
         className="relative h-[30vh] md:h-[35vh] flex items-center bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
       >
-        {/* Improved overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-900/95"></div>
+        {/* Improved overlay with consistent color */}
+        <div className="absolute inset-0 bg-[#0F1923]/90 opacity-90"></div>
         
         {/* Animated title section with compact layout */}
         <div className="relative z-10 container mx-auto px-4">
@@ -360,8 +360,8 @@ export default function Characters() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="max-w-3xl mx-auto text-center"
           >
-            {/* Compact badge */}
-            <div className="inline-block px-4 py-1 text-xs font-medium bg-red-600/40 text-white rounded-full mb-3 backdrop-blur-sm border border-red-500/20 shadow-sm">
+            {/* Compact badge with new red gradient */}
+            <div className="inline-block px-4 py-1 text-xs font-medium bg-[#FF4655]/40 text-white rounded-full mb-3 backdrop-blur-sm border border-[#FF4655]/20 shadow-sm">
               Attack on Titan Evrenini Keşfet
             </div>
             
@@ -375,22 +375,19 @@ export default function Characters() {
               Attack on Titan evreninin kahramanlarını, kötü adamlarını ve tüm karakterlerini keşfedin.
             </p>
             
-            {/* Simple decorative element */}
-            <div className="mt-4 h-1 w-24 bg-gradient-to-r from-red-500/30 to-red-600/50 rounded-full mx-auto"></div>
+            {/* Simple decorative element with updated red color */}
+            <div className="mt-4 h-1 w-24 bg-gradient-to-r from-[#FF4655]/70 to-[#FF4655] rounded-full mx-auto"></div>
           </motion.div>
         </div>
-        
-        {/* Simple bottom gradient transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-gray-900 z-10"></div>
       </motion.div>
 
-      {/* Filter Section - Floating Card Design - Adjusted width to match grid */}
+      {/* Filter Section - Glass morphism design */}
       <div className="relative z-20 -mt-8 md:-mt-12 px-4">
         <motion.div 
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="max-w-7xl mx-auto bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden border border-gray-700/50"
+          className="max-w-7xl mx-auto bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5"
         >
           <CharacterFilter
             nameFilter={nameFilter}
@@ -418,14 +415,14 @@ export default function Characters() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-red-900/30 border border-red-700/50 text-white p-6 rounded-xl"
+            className="bg-[#FF4655]/20 border border-[#FF4655]/30 text-white p-6 rounded-xl backdrop-blur-sm"
           >
             <h3 className="text-xl font-bold mb-3">Hata Oluştu</h3>
             <p className="mb-4">{error}</p>
             <div className="flex flex-wrap gap-4">
               <button 
                 onClick={() => fetchCharacters(currentPage, filters)} 
-                className="px-4 py-2 bg-red-700 hover:bg-red-600 rounded-md flex items-center transition-colors"
+                className="px-4 py-2 bg-[#FF4655]/70 hover:bg-[#FF4655] rounded-md flex items-center transition-colors backdrop-blur-sm"
                 aria-label="Verileri yeniden yükle"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -435,7 +432,7 @@ export default function Characters() {
               </button>
               <button 
                 onClick={handleClearFilters} 
-                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md flex items-center transition-colors"
+                className="px-4 py-2 bg-[#1A242D]/70 hover:bg-[#1A242D] rounded-md flex items-center transition-colors backdrop-blur-sm"
                 aria-label="Filtreleri temizle"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -451,7 +448,7 @@ export default function Characters() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-20"
           >
-            <div className="mx-auto w-24 h-24 rounded-full bg-gray-800 flex items-center justify-center mb-6">
+            <div className="mx-auto w-24 h-24 rounded-full bg-[#1A242D]/80 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/5">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -459,7 +456,7 @@ export default function Characters() {
             <h3 className="text-xl text-gray-300 mb-4">Bu filtrelere uygun karakter bulunamadı.</h3>
             <button
               onClick={handleClearFilters}
-              className="px-6 py-3 bg-red-700 hover:bg-red-600 text-white rounded-lg transition-colors shadow-lg hover:shadow-red-700/30"
+              className="px-6 py-3 bg-[#FF4655]/70 hover:bg-[#FF4655] text-white rounded-lg transition-colors shadow-lg hover:shadow-[#FF4655]/30 backdrop-blur-sm"
               aria-label="Filtreleri temizle"
             >
               Filtreleri Temizle
@@ -492,7 +489,7 @@ export default function Characters() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Enhanced Pagination */}
+            {/* Enhanced Pagination with updated styling */}
             {totalPages > 1 && (
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -508,14 +505,14 @@ export default function Characters() {
                     </p>
                   </div>
                   
-                  {/* Page navigation */}
-                  <div className="inline-flex bg-gray-800/90 backdrop-blur-sm rounded-lg p-2 shadow-xl">
+                  {/* Page navigation - glassmorphism style */}
+                  <div className="inline-flex bg-[#1A242D]/60 backdrop-blur-lg rounded-lg p-2 shadow-xl border border-white/5">
                     {/* First page */}
                     <button
                       onClick={() => handlePageChange(1)}
                       disabled={currentPage === 1}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 transition-all duration-300 
-                        ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-gray-700'}`}
+                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
+                        ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
                       aria-label="İlk sayfa"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -527,8 +524,8 @@ export default function Characters() {
                     <button
                       onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 transition-all duration-300 
-                        ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-gray-700'}`}
+                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
+                        ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
                       aria-label="Önceki sayfa"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -538,6 +535,7 @@ export default function Characters() {
                     
                     {/* Page numbers */}
                     <div className="flex items-center px-2">
+                      {/* Use the existing renderPageNumbers but we'll update the styles below */}
                       {renderPageNumbers()}
                     </div>
                     
@@ -545,8 +543,8 @@ export default function Characters() {
                     <button
                       onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 transition-all duration-300 
-                        ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-gray-700'}`}
+                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
+                        ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
                       aria-label="Sonraki sayfa"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -558,8 +556,8 @@ export default function Characters() {
                     <button 
                       onClick={() => handlePageChange(totalPages)}
                       disabled={currentPage === totalPages}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 transition-all duration-300 
-                        ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-gray-700'}`}
+                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
+                        ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
                       aria-label="Son sayfa"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -574,7 +572,7 @@ export default function Characters() {
         )}
       </div>
 
-      {/* Character Detail Modal with animated transitions */}
+      {/* Character Detail Modal with animated transitions and new glassmorphism styling */}
       <AnimatePresence>
         {isModalOpen && selectedCharacter && (
           <Modal 
@@ -605,7 +603,7 @@ function CharacterDetail({ character }: { character: Character }) {
   return (
     <div className="flex flex-col md:flex-row gap-8">
       <div className="md:w-1/3">
-        <div className="relative h-80 w-full flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden">
+        <div className="relative h-80 w-full flex items-center justify-center bg-[#0F1923]/80 rounded-lg overflow-hidden backdrop-blur-md border border-white/5 shadow-lg">
           {character.img ? (
             <div className="relative w-full h-full">
               <Image 
@@ -627,7 +625,7 @@ function CharacterDetail({ character }: { character: Character }) {
               />
             </div>
           ) : (
-            <div className="w-32 h-32 rounded-full bg-gray-700 flex items-center justify-center text-4xl font-bold text-white">
+            <div className="w-32 h-32 rounded-full bg-[#1A242D]/90 flex items-center justify-center text-4xl font-bold text-white shadow-inner border border-white/10">
               {character.name.charAt(0)}
             </div>
           )}
@@ -636,9 +634,9 @@ function CharacterDetail({ character }: { character: Character }) {
         <div className="mt-4">
           <div className="flex flex-wrap gap-2">
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-              character.status === 'Alive' ? 'bg-green-900/50 text-green-300 border border-green-700/30' : 
-              character.status === 'Deceased' ? 'bg-red-900/50 text-red-300 border border-red-700/30' : 
-              'bg-gray-700/50 text-gray-300 border border-gray-600/30'
+              character.status === 'Alive' ? 'bg-green-900/40 text-green-300 border border-green-700/30 backdrop-blur-sm' : 
+              character.status === 'Deceased' ? 'bg-[#FF4655]/20 text-white border border-[#FF4655]/30 backdrop-blur-sm' : 
+              'bg-[#1A242D]/70 text-gray-300 border border-white/10 backdrop-blur-sm'
             }`}>
               {character.status === 'Alive' ? 'Hayatta' : 
                character.status === 'Deceased' ? 'Ölü' : 
@@ -646,7 +644,7 @@ function CharacterDetail({ character }: { character: Character }) {
             </span>
             
             {character.species?.map((species, index) => (
-              <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-900/50 text-blue-300 border border-blue-700/30">
+              <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#1A242D]/70 text-blue-300 border border-white/10 backdrop-blur-sm">
                 {species}
               </span>
             ))}
@@ -654,10 +652,10 @@ function CharacterDetail({ character }: { character: Character }) {
           
           {character.alias && character.alias.length > 0 && (
             <div className="mt-6">
-              <h3 className="text-lg font-semibold text-red-400">Lakaplar</h3>
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Lakaplar</h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {character.alias.map((alias, index) => (
-                  <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-800 text-gray-300 border border-gray-700/50">
+                  <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#0F1923]/70 text-gray-300 border border-white/5 backdrop-blur-sm">
                     {alias}
                   </span>
                 ))}
@@ -669,53 +667,53 @@ function CharacterDetail({ character }: { character: Character }) {
       
       <div className="md:w-2/3">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center" id="character-modal-title">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 mr-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 mr-3 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
           Karakter Bilgileri
         </h2>
         
-        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800 rounded-lg" id="character-modal-description">
+        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar rounded-lg" id="character-modal-description">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Character properties grid layout */}
             {character.gender && (
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-                <h3 className="text-lg font-semibold text-red-400 mb-2">Cinsiyet</h3>
+              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Cinsiyet</h3>
                 <p className="text-gray-200">{character.gender}</p>
               </div>
             )}
             
             {character.age !== null && character.age !== undefined && (
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-                <h3 className="text-lg font-semibold text-red-400 mb-2">Yaş</h3>
+              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Yaş</h3>
                 <p className="text-gray-200">{character.age}</p>
               </div>
             )}
             
             {character.height && (
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-                <h3 className="text-lg font-semibold text-red-400 mb-2">Boy</h3>
+              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Boy</h3>
                 <p className="text-gray-200">{character.height}</p>
               </div>
             )}
             
             {character.birthplace && (
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-                <h3 className="text-lg font-semibold text-red-400 mb-2">Doğum Yeri</h3>
+              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Doğum Yeri</h3>
                 <p className="text-gray-200">{character.birthplace}</p>
               </div>
             )}
             
             {character.residence && (
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-                <h3 className="text-lg font-semibold text-red-400 mb-2">İkametgah</h3>
+              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">İkametgah</h3>
                 <p className="text-gray-200">{character.residence}</p>
               </div>
             )}
             
             {character.occupation && (
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-                <h3 className="text-lg font-semibold text-red-400 mb-2">Meslek</h3>
+              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Meslek</h3>
                 <p className="text-gray-200">{character.occupation}</p>
               </div>
             )}
@@ -723,16 +721,16 @@ function CharacterDetail({ character }: { character: Character }) {
           
           {/* Character groups */}
           {character.groups && character.groups.length > 0 && (
-            <div className="mt-6 bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-              <h3 className="text-lg font-semibold text-red-400 mb-3">Gruplar</h3>
+            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">Gruplar</h3>
               <div className="space-y-4">
                 {character.groups.map((group, index) => (
-                  <div key={index} className="bg-gray-700/30 p-4 rounded-lg">
+                  <div key={index} className="bg-[#0F1923]/70 p-4 rounded-lg border border-white/5">
                     <h4 className="font-medium text-gray-200 mb-2">{group.name}</h4>
                     {group.sub_groups && group.sub_groups.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-2">
                         {group.sub_groups.map((subGroup, subIndex) => (
-                          <span key={subIndex} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-300">
+                          <span key={subIndex} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#1A242D]/90 text-gray-300 border border-white/5">
                             {subGroup}
                           </span>
                         ))}
@@ -746,13 +744,13 @@ function CharacterDetail({ character }: { character: Character }) {
           
           {/* Character roles */}
           {character.roles && character.roles.length > 0 && (
-            <div className="mt-6 bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-              <h3 className="text-lg font-semibold text-red-400 mb-3">Roller</h3>
+            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">Roller</h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {character.roles.map((role, index) => (
                   <span 
                     key={index} 
-                    className="px-3 py-1.5 bg-blue-900/40 text-blue-200 rounded-lg text-sm border border-blue-800/50"
+                    className="px-3 py-1.5 bg-[#0F1923]/80 text-gray-200 rounded-lg text-sm border border-white/5"
                   >
                     {role}
                   </span>
@@ -763,11 +761,11 @@ function CharacterDetail({ character }: { character: Character }) {
           
           {/* Character relatives */}
           {character.relatives && character.relatives.length > 0 && (
-            <div className="mt-6 bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-              <h3 className="text-lg font-semibold text-red-400 mb-3">Akrabalar</h3>
+            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">Akrabalar</h3>
               <div className="space-y-4">
                 {character.relatives.map((relative, index) => (
-                  <div key={index} className="bg-gray-700/30 p-4 rounded-lg">
+                  <div key={index} className="bg-[#0F1923]/70 p-4 rounded-lg border border-white/5">
                     <h4 className="font-medium text-gray-200 mb-2">{relative.family}</h4>
                     {relative.members && relative.members.length > 0 && (
                       <ul className="list-disc pl-5 text-gray-300 space-y-1">
@@ -788,10 +786,10 @@ function CharacterDetail({ character }: { character: Character }) {
           
           {/* Character episodes */}
           {character.episodes && character.episodes.length > 0 && (
-            <div className="mt-6 bg-gray-800/50 p-4 rounded-lg border border-gray-700/50 hover:border-gray-600/70 transition-colors">
-              <h3 className="text-lg font-semibold text-red-400 mb-2">Bölümler</h3>
+            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Bölümler</h3>
               <div className="flex items-center gap-3">
-                <div className="bg-red-900/40 text-red-200 border border-red-700/60 rounded-full px-4 py-1 text-xl font-bold">
+                <div className="bg-[#FF4655]/30 text-white border border-[#FF4655]/40 rounded-full px-4 py-1 text-xl font-bold backdrop-blur-sm">
                   {character.episodes.length}
                 </div>
                 <p className="text-gray-200">bölümde yer aldı</p>
@@ -799,7 +797,7 @@ function CharacterDetail({ character }: { character: Character }) {
               
               <Link
                 href={`/episodes?character=${character.id}`}
-                className="mt-4 inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
+                className="mt-4 inline-flex items-center text-[#FF4655]/90 hover:text-[#FF4655] transition-colors"
               >
                 <span>Bu karakterin yer aldığı bölümleri görüntüle</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
