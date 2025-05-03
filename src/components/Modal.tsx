@@ -42,20 +42,26 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden">
+      {/* Arka plan blur ve overlay */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-fade-in"></div>
+      
       <div 
         ref={modalRef}
-        className="bg-gray-900 text-white rounded-lg shadow-xl max-w-xl w-full max-h-[90vh] overflow-hidden flex flex-col animate-scale-in"
+        className="relative bg-gradient-to-b from-gray-800 to-gray-900 text-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col animate-scale-in border border-gray-700"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
+        {/* Modal üst kısmındaki parlama efekti */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+        
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
+        <div className="px-6 py-4 border-b border-gray-700/50 flex justify-between items-center bg-gray-800/50">
           <h3 id="modal-title" className="text-xl font-bold text-white">{title}</h3>
           <button 
             onClick={onClose} 
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-white transition-colors p-1 hover:bg-gray-700/50 rounded-full"
             aria-label="Close modal"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -65,19 +71,22 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
         </div>
         
         {/* Modal Content */}
-        <div className="p-6 overflow-y-auto flex-grow">
+        <div className="p-6 overflow-y-auto flex-grow custom-scrollbar">
           {children}
         </div>
         
         {/* Modal Footer */}
-        <div className="px-6 py-4 border-t border-gray-700 flex justify-end">
+        <div className="px-6 py-4 border-t border-gray-700/50 flex justify-end bg-gray-800/50">
           <button 
             onClick={onClose}
-            className="px-4 py-2 bg-aot-red text-white rounded hover:bg-red-700 transition-colors"
+            className="px-5 py-2 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white rounded-lg transition-colors shadow-md hover:shadow-lg"
           >
-            Close
+            Kapat
           </button>
         </div>
+        
+        {/* Modal alt kısmındaki parlama efekti */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
       </div>
     </div>
   );
