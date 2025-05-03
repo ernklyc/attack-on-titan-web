@@ -48,6 +48,14 @@ export default function Characters() {
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedOccupation, setSelectedOccupation] = useState('');
   
+  // API meta verilerini saklamak için state ekliyorum
+  const [apiMeta, setApiMeta] = useState({
+    characterCount: 0,
+    filteredCount: 0,
+    uniqueSpeciesCount: 0,
+    uniqueStatusCount: 0
+  });
+  
   // References
   const topRef = useRef<HTMLDivElement>(null);
   
@@ -60,6 +68,55 @@ export default function Characters() {
   // Get URL params on initial load - Fixing the Suspense issue with useSearchParams
   useEffect(() => {
     // We'll handle this after the component mounts through the SearchParamsWrapper
+  }, []);
+
+  // API meta verilerini yüklemek için useEffect hook'u
+  useEffect(() => {
+    async function fetchApiMetadata() {
+      try {
+        // Toplam karakter sayısını almak için ilk sayfayı çek
+        const characterResponse = await fetch('https://attack-on-titan-wiki-api.vercel.app/characters?page=1', { 
+          cache: 'no-store'
+        });
+        
+        if (characterResponse.ok) {
+          const data = await characterResponse.json();
+          
+          // Toplam karakter sayısı ve sayfa bilgilerini al
+          let totalCharacters = 0;
+          if (data.info && data.info.count) {
+            totalCharacters = data.info.count;
+          } else if (data.results) {
+            // Eğer info nesnesi yoksa, sonuç sayısını kullan (yaklaşık değer)
+            totalCharacters = data.results.length * (data.info?.pages || 10);
+          }
+          
+          // Kullanılabilir tüm filtreleri çekmek için türleri hesapla
+          const uniqueSpecies = new Set();
+          const uniqueStatus = new Set();
+          
+          if (data.results && Array.isArray(data.results)) {
+            data.results.forEach((character: Character) => {
+              if (character.status) uniqueStatus.add(character.status);
+              if (character.species && Array.isArray(character.species)) {
+                character.species.forEach(species => uniqueSpecies.add(species));
+              }
+            });
+          }
+          
+          setApiMeta({
+            characterCount: totalCharacters,
+            filteredCount: data.results ? data.results.length : 0,
+            uniqueSpeciesCount: uniqueSpecies.size,
+            uniqueStatusCount: uniqueStatus.size
+          });
+        }
+      } catch (error) {
+        console.error("API meta verisi yüklenirken hata oluştu:", error);
+      }
+    }
+    
+    fetchApiMetadata();
   }, []);
 
   // Fetch characters when dependencies change
@@ -347,7 +404,7 @@ export default function Characters() {
         initial={{ opacity: 0 }}
         animate={bannerInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative h-[40vh] md:h-[50vh] flex items-center bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
+        className="relative h-[25vh] md:h-[35vh] flex items-start pt-10 md:pt-16 bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
       >
         {/* Enhanced overlay with gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0F1923]/90 via-[#0F1923]/80 to-[#0F1923] opacity-95"></div>
@@ -355,71 +412,102 @@ export default function Characters() {
         {/* Extra decorative elements */}
         <div className="absolute inset-0 bg-[url('/images/character-placeholder.png')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
         
-        {/* Animated title section with improved layout */}
-        <div className="relative z-10 container mx-auto px-4">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="max-w-4xl mx-auto"
-          >
-            {/* Enhanced badge with new design */}
-            <div className="relative mb-6 inline-block">
-              <div className="absolute inset-0 bg-[#FF4655] blur-md opacity-30"></div>
-              <div className="relative flex items-center px-5 py-2 bg-gradient-to-r from-[#FF4655]/40 to-[#FF4655]/20 rounded-lg backdrop-blur-md border border-[#FF4655]/30">
-                <div className="h-4 w-1 bg-[#FF4655] rounded-full mr-3"></div>
-                <span className="text-sm font-medium text-white tracking-wide uppercase">Attack on Titan Evrenini Keşfet</span>
-                <div className="h-4 w-1 bg-[#FF4655] rounded-full ml-3"></div>
-              </div>
+        {/* Animated title section with improved layout - Left aligned */}
+        <div className="relative z-10 w-full">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* SOL TARAF - Ana başlık ve tanıtım */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="max-w-4xl"
+              >
+                {/* Enhanced badge with new design - Compact and left aligned - Fotodaki gibi düzenlendi */}
+                <div className="relative mb-2 inline-block">
+                  <div className="absolute inset-0 bg-[#FF4655] blur-md opacity-30"></div>
+                  <div className="relative flex items-center px-4 py-1 bg-[#FF4655]/40 rounded-md backdrop-blur-md">
+                    <span className="text-xs font-medium text-white tracking-wide uppercase">ATTACK ON TITAN EVRENINI KEŞFET</span>
+                  </div>
+                </div>
+                
+                {/* Enhanced title design with animation - Left aligned */}
+                <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold text-white mb-1 tracking-tight relative">
+                  Karakterler
+                  <div className="h-1 w-16 bg-[#FF4655] mt-1"></div>
+                </h1>
+                
+                {/* Enhanced description - Left aligned - Metni küçültüldü - Fotodaki gibi düzenlendi */}
+                <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mt-3">
+                  Attack on Titan evreninin <span className="text-white font-medium">kahramanlarını</span>, 
+                  <span className="text-[#FF4655] font-medium"> kötü adamlarını</span> ve tüm karakterlerini 
+                  <span className="text-white font-medium"> keşfedin</span>.
+                </p>
+              </motion.div>
+
+              {/* SAĞ TARAF - API Bilgileri - Metinler küçültüldü - Fotodaki gibi düzenlendi */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="max-w-4xl"
+              >
+                <div className="text-xs md:text-sm text-gray-400 space-y-4 max-w-2xl mt-0 md:mt-1">
+                  <p className="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>
+                      API'de <span className="text-white font-medium">201</span> karakter bulunmaktadır ve 
+                      <span className="text-white font-medium"> isim, durum (3), tür (4)</span> ve 
+                      diğer özelliklere göre filtrelenebilir.
+                    </span>
+                  </p>
+                  <p className="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <span>Her karakter için <span className="text-white font-medium">detaylı bilgiler</span>: yaş, boy, doğum yeri, gruplar, roller ve ilişkiler bulunmaktadır.</span>
+                  </p>
+                  <p className="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                    </svg>
+                    <span>
+                      Karakterler hakkında <span className="text-white font-medium">kapsamlı veriler</span>: hangi bölümlerde göründükleri, diğer karakterlerle ilişkileri ve daha fazlası.
+                    </span>
+                  </p>
+                </div>
+              </motion.div>
             </div>
-            
-            {/* Enhanced title design with animation */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight relative">
-              <span className="relative inline-block">
-                K
-                <span className="absolute -top-1 -right-1 h-2 w-2 bg-[#FF4655] rounded-full animate-pulse"></span>
-              </span>
-              arakterler
-              <div className="h-1 w-24 bg-gradient-to-r from-[#FF4655] to-transparent mt-4"></div>
-            </h1>
-            
-            {/* Enhanced description */}
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
-              Attack on Titan evreninin <span className="text-white font-medium">kahramanlarını</span>, 
-              <span className="text-[#FF4655] font-medium"> kötü adamlarını</span> ve tüm karakterlerini 
-              <span className="relative inline-block px-2">
-                <span className="relative z-10 text-white font-medium">keşfedin</span>
-                <span className="absolute bottom-0 left-0 right-0 h-1/3 bg-[#FF4655]/20 rounded"></span>
-              </span>.
-            </p>
-          </motion.div>
+          </div>
         </div>
         
-        {/* Decorative elements */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0F1923] to-transparent"></div>
-        <div className="absolute bottom-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF4655]/30 to-transparent"></div>
+        {/* Alt kısımdaki dekoratif öğeleri kaldırarak fotoğraftaki gibi olmasını sağlıyorum */}
       </motion.div>
 
-      {/* Filter Section - Glass morphism design */}
-      <div className="relative z-20 -mt-12 md:-mt-16 px-4">
-        <motion.div 
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="max-w-7xl mx-auto bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5"
-        >
-          <CharacterFilter
-            nameFilter={nameFilter}
-            setNameFilter={setNameFilter}
-            selectedStatus={selectedStatus}
-            setSelectedStatus={setSelectedStatus}
-            selectedGender={selectedGender}
-            setSelectedGender={setSelectedGender}
-            selectedOccupation={selectedOccupation}
-            setSelectedOccupation={setSelectedOccupation}
-            handleClearFilters={handleClearFilters}
-          />
-        </motion.div>
+      {/* Filter Section - Glass morphism design - Üstteki boşluğu azaltarak fotoğrafta gösterildiği gibi yapıyorum */}
+      <div className="relative z-20 -mt-0 md:-mt-0">
+        <div className="max-w-7xl mx-auto px-4"> {/* Aynı max-width ve padding ile tüm öğeleri hizalıyoruz */}
+          <motion.div 
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5"
+          >
+            <CharacterFilter
+              nameFilter={nameFilter}
+              setNameFilter={setNameFilter}
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
+              selectedGender={selectedGender}
+              setSelectedGender={setSelectedGender}
+              selectedOccupation={selectedOccupation}
+              setSelectedOccupation={setSelectedOccupation}
+              handleClearFilters={handleClearFilters}
+            />
+          </motion.div>
+        </div>
       </div>
 
       {/* Main Content with Staggered Animation */}
