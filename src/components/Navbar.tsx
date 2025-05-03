@@ -37,9 +37,10 @@ export default function Navbar() {
               <Link 
                 key={index} 
                 href={link.path}
-                className="text-gray-300 hover:text-white hover:underline decoration-[#FF4655] decoration-2 underline-offset-8 transition-all duration-200"
+                className="text-gray-300 hover:text-white relative group px-2 py-1"
               >
                 {link.name}
+                <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
               </Link>
             ))}
           </div>
@@ -59,10 +60,11 @@ export default function Navbar() {
                 href={social.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="social-icon p-1 text-lg text-gray-400 hover:text-[#FF4655] transition-colors"
+                className="social-icon p-1 text-lg text-gray-400 hover:text-[#FF4655] transition-colors relative group"
                 aria-label={social.label}
               >
                 {social.icon}
+                <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
               </a>
             ))}
           </div>
@@ -76,9 +78,10 @@ export default function Navbar() {
             <Link 
               key={index} 
               href={link.path}
-              className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-[#1A242D]/70 rounded-md"
+              className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-[#1A242D]/70 rounded-md relative group"
             >
               {link.name}
+              <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
           ))}
           {/* Mobile Social Media Links */}
@@ -89,10 +92,11 @@ export default function Navbar() {
                 href={social.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="social-icon p-1 text-lg text-gray-400 hover:text-[#FF4655] transition-colors"
+                className="social-icon p-1 text-lg text-gray-400 hover:text-[#FF4655] transition-colors relative group"
                 aria-label={social.label}
               >
                 {social.icon}
+                <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
               </a>
             ))}
           </div>
