@@ -21,6 +21,16 @@ import { cleanImageUrl, createImageFallback } from '@/utils/imageUtils';
 // Types
 import { Character, ApiResponse, FilterParams } from '@/types/characters';
 
+// Search params component to wrap in Suspense
+function SearchParamsWrapper({
+  children
+}: {
+  children: (params: URLSearchParams) => React.ReactNode
+}) {
+  const searchParams = useSearchParams();
+  return <>{children(searchParams)}</>;
+}
+
 export default function Characters() {
   // State management
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -40,7 +50,6 @@ export default function Characters() {
   
   // References
   const topRef = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
   
   // Intersection observers for lazy loading
   const { ref: bannerRef, inView: bannerInView } = useInView({
@@ -48,29 +57,10 @@ export default function Characters() {
     threshold: 0.1
   });
   
-  // Get URL params on initial load - MODIFIED to prevent auto-filtering
+  // Get URL params on initial load - Fixing the Suspense issue with useSearchParams
   useEffect(() => {
-    // Only apply URL filters if explicitly requested by user
-    // Removed auto-filtering on page load to avoid unexpected filtering
-    
-    // For specific directed navigation from other pages, we can implement
-    // a special flag in the URL like ?applyFilters=true&name=Eren
-    const shouldApplyFilters = searchParams.get('applyFilters') === 'true';
-    
-    if (shouldApplyFilters) {
-      const pageParam = searchParams.get('page');
-      const nameParam = searchParams.get('name');
-      const statusParam = searchParams.get('status');
-      const genderParam = searchParams.get('gender');
-      const occupationParam = searchParams.get('occupation');
-      
-      if (pageParam) setCurrentPage(parseInt(pageParam));
-      if (nameParam) setNameFilter(nameParam);
-      if (statusParam) setSelectedStatus(statusParam);
-      if (genderParam) setSelectedGender(genderParam);
-      if (occupationParam) setSelectedOccupation(occupationParam);
-    }
-  }, [searchParams]);
+    // We'll handle this after the component mounts through the SearchParamsWrapper
+  }, []);
 
   // Fetch characters when dependencies change
   useEffect(() => {
@@ -316,8 +306,39 @@ export default function Characters() {
     return pages;
   };
 
+  // Component to handle URL parameters safely
+  const handleSearchParams = (searchParams: URLSearchParams) => {
+    // Only apply URL filters if explicitly requested by user
+    // Removed auto-filtering on page load to avoid unexpected filtering
+    const shouldApplyFilters = searchParams.get('applyFilters') === 'true';
+    
+    if (shouldApplyFilters) {
+      const pageParam = searchParams.get('page');
+      const nameParam = searchParams.get('name');
+      const statusParam = searchParams.get('status');
+      const genderParam = searchParams.get('gender');
+      const occupationParam = searchParams.get('occupation');
+      
+      if (pageParam) setCurrentPage(parseInt(pageParam));
+      if (nameParam) setNameFilter(nameParam);
+      if (statusParam) setSelectedStatus(statusParam);
+      if (genderParam) setSelectedGender(genderParam);
+      if (occupationParam) setSelectedOccupation(occupationParam);
+    }
+    
+    // Return null as we don't need to render anything here
+    return null;
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
+      {/* Wrap useSearchParams in Suspense boundary */}
+      <Suspense fallback={null}>
+        <SearchParamsWrapper>
+          {(params) => handleSearchParams(params)}
+        </SearchParamsWrapper>
+      </Suspense>
+      
       <div ref={topRef} className="scroll-mt-20" id="top"></div> {/* Scroll target with offset for fixed header */}
       
       {/* Hero Banner with more compact, improved design */}
