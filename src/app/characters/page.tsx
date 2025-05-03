@@ -407,7 +407,8 @@ export default function Characters() {
         initial={{ opacity: 0 }}
         animate={bannerInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative h-[25vh] md:h-[35vh] flex items-start pt-10 md:pt-16 bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
+        className="relative flex items-center pt-6 md:pt-10 bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
+        style={{ minHeight: '200px' }}
       >
         {/* Enhanced overlay with gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0F1923]/90 via-[#0F1923]/80 to-[#0F1923] opacity-95"></div>
@@ -416,43 +417,48 @@ export default function Characters() {
         <div className="absolute inset-0 bg-[url('/images/character-placeholder.png')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
         
         {/* Animated title section with improved layout - Left aligned */}
-        <div className="relative z-10 w-full">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* SOL TARAF - Ana başlık ve tanıtım */}
+        <div className="relative z-10 w-full py-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Badge - Fotoğrafta gösterildiği gibi düzenlendi */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="mb-2"
+            >
+              <div className="inline-block px-4 py-1 bg-[#FF4655]/40 rounded-md backdrop-blur-md">
+                <span className="text-xs font-medium text-white tracking-wide uppercase">{textContent.charactersPage.banner.badge}</span>
+              </div>
+            </motion.div>
+            
+            {/* Main content grid - Fotoğrafta gösterildiği düzende responsive olarak ayarlandı */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+              {/* SOL TARAF - Ana başlık ve açıklama - 7 sütun genişliğinde */}
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="max-w-4xl"
+                transition={{ duration: 0.4, delay: 0.2 }}
+                className="lg:col-span-7"
               >
-                {/* Enhanced badge with new design - Compact and left aligned - Fotodaki gibi düzenlendi */}
-                <div className="relative mb-2 inline-block">
-                  <div className="absolute inset-0 bg-[#FF4655] blur-md opacity-30"></div>
-                  <div className="relative flex items-center px-4 py-1 bg-[#FF4655]/40 rounded-md backdrop-blur-md">
-                    <span className="text-xs font-medium text-white tracking-wide uppercase">{textContent.charactersPage.banner.badge}</span>
-                  </div>
-                </div>
-                
-                {/* Enhanced title design with animation - Left aligned */}
-                <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold text-white mb-1 tracking-tight relative">
+                <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
                   {textContent.charactersPage.banner.title}
-                  <div className="h-1 w-16 bg-[#FF4655] mt-1"></div>
+                  <div className="h-1 w-16 bg-[#FF4655] mt-2 mb-3"></div>
                 </h1>
                 
-                {/* Enhanced description - Left aligned - Metni küçültüldü - Fotodaki gibi düzenlendi */}
-                <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mt-3" dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.description }}>
+                <p className="text-base sm:text-lg text-gray-300 max-w-2xl" dangerouslySetInnerHTML={{ 
+                  __html: textContent.charactersPage.banner.description 
+                }}>
                 </p>
               </motion.div>
 
-              {/* SAĞ TARAF - API Bilgileri - Metinler küçültüldü - Fotodaki gibi düzenlendi */}
+              {/* SAĞ TARAF - API Bilgileri - 5 sütun genişliğinde */}
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="max-w-4xl"
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="lg:col-span-5"
               >
-                <div className="text-xs md:text-sm text-gray-400 space-y-4 max-w-2xl mt-0 md:mt-1">
+                <div className="text-xs sm:text-sm text-gray-400 space-y-3 sm:space-y-4">
                   <p className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -476,13 +482,11 @@ export default function Characters() {
             </div>
           </div>
         </div>
-        
-        {/* Alt kısımdaki dekoratif öğeleri kaldırarak fotoğraftaki gibi olmasını sağlıyorum */}
       </motion.div>
 
-      {/* Filter Section - Glass morphism design - Üstteki boşluğu azaltarak fotoğrafta gösterildiği gibi yapıyorum */}
-      <div className="relative z-20 -mt-0 md:-mt-0">
-        <div className="max-w-7xl mx-auto px-4"> {/* Aynı max-width ve padding ile tüm öğeleri hizalıyoruz */}
+      {/* Filter Section - Glass morphism design */}
+      <div className="relative z-20 py-8 sm:py-10 md:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -505,7 +509,7 @@ export default function Characters() {
       </div>
 
       {/* Main Content with Staggered Animation */}
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {[...Array(12)].map((_, i) => (
