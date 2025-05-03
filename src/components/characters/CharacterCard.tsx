@@ -26,7 +26,7 @@ interface CharacterCardProps {
 const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => {
   return (
     <motion.div 
-      className="group relative bg-gradient-to-br from-gray-800/90 to-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-[360px] cursor-pointer"
+      className="group relative bg-gradient-to-br from-gray-800/90 to-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-[360px] cursor-pointer flex flex-col"
       onClick={onClick}
       whileHover={{ 
         y: -8, 
@@ -86,7 +86,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => 
       </div>
       
       {/* Card Content Area - Improved text handling */}
-      <div className="p-4 flex flex-col h-[112px] justify-between">
+      <div className="p-4 flex flex-col flex-grow">
         <div className="space-y-1 flex-grow">
           <h3 className="text-base font-bold text-white line-clamp-1 font-display">
             {character.name}
@@ -103,11 +103,13 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => 
             </p>
           )}
         </div>
-        
-        {/* Action Button - with proper spacing */}
+      </div>
+      
+      {/* Action Button - moved to the bottom of card */}
+      <div className="px-4 pb-4 mt-auto">
         <button 
           type="button"
-          className="mt-1 py-1.5 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white rounded-lg transition-all duration-300 text-sm font-medium flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-900/20"
+          className="w-full py-2 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white rounded-lg transition-all duration-300 text-sm font-medium flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-900/20"
           aria-label={`${character.name} hakkında detaylı bilgi`}
         >
           <span>Detaylı Bilgi</span>
@@ -117,18 +119,21 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => 
         </button>
       </div>
       
-      {/* Hover Effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-      <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-red-500 to-red-700 group-hover:w-full transition-all duration-700"></div>
-      
-      {/* Status indicator on side - Fixed to properly show green/red based on lowercase comparison */}
-      <div 
-        className={`absolute top-0 left-0 h-full w-1 ${
-          character.status?.toLowerCase() === 'alive' ? 'bg-green-500/50' : 
-          character.status?.toLowerCase() === 'deceased' ? 'bg-red-500/50' : 
-          'bg-gray-500/30'
-        }`}
-      ></div>
+      {/* Hover Effects - Updated to match status color */}
+      <div className={`absolute inset-0 bg-gradient-to-r ${
+        character.status?.toLowerCase() === 'alive' 
+          ? 'from-green-500/5 via-transparent to-green-500/5'
+          : character.status?.toLowerCase() === 'deceased'
+          ? 'from-red-500/5 via-transparent to-red-500/5'
+          : 'from-gray-500/5 via-transparent to-gray-500/5'
+      } opacity-0 group-hover:opacity-100 transition-opacity duration-700`}></div>
+      <div className={`absolute bottom-0 h-1 w-0 bg-gradient-to-r ${
+        character.status?.toLowerCase() === 'alive'
+          ? 'from-green-500 to-green-700'
+          : character.status?.toLowerCase() === 'deceased'
+          ? 'from-red-500 to-red-700'
+          : 'from-gray-500 to-gray-700'
+      } group-hover:w-full transition-all duration-700`}></div>
     </motion.div>
   );
 };

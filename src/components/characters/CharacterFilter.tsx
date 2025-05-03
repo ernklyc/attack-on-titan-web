@@ -85,7 +85,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               value={nameFilter}
               onChange={(e) => setNameFilter(e.target.value)}
               placeholder="Karakter adı girin..."
-              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:border-gray-500 focus:bg-gray-700/90 transition-colors duration-200 pl-10 text-sm group-hover:border-gray-500"
               aria-label="Karakter ismine göre filtrele"
               autoComplete="off" // Prevents browser autofill
             />
@@ -107,7 +107,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 </button>
               </div>
             )}
-            <div className="absolute h-0.5 w-0 bg-red-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-50"></div>
+            <div className="absolute h-1 w-0 bg-gray-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-70"></div>
           </div>
         </motion.div>
         
@@ -124,7 +124,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               id="status-filter"
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all appearance-none pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:border-gray-500 focus:bg-gray-700/90 transition-colors duration-200 appearance-none pl-10 text-sm group-hover:border-gray-500"
               aria-label="Durum filtresini seçin"
             >
               <option value="">Tümü</option>
@@ -153,7 +153,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
-            <div className="absolute h-0.5 w-0 bg-red-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-50"></div>
+            <div className="absolute h-1 w-0 bg-gray-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-70"></div>
           </div>
         </motion.div>
         
@@ -170,7 +170,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               id="gender-filter"
               value={selectedGender}
               onChange={(e) => setSelectedGender(e.target.value)}
-              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all appearance-none pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:border-gray-500 focus:bg-gray-700/90 transition-colors duration-200 appearance-none pl-10 text-sm group-hover:border-gray-500"
               aria-label="Cinsiyet filtresini seçin"
             >
               <option value="">Tümü</option>
@@ -199,7 +199,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
-            <div className="absolute h-0.5 w-0 bg-red-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-50"></div>
+            <div className="absolute h-1 w-0 bg-gray-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-70"></div>
           </div>
         </motion.div>
         
@@ -219,7 +219,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               value={selectedOccupation}
               onChange={(e) => setSelectedOccupation(e.target.value)}
               placeholder="Meslek girin..."
-              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:border-gray-500 focus:bg-gray-700/90 transition-colors duration-200 pl-10 text-sm group-hover:border-gray-500"
               aria-label="Mesleklere göre filtrele"
               autoComplete="off" // Prevents browser autofill
             />
@@ -241,7 +241,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 </button>
               </div>
             )}
-            <div className="absolute h-0.5 w-0 bg-red-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-50"></div>
+            <div className="absolute h-1 w-0 bg-gray-500 bottom-0 left-0 group-hover:w-full transition-all duration-300 rounded-full opacity-0 group-hover:opacity-70"></div>
           </div>
         </motion.div>
       </div>
