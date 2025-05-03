@@ -39,23 +39,27 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <div className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-aot-red/30 to-gray-900 z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-aot-dark z-10"></div>
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-aot-red/30 to-black bg-cover bg-center"
-        ></div>
+        
         <div className="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-5xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight mb-4">
-            Welcome to the<br />
-            <span className="text-aot-red">Attack on Titan</span> Universe
+          <span className="inline-block px-4 py-1.5 text-xs font-medium bg-aot-red/30 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
+            Attack on Titan Evrenini Keşfet
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-wide mb-4">
+            <span className="text-aot-red">Attack on Titan</span><br />
+            Evrenine Hoş Geldiniz
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200 mb-8">
-            Explore the world beyond the walls
+          <p className="text-xl md:text-2xl text-gray-100 mb-8 leading-relaxed">
+            Duvarların ötesindeki dünyayı keşfedin
           </p>
           <Link href="#explore" 
-            className="aot-btn text-lg px-8 py-3">
-            Explore Now
+            className="aot-btn text-lg px-8 py-3 hover:bg-aot-red/90 transition-all duration-300">
+            Keşfet
           </Link>
+          <div className="mt-10 relative">
+            <div className="h-[3px] w-24 bg-gradient-to-r from-aot-red/40 to-red-500/40 rounded-full mx-auto"></div>
+          </div>
         </div>
       </div>
 

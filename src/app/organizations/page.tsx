@@ -88,13 +88,21 @@ export default function Organizations() {
   return (
     <div className="min-h-screen bg-aot-dark">
       {/* Hero Banner */}
-      <div className="relative h-64 md:h-80 bg-gradient-to-r from-yellow-900 to-yellow-800 flex items-center">
-        <div className="absolute inset-0 bg-black/30"></div>
-        <div className="aot-container relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Organizations</h1>
-          <p className="text-xl text-gray-200 max-w-2xl">
-            Learn about the military branches, government bodies, and other groups.
+      <div className="relative h-[300px] bg-gradient-to-r from-yellow-900 to-yellow-800 flex items-center">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="aot-container relative z-10 flex flex-col items-center justify-center">
+          <span className="inline-block px-4 py-1.5 text-xs font-medium bg-yellow-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
+            Attack on Titan Evrenini Keşfet
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
+            Organizasyonlar
+          </h1>
+          <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
+            Attack on Titan evrenindeki askeri birlikler, hükümet organları ve diğer önemli organizasyonlar hakkında bilgi edinin.
           </p>
+          <div className="mt-10 relative">
+            <div className="h-[3px] w-24 bg-gradient-to-r from-yellow-400/50 to-yellow-600/50 rounded-full mx-auto"></div>
+          </div>
         </div>
       </div>
 

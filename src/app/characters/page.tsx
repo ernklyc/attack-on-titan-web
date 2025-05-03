@@ -341,38 +341,21 @@ export default function Characters() {
       <div ref={topRef}></div> {/* Scroll hedefi için referans */}
       
       {/* Hero Banner */}
-      <div className="relative h-[400px] bg-cover bg-center overflow-hidden" style={{ backgroundImage: "url('https://static.wikia.nocookie.net/shingekinokyojin/images/9/9e/Titan_Shifters.jpg/revision/latest/scale-to-width-down/1000?cb=20210224212535')" }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-900"></div>
-        
-        {/* Noise pattern overlay */}
-        <div className="absolute inset-0 opacity-5 mix-blend-soft-light bg-repeat" 
-             style={{ 
-               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-               backgroundSize: '150px'
-             }}
-        ></div>
-        
-        {/* Parallax Effect Layers */}
-        <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-blue-500/20 to-purple-500/20"></div>
-        <div className="absolute -top-1/2 -left-1/4 w-1/2 h-full rounded-full bg-blue-700/10 filter blur-3xl"></div>
-        <div className="absolute -bottom-1/2 -right-1/4 w-1/2 h-full rounded-full bg-purple-700/10 filter blur-3xl"></div>
-        
-        <div className="aot-container relative z-10 h-full flex flex-col justify-center">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-600/80 text-white rounded-full mb-6 backdrop-blur-sm">
-              Attack on Titan Evrenini Keşfet
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center drop-shadow-lg">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">Karakterler</span>
-            </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Attack on Titan evreninin kahramanlarını, kötü adamlarını ve tüm karakterlerini keşfedin. 
-              Favori karakterleriniz hakkında detaylı bilgilere ulaşın.
-            </p>
-            
-            <div className="mt-10 relative">
-              <div className="h-[5px] w-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mx-auto"></div>
-            </div>
+      <div className="relative h-[300px] bg-gradient-to-r from-blue-900 to-blue-800 flex items-center">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="aot-container relative z-10 flex flex-col items-center justify-center">
+          <span className="inline-block px-4 py-1.5 text-xs font-medium bg-blue-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
+            Attack on Titan Evrenini Keşfet
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
+            Karakterler
+          </h1>
+          <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
+            Attack on Titan evreninin kahramanlarını, kötü adamlarını ve tüm karakterlerini keşfedin. 
+            Favori karakterleriniz hakkında detaylı bilgilere ulaşın.
+          </p>
+          <div className="mt-10 relative">
+            <div className="h-[3px] w-24 bg-gradient-to-r from-blue-400/50 to-blue-600/50 rounded-full mx-auto"></div>
           </div>
         </div>
       </div>

@@ -42,13 +42,21 @@ export default function Episodes() {
   return (
     <div className="min-h-screen bg-aot-dark">
       {/* Hero Banner */}
-      <div className="relative h-64 md:h-80 bg-gradient-to-r from-purple-900 to-purple-800 flex items-center">
-        <div className="absolute inset-0 bg-black/30"></div>
-        <div className="aot-container relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Episodes</h1>
-          <p className="text-xl text-gray-200 max-w-2xl">
-            Follow the story from beginning to end with detailed episode guides.
+      <div className="relative h-[300px] bg-gradient-to-r from-purple-900 to-purple-800 flex items-center">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="aot-container relative z-10 flex flex-col items-center justify-center">
+          <span className="inline-block px-4 py-1.5 text-xs font-medium bg-purple-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
+            Attack on Titan Evrenini Keşfet
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
+            Bölümler
+          </h1>
+          <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
+            Attack on Titan'ın tüm bölümlerini kronolojik olarak keşfedin ve hikayeyi baştan sona takip edin.
           </p>
+          <div className="mt-10 relative">
+            <div className="h-[3px] w-24 bg-gradient-to-r from-purple-400/50 to-purple-600/50 rounded-full mx-auto"></div>
+          </div>
         </div>
       </div>
 

@@ -127,13 +127,21 @@ export default function Titans() {
   return (
     <div className="min-h-screen bg-aot-dark">
       {/* Hero Banner */}
-      <div className="relative h-64 md:h-80 bg-gradient-to-r from-red-900 to-red-800 flex items-center">
-        <div className="absolute inset-0 bg-black/30"></div>
-        <div className="aot-container relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Titans</h1>
-          <p className="text-xl text-gray-200 max-w-2xl">
-            Examine the terrifying titans and their special abilities.
+      <div className="relative h-[300px] bg-gradient-to-r from-red-900 to-red-800 flex items-center">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="aot-container relative z-10 flex flex-col items-center justify-center">
+          <span className="inline-block px-4 py-1.5 text-xs font-medium bg-red-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
+            Attack on Titan Evrenini Keşfet
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
+            Titanlar
+          </h1>
+          <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
+            Attack on Titan evrenindeki devasa titanlar hakkında bilgi edinin ve özgün yeteneklerini keşfedin.
           </p>
+          <div className="mt-10 relative">
+            <div className="h-[3px] w-24 bg-gradient-to-r from-red-400/50 to-red-600/50 rounded-full mx-auto"></div>
+          </div>
         </div>
       </div>
 
