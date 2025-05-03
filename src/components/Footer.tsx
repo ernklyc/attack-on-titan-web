@@ -1,23 +1,18 @@
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaGlobe, FaYoutube, FaGooglePlay, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 export default function Footer() {
-  const categories = [
-    { name: 'Characters', path: '/characters' },
-    { name: 'Episodes', path: '/episodes' },
-    { name: 'Locations', path: '/locations' },
-    { name: 'Organizations', path: '/organizations' },
-    { name: 'Titans', path: '/titans' },
-  ];
+  const categories = textContent.navbar.links.filter(link => link.path !== '/'); // Reuse navbar links, excluding Home
 
   const socialLinks = [
-    { icon: <FaGithub />, url: 'https://github.com', label: 'GitHub' },
-    { icon: <FaLinkedin />, url: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: <FaGlobe />, url: '#', label: 'Website' },
-    { icon: <FaYoutube />, url: 'https://youtube.com', label: 'YouTube' },
-    { icon: <FaGooglePlay />, url: 'https://play.google.com', label: 'Google Play' },
-    { icon: <FaTwitter />, url: 'https://twitter.com', label: 'Twitter' },
-    { icon: <FaInstagram />, url: 'https://instagram.com', label: 'Instagram' },
+    { icon: <FaGithub />, url: 'https://github.com', label: textContent.navbar.socialLabels.github }, // Use textContent
+    { icon: <FaLinkedin />, url: 'https://linkedin.com', label: textContent.navbar.socialLabels.linkedin }, // Use textContent
+    { icon: <FaGlobe />, url: '#', label: textContent.navbar.socialLabels.website }, // Use textContent
+    { icon: <FaYoutube />, url: 'https://youtube.com', label: textContent.navbar.socialLabels.youtube }, // Use textContent
+    { icon: <FaGooglePlay />, url: 'https://play.google.com', label: textContent.navbar.socialLabels.googlePlay }, // Use textContent
+    { icon: <FaTwitter />, url: 'https://twitter.com', label: textContent.navbar.socialLabels.twitter }, // Use textContent
+    { icon: <FaInstagram />, url: 'https://instagram.com', label: textContent.navbar.socialLabels.instagram }, // Use textContent
   ];
 
   return (
@@ -27,11 +22,11 @@ export default function Footer() {
           {/* Logo and Description */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-[#FF4655]">AoT</span>
-              <span className="ml-2 text-lg text-white">Universe</span>
+              <span className="text-2xl font-bold text-[#FF4655]">{textContent.footer.logoShort}</span> {/* Use textContent */}
+              <span className="ml-2 text-lg text-white">{textContent.footer.logoLong}</span> {/* Use textContent */}
             </Link>
             <p className="mt-4 max-w-md">
-              Your comprehensive guide to the Attack on Titan universe. Explore characters, episodes, locations, organizations, and titans.
+              {textContent.footer.description} {/* Use textContent */}
             </p>
             <div className="flex space-x-4 mt-6">
               {socialLinks.map((social, index) => (
@@ -54,7 +49,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white text-lg font-semibold mb-4 flex items-center">
               <span className="h-4 w-1 bg-[#FF4655] rounded-full mr-2"></span>
-              Explore
+              {textContent.footer.exploreTitle} {/* Use textContent */}
             </h3>
             <ul className="space-y-2">
               {categories.map((category, index) => (
@@ -75,30 +70,30 @@ export default function Footer() {
           <div>
             <h3 className="text-white text-lg font-semibold mb-4 flex items-center">
               <span className="h-4 w-1 bg-[#FF4655] rounded-full mr-2"></span>
-              Resources
+              {textContent.footer.resourcesTitle} {/* Use textContent */}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="hover:text-white relative group inline-block">
-                  About
+                  {textContent.footer.links.about} {/* Use textContent */}
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="hover:text-white relative group inline-block">
-                  FAQ
+                  {textContent.footer.links.faq} {/* Use textContent */}
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white relative group inline-block">
-                  Contact
+                  {textContent.footer.links.contact} {/* Use textContent */}
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
                 </Link>
               </li>
               <li>
                 <Link href="/privacy" className="hover:text-white relative group inline-block">
-                  Privacy Policy
+                  {textContent.footer.links.privacy} {/* Use textContent */}
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#FF4655]/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
                 </Link>
               </li>
@@ -107,24 +102,24 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/5 mt-12 pt-8 text-center">
-          <p>&copy; {new Date().getFullYear()} Attack on Titan Universe. All rights reserved.</p>
+          <p>{textContent.footer.copyright}</p> {/* Use textContent */}
           <p className="mt-2 text-sm">
-            This is a fan-made website. All trademarks, logos, and brand names are the property of their respective owners.
+            {textContent.footer.disclaimer} {/* Use textContent */}
           </p>
           
           <div className="mt-6 bg-[#1A242D]/30 p-4 rounded-lg backdrop-blur-md border border-white/5 text-gray-500 text-sm">
             <div className="flex flex-wrap justify-center gap-4">
               <span className="flex items-center">
                 <div className="h-2 w-2 bg-[#FF4655] rounded-full mr-1.5"></div>
-                Design by You
+                {textContent.footer.credits.design} {/* Use textContent */}
               </span>
               <span className="flex items-center">
                 <div className="h-2 w-2 bg-[#FF4655] rounded-full mr-1.5"></div>
-                Next.js + Tailwind CSS
+                {textContent.footer.credits.stack} {/* Use textContent */}
               </span>
               <span className="flex items-center">
                 <div className="h-2 w-2 bg-[#FF4655] rounded-full mr-1.5"></div>
-                2025 Edition
+                {textContent.footer.credits.edition} {/* Use textContent */}
               </span>
             </div>
           </div>

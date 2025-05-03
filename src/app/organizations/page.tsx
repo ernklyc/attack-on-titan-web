@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Modal from '@/components/Modal';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 // Dummy organization data for demo purposes
 const dummyOrganizations = [
@@ -75,6 +76,7 @@ const otherOrgs = dummyOrganizations.filter(org => org.id > 5);
 export default function Organizations() {
   const [selectedOrg, setSelectedOrg] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const texts = textContent.organizationsPage; // Get texts for this page
 
   const openOrgModal = (org: any) => {
     setSelectedOrg(org);
@@ -92,13 +94,13 @@ export default function Organizations() {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="aot-container relative z-10 flex flex-col items-center justify-center">
           <span className="inline-block px-4 py-1.5 text-xs font-medium bg-yellow-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
-            Attack on Titan Evrenini Keşfet
+            {texts.banner.badge} {/* Use textContent */}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
-            Organizasyonlar
+            {texts.banner.title} {/* Use textContent */}
           </h1>
           <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
-            Attack on Titan evrenindeki askeri birlikler, hükümet organları ve diğer önemli organizasyonlar hakkında bilgi edinin.
+            {texts.banner.description} {/* Use textContent */}
           </p>
           <div className="mt-10 relative">
             <div className="h-[3px] w-24 bg-gradient-to-r from-yellow-400/50 to-yellow-600/50 rounded-full mx-auto"></div>
@@ -111,7 +113,7 @@ export default function Organizations() {
         {/* Military section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-white mb-6 border-b border-yellow-800 pb-2">
-            Military
+            {texts.sections.military} {/* Use textContent */}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -131,7 +133,7 @@ export default function Organizations() {
                       onClick={() => openOrgModal(org)} 
                       className="text-sm text-yellow-400 hover:underline"
                     >
-                      View details
+                      {texts.viewDetailsButton} {/* Use textContent */}
                     </button>
                   </div>
                 </div>
@@ -143,7 +145,7 @@ export default function Organizations() {
         {/* Government section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-white mb-6 border-b border-yellow-800 pb-2">
-            Government
+            {texts.sections.government} {/* Use textContent */}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -163,7 +165,7 @@ export default function Organizations() {
                       onClick={() => openOrgModal(org)} 
                       className="text-sm text-yellow-400 hover:underline"
                     >
-                      View details
+                      {texts.viewDetailsButton} {/* Use textContent */}
                     </button>
                   </div>
                 </div>
@@ -175,7 +177,7 @@ export default function Organizations() {
         {/* Other groups section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-white mb-6 border-b border-yellow-800 pb-2">
-            Other Groups
+            {texts.sections.other} {/* Use textContent */}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -195,7 +197,7 @@ export default function Organizations() {
                       onClick={() => openOrgModal(org)} 
                       className="text-sm text-yellow-400 hover:underline"
                     >
-                      View details
+                      {texts.viewDetailsButton} {/* Use textContent */}
                     </button>
                   </div>
                 </div>
@@ -206,10 +208,9 @@ export default function Organizations() {
 
         {/* Note about the placeholder content */}
         <div className="mt-12 bg-gray-800/50 rounded-lg p-6 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">More Details Coming Soon</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">{texts.comingSoon.title}</h2> {/* Use textContent */}
           <p className="text-gray-300">
-            We're currently working on adding more detailed information for all Attack on Titan organizations.
-            Check back soon for updates!
+            {texts.comingSoon.description} {/* Use textContent */}
           </p>
         </div>
       </div>
@@ -231,38 +232,38 @@ export default function Organizations() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="text-lg font-semibold text-yellow-400">Type</h4>
+                  <h4 className="text-lg font-semibold text-yellow-400">{texts.modal.type}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedOrg.type}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-yellow-400">Leader</h4>
+                  <h4 className="text-lg font-semibold text-yellow-400">{texts.modal.leader}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedOrg.leader}</p>
                 </div>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-yellow-400">Purpose</h4>
+                <h4 className="text-lg font-semibold text-yellow-400">{texts.modal.purpose}</h4> {/* Use textContent */}
                 <p className="text-white">{selectedOrg.purpose}</p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-yellow-400">Overview</h4>
+                <h4 className="text-lg font-semibold text-yellow-400">{texts.modal.overview}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Detailed information about {selectedOrg.name} will be available soon. This will include its history, structure, and role in the story.
+                  {texts.modal.overviewPlaceholder.replace('{orgName}', selectedOrg.name)} {/* Use textContent */}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-yellow-400">Notable Members</h4>
+                <h4 className="text-lg font-semibold text-yellow-400">{texts.modal.notableMembers}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Information about key members of this organization will be added soon.
+                  {texts.modal.notableMembersPlaceholder} {/* Use textContent */}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-yellow-400">Key Events</h4>
+                <h4 className="text-lg font-semibold text-yellow-400">{texts.modal.keyEvents}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Significant events involving this organization will be added soon.
+                  {texts.modal.keyEventsPlaceholder} {/* Use textContent */}
                 </p>
               </div>
             </div>

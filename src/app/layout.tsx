@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -10,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Attack on Titan Universe',
-  description: 'Explore the Attack on Titan universe with details on characters, episodes, locations, organizations, and titans.',
+  title: textContent.layout.title, // Use textContent
+  description: textContent.layout.description, // Use textContent
 };
 
 export default function RootLayout({

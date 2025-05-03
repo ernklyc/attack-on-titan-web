@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Modal from '@/components/Modal';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 // Dummy location data for demo purposes
 const dummyLocations = [
@@ -20,6 +21,7 @@ const dummyLocations = [
 export default function Locations() {
   const [selectedLocation, setSelectedLocation] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const texts = textContent.locationsPage; // Get texts for this page
 
   const openLocationModal = (location: any) => {
     setSelectedLocation(location);
@@ -37,13 +39,13 @@ export default function Locations() {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="aot-container relative z-10 flex flex-col items-center justify-center">
           <span className="inline-block px-4 py-1.5 text-xs font-medium bg-green-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
-            Attack on Titan Evrenini Keşfet
+            {texts.banner.badge} {/* Use textContent */}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
-            Lokasyonlar
+            {texts.banner.title} {/* Use textContent */}
           </h1>
           <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
-            Attack on Titan evrenindeki önemli yerleri ve çevreleri keşfedin. Hikayenin geçtiği tüm lokasyonlar hakkında bilgi edinin.
+            {texts.banner.description} {/* Use textContent */}
           </p>
           <div className="mt-10 relative">
             <div className="h-[3px] w-24 bg-gradient-to-r from-green-400/50 to-green-600/50 rounded-full mx-auto"></div>
@@ -70,7 +72,7 @@ export default function Locations() {
                     onClick={() => openLocationModal(location)} 
                     className="text-sm text-green-400 hover:underline"
                   >
-                    View details
+                    {texts.viewDetailsButton} {/* Use textContent */}
                   </button>
                 </div>
               </div>
@@ -80,18 +82,17 @@ export default function Locations() {
 
         {/* Map section placeholder */}
         <div className="mt-16 bg-gray-900 rounded-lg p-6">
-          <h2 className="text-2xl font-bold text-white mb-4">World Map</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">{texts.mapSection.title}</h2> {/* Use textContent */}
           <div className="aspect-[16/9] bg-gradient-to-b from-green-900/20 to-green-800/20 rounded-lg flex items-center justify-center">
-            <p className="text-gray-400">Interactive map coming soon</p>
+            <p className="text-gray-400">{texts.mapSection.placeholder}</p> {/* Use textContent */}
           </div>
         </div>
 
         {/* Note about the placeholder content */}
         <div className="mt-12 bg-gray-800/50 rounded-lg p-6 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">More Locations Coming Soon</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">{texts.comingSoon.title}</h2> {/* Use textContent */}
           <p className="text-gray-300">
-            We're currently working on adding detailed information for all Attack on Titan locations.
-            Check back soon for updates!
+            {texts.comingSoon.description} {/* Use textContent */}
           </p>
         </div>
       </div>
@@ -101,7 +102,7 @@ export default function Locations() {
         <Modal 
           isOpen={isModalOpen} 
           onClose={closeModal} 
-          title={selectedLocation.name}
+          title={selectedLocation.name} // Title remains dynamic
         >
           <div className="space-y-6">
             <div className="flex justify-center">
@@ -113,33 +114,33 @@ export default function Locations() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="text-lg font-semibold text-green-400">Type</h4>
+                  <h4 className="text-lg font-semibold text-green-400">{texts.modal.type}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedLocation.type}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-green-400">Region</h4>
+                  <h4 className="text-lg font-semibold text-green-400">{texts.modal.region}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedLocation.region}</p>
                 </div>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-green-400">Description</h4>
+                <h4 className="text-lg font-semibold text-green-400">{texts.modal.description}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Detailed information about {selectedLocation.name} will be available soon. This will include its history, significance to the story, and key events that took place here.
+                  {texts.modal.descriptionPlaceholder.replace('{locationName}', selectedLocation.name)} {/* Use textContent */}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-green-400">Notable Residents</h4>
+                <h4 className="text-lg font-semibold text-green-400">{texts.modal.notableResidents}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Information about notable characters associated with this location will be added soon.
+                  {texts.modal.notableResidentsPlaceholder} {/* Use textContent */}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-green-400">Key Events</h4>
+                <h4 className="text-lg font-semibold text-green-400">{texts.modal.keyEvents}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Important story events that occurred at this location will be added soon.
+                  {texts.modal.keyEventsPlaceholder} {/* Use textContent */}
                 </p>
               </div>
             </div>

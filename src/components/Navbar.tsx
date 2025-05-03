@@ -1,24 +1,18 @@
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaGlobe, FaYoutube, FaGooglePlay, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 export default function Navbar() {
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Characters', path: '/characters' },
-    { name: 'Episodes', path: '/episodes' },
-    { name: 'Locations', path: '/locations' },
-    { name: 'Organizations', path: '/organizations' },
-    { name: 'Titans', path: '/titans' },
-  ];
+  const navLinks = textContent.navbar.links; // Use textContent
 
   const socialLinks = [
-    { icon: <FaGithub />, url: 'https://github.com', label: 'GitHub' },
-    { icon: <FaLinkedin />, url: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: <FaGlobe />, url: '#', label: 'Website' },
-    { icon: <FaYoutube />, url: 'https://youtube.com', label: 'YouTube' },
-    { icon: <FaGooglePlay />, url: 'https://play.google.com', label: 'Google Play' },
-    { icon: <FaTwitter />, url: 'https://twitter.com', label: 'Twitter' },
-    { icon: <FaInstagram />, url: 'https://instagram.com', label: 'Instagram' },
+    { icon: <FaGithub />, url: 'https://github.com', label: textContent.navbar.socialLabels.github }, // Use textContent
+    { icon: <FaLinkedin />, url: 'https://linkedin.com', label: textContent.navbar.socialLabels.linkedin }, // Use textContent
+    { icon: <FaGlobe />, url: '#', label: textContent.navbar.socialLabels.website }, // Use textContent
+    { icon: <FaYoutube />, url: 'https://youtube.com', label: textContent.navbar.socialLabels.youtube }, // Use textContent
+    { icon: <FaGooglePlay />, url: 'https://play.google.com', label: textContent.navbar.socialLabels.googlePlay }, // Use textContent
+    { icon: <FaTwitter />, url: 'https://twitter.com', label: textContent.navbar.socialLabels.twitter }, // Use textContent
+    { icon: <FaInstagram />, url: 'https://instagram.com', label: textContent.navbar.socialLabels.instagram }, // Use textContent
   ];
 
   return (
@@ -27,8 +21,8 @@ export default function Navbar() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-[#FF4655]">AoT</span>
-            <span className="ml-2 text-lg hidden sm:inline-block">Universe</span>
+            <span className="text-2xl font-bold text-[#FF4655]">{textContent.navbar.logoShort}</span> {/* Use textContent */}
+            <span className="ml-2 text-lg hidden sm:inline-block">{textContent.navbar.logoLong}</span> {/* Use textContent */}
           </Link>
 
           {/* Navigation */}

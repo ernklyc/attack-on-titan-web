@@ -21,6 +21,9 @@ import { cleanImageUrl, createImageFallback } from '@/utils/imageUtils';
 // Types
 import { Character, ApiResponse, FilterParams } from '@/types/characters';
 
+// Text Content
+import { textContent } from '@/data/textContent';
+
 // Search params component to wrap in Suspense
 function SearchParamsWrapper({
   children
@@ -185,7 +188,7 @@ export default function Characters() {
       });
       
       if (!response.ok) {
-        throw new Error(`API yanıtı başarısız: ${response.status}`);
+        throw new Error(`${textContent.charactersPage.error.messagePrefix} ${response.status}`);
       }
       
       const data = await response.json();
@@ -198,12 +201,12 @@ export default function Characters() {
         setCharacters(data);
         setTotalPages(1);
       } else {
-        throw new Error('API yanıtı beklenen formatta değil');
+        throw new Error(textContent.charactersPage.error.unknownError);
       }
       
     } catch (err) {
       console.error("API hatası:", err);
-      setError(`Karakterler yüklenirken bir hata oluştu: ${err instanceof Error ? err.message : 'Bilinmeyen hata'}`);
+      setError(`${textContent.charactersPage.error.messagePrefix} ${err instanceof Error ? err.message : textContent.charactersPage.error.unknownError}`);
       setCharacters([]);
       setTotalPages(0);
     } finally {
@@ -257,7 +260,7 @@ export default function Characters() {
                 ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
                 : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
               }`}
-            aria-label={`Sayfa ${i}`}
+            aria-label={textContent.charactersPage.pagination.pageLabel.replace('{pageNumber}', i.toString())}
             aria-current={currentPage === i ? 'page' : undefined}
           >
             {i}
@@ -276,7 +279,7 @@ export default function Characters() {
               ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
               : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
             }`}
-          aria-label="İlk sayfa"
+          aria-label={textContent.charactersPage.pagination.firstPageLabel}
           aria-current={currentPage === 1 ? 'page' : undefined}
         >
           1
@@ -305,7 +308,7 @@ export default function Characters() {
                 ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
                 : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
               }`}
-            aria-label="Sayfa 2"
+            aria-label={textContent.charactersPage.pagination.pageLabel.replace('{pageNumber}', '2')}
             aria-current={currentPage === 2 ? 'page' : undefined}
           >
             2
@@ -325,7 +328,7 @@ export default function Characters() {
                 ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
                 : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
               }`}
-            aria-label={`Sayfa ${i}`}
+            aria-label={textContent.charactersPage.pagination.pageLabel.replace('{pageNumber}', i.toString())}
             aria-current={currentPage === i ? 'page' : undefined}
           >
             {i}
@@ -352,7 +355,7 @@ export default function Characters() {
               ? 'bg-[#FF4655]/70 text-white font-medium scale-110 shadow-md shadow-[#FF4655]/20 backdrop-blur-md'
               : 'text-gray-300 hover:bg-[#0F1923]/60 hover:text-white backdrop-blur-sm'
             }`}
-          aria-label="Son sayfa"
+          aria-label={textContent.charactersPage.pagination.lastPageLabel}
           aria-current={currentPage === totalPages ? 'page' : undefined}
         >
           {totalPages}
@@ -427,21 +430,18 @@ export default function Characters() {
                 <div className="relative mb-2 inline-block">
                   <div className="absolute inset-0 bg-[#FF4655] blur-md opacity-30"></div>
                   <div className="relative flex items-center px-4 py-1 bg-[#FF4655]/40 rounded-md backdrop-blur-md">
-                    <span className="text-xs font-medium text-white tracking-wide uppercase">ATTACK ON TITAN EVRENINI KEŞFET</span>
+                    <span className="text-xs font-medium text-white tracking-wide uppercase">{textContent.charactersPage.banner.badge}</span>
                   </div>
                 </div>
                 
                 {/* Enhanced title design with animation - Left aligned */}
                 <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold text-white mb-1 tracking-tight relative">
-                  Karakterler
+                  {textContent.charactersPage.banner.title}
                   <div className="h-1 w-16 bg-[#FF4655] mt-1"></div>
                 </h1>
                 
                 {/* Enhanced description - Left aligned - Metni küçültüldü - Fotodaki gibi düzenlendi */}
-                <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mt-3">
-                  Attack on Titan evreninin <span className="text-white font-medium">kahramanlarını</span>, 
-                  <span className="text-[#FF4655] font-medium"> kötü adamlarını</span> ve tüm karakterlerini 
-                  <span className="text-white font-medium"> keşfedin</span>.
+                <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-2xl mt-3" dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.description }}>
                 </p>
               </motion.div>
 
@@ -457,25 +457,19 @@ export default function Characters() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span>
-                      API'de <span className="text-white font-medium">201</span> karakter bulunmaktadır ve 
-                      <span className="text-white font-medium"> isim, durum (3), tür (4)</span> ve 
-                      diğer özelliklere göre filtrelenebilir.
-                    </span>
+                    <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo1 }}></span>
                   </p>
                   <p className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    <span>Her karakter için <span className="text-white font-medium">detaylı bilgiler</span>: yaş, boy, doğum yeri, gruplar, roller ve ilişkiler bulunmaktadır.</span>
+                    <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo2 }}></span>
                   </p>
                   <p className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
                     </svg>
-                    <span>
-                      Karakterler hakkında <span className="text-white font-medium">kapsamlı veriler</span>: hangi bölümlerde göründükleri, diğer karakterlerle ilişkileri ve daha fazlası.
-                    </span>
+                    <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo3 }}></span>
                   </p>
                 </div>
               </motion.div>
@@ -524,28 +518,28 @@ export default function Characters() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-[#FF4655]/20 border border-[#FF4655]/30 text-white p-6 rounded-xl backdrop-blur-sm"
           >
-            <h3 className="text-xl font-bold mb-3">Hata Oluştu</h3>
+            <h3 className="text-xl font-bold mb-3">{textContent.charactersPage.error.title}</h3>
             <p className="mb-4">{error}</p>
             <div className="flex flex-wrap gap-4">
               <button 
                 onClick={() => fetchCharacters(currentPage, filters)} 
                 className="px-4 py-2 bg-[#FF4655]/70 hover:bg-[#FF4655] rounded-md flex items-center transition-colors backdrop-blur-sm"
-                aria-label="Verileri yeniden yükle"
+                aria-label={textContent.charactersPage.error.retryButton}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
                 </svg>
-                Tekrar Dene
+                {textContent.charactersPage.error.retryButton}
               </button>
               <button 
                 onClick={handleClearFilters} 
                 className="px-4 py-2 bg-[#1A242D]/70 hover:bg-[#1A242D] rounded-md flex items-center transition-colors backdrop-blur-sm"
-                aria-label="Filtreleri temizle"
+                aria-label={textContent.charactersPage.error.clearFiltersButton}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
-                Filtreleri Temizle
+                {textContent.charactersPage.error.clearFiltersButton}
               </button>
             </div>
           </motion.div>
@@ -560,13 +554,13 @@ export default function Characters() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-xl text-gray-300 mb-4">Bu filtrelere uygun karakter bulunamadı.</h3>
+            <h3 className="text-xl text-gray-300 mb-4">{textContent.charactersPage.noResults.message}</h3>
             <button
               onClick={handleClearFilters}
               className="px-6 py-3 bg-[#FF4655]/70 hover:bg-[#FF4655] text-white rounded-lg transition-colors shadow-lg hover:shadow-[#FF4655]/30 backdrop-blur-sm"
-              aria-label="Filtreleri temizle"
+              aria-label={textContent.charactersPage.noResults.clearFiltersButton}
             >
-              Filtreleri Temizle
+              {textContent.charactersPage.noResults.clearFiltersButton}
             </button>
           </motion.div>
         ) : (
@@ -607,8 +601,11 @@ export default function Characters() {
                 <div className="flex flex-col items-center">
                   {/* Page information */}
                   <div className="text-center mb-6">
-                    <p className="text-gray-400">
-                      Toplam <span className="text-white font-medium">{totalPages}</span> sayfada <span className="text-white font-medium">{totalPages * characters.length}</span>'den fazla karakter
+                    <p className="text-gray-400" dangerouslySetInnerHTML={{
+                      __html: textContent.charactersPage.pagination.pageInfo
+                        .replace('{totalPages}', totalPages.toString())
+                        .replace('{totalCharacters}', (totalPages * characters.length).toString())
+                    }}>
                     </p>
                   </div>
                   
@@ -620,7 +617,7 @@ export default function Characters() {
                       disabled={currentPage === 1}
                       className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
                         ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label="İlk sayfa"
+                      aria-label={textContent.charactersPage.pagination.firstPageLabel}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fillRule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zM6.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L2.414 10l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
@@ -633,7 +630,7 @@ export default function Characters() {
                       disabled={currentPage === 1}
                       className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
                         ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label="Önceki sayfa"
+                      aria-label={textContent.charactersPage.pagination.previousPageLabel}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -652,7 +649,7 @@ export default function Characters() {
                       disabled={currentPage === totalPages}
                       className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
                         ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label="Sonraki sayfa"
+                      aria-label={textContent.charactersPage.pagination.nextPageLabel}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -665,10 +662,10 @@ export default function Characters() {
                       disabled={currentPage === totalPages}
                       className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
                         ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label="Son sayfa"
+                      aria-label={textContent.charactersPage.pagination.lastPageLabel}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 6.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0zM13.293 15.707a1 1 0 010-1.414L17.586 10l-4.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        <path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10l-4.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0zM13.293 15.707a1 1 0 010-1.414L17.586 10l-4.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
                       </svg>
                     </button>
                   </div>
@@ -697,7 +694,7 @@ export default function Characters() {
               ariaDescribedBy: "character-modal-description"
             }}
           >
-            <CharacterDetail character={selectedCharacter} />
+            <CharacterDetail character={selectedCharacter} texts={textContent.charactersPage.modal} />
           </Modal>
         )}
       </AnimatePresence>
@@ -706,7 +703,7 @@ export default function Characters() {
 }
 
 // Character Detail Component (Extracted for cleaner code organization)
-function CharacterDetail({ character }: { character: Character }) {
+function CharacterDetail({ character, texts }: { character: Character, texts: typeof textContent.charactersPage.modal }) {
   return (
     <div className="flex flex-col md:flex-row gap-8">
       <div className="md:w-1/3">
@@ -745,9 +742,9 @@ function CharacterDetail({ character }: { character: Character }) {
               character.status === 'Deceased' ? 'bg-[#FF4655]/20 text-white border border-[#FF4655]/30 backdrop-blur-sm' : 
               'bg-[#1A242D]/70 text-gray-300 border border-white/10 backdrop-blur-sm'
             }`}>
-              {character.status === 'Alive' ? 'Hayatta' : 
-               character.status === 'Deceased' ? 'Ölü' : 
-               'Bilinmiyor'}
+              {character.status === 'Alive' ? texts.status.alive : 
+               character.status === 'Deceased' ? texts.status.deceased : 
+               texts.status.unknown}
             </span>
             
             {character.species?.map((species, index) => (
@@ -759,7 +756,7 @@ function CharacterDetail({ character }: { character: Character }) {
           
           {character.alias && character.alias.length > 0 && (
             <div className="mt-6">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Lakaplar</h3>
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.aliases}</h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {character.alias.map((alias, index) => (
                   <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#0F1923]/70 text-gray-300 border border-white/5 backdrop-blur-sm">
@@ -777,7 +774,7 @@ function CharacterDetail({ character }: { character: Character }) {
           <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 mr-3 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
-          Karakter Bilgileri
+          {texts.title}
         </h2>
         
         <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar rounded-lg" id="character-modal-description">
@@ -785,42 +782,42 @@ function CharacterDetail({ character }: { character: Character }) {
             {/* Character properties grid layout */}
             {character.gender && (
               <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Cinsiyet</h3>
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.gender}</h3>
                 <p className="text-gray-200">{character.gender}</p>
               </div>
             )}
             
             {character.age !== null && character.age !== undefined && (
               <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Yaş</h3>
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.age}</h3>
                 <p className="text-gray-200">{character.age}</p>
               </div>
             )}
             
             {character.height && (
               <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Boy</h3>
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.height}</h3>
                 <p className="text-gray-200">{character.height}</p>
               </div>
             )}
             
             {character.birthplace && (
               <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Doğum Yeri</h3>
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.birthplace}</h3>
                 <p className="text-gray-200">{character.birthplace}</p>
               </div>
             )}
             
             {character.residence && (
               <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">İkametgah</h3>
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.residence}</h3>
                 <p className="text-gray-200">{character.residence}</p>
               </div>
             )}
             
             {character.occupation && (
               <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Meslek</h3>
+                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.occupation}</h3>
                 <p className="text-gray-200">{character.occupation}</p>
               </div>
             )}
@@ -829,7 +826,7 @@ function CharacterDetail({ character }: { character: Character }) {
           {/* Character groups */}
           {character.groups && character.groups.length > 0 && (
             <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">Gruplar</h3>
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.groups}</h3>
               <div className="space-y-4">
                 {character.groups.map((group, index) => (
                   <div key={index} className="bg-[#0F1923]/70 p-4 rounded-lg border border-white/5">
@@ -852,7 +849,7 @@ function CharacterDetail({ character }: { character: Character }) {
           {/* Character roles */}
           {character.roles && character.roles.length > 0 && (
             <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">Roller</h3>
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.roles}</h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {character.roles.map((role, index) => (
                   <span 
@@ -869,7 +866,7 @@ function CharacterDetail({ character }: { character: Character }) {
           {/* Character relatives */}
           {character.relatives && character.relatives.length > 0 && (
             <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">Akrabalar</h3>
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.relatives}</h3>
               <div className="space-y-4">
                 {character.relatives.map((relative, index) => (
                   <div key={index} className="bg-[#0F1923]/70 p-4 rounded-lg border border-white/5">
@@ -879,7 +876,7 @@ function CharacterDetail({ character }: { character: Character }) {
                         {relative.members.map((member, memberIndex) => (
                           <li key={memberIndex}>
                             {typeof member === 'string' && member.startsWith('http')
-                              ? 'İlişkili Karakter'
+                              ? texts.relatedCharacter
                               : member}
                           </li>
                         ))}
@@ -894,19 +891,19 @@ function CharacterDetail({ character }: { character: Character }) {
           {/* Character episodes */}
           {character.episodes && character.episodes.length > 0 && (
             <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">Bölümler</h3>
+              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.episodes}</h3>
               <div className="flex items-center gap-3">
                 <div className="bg-[#FF4655]/30 text-white border border-[#FF4655]/40 rounded-full px-4 py-1 text-xl font-bold backdrop-blur-sm">
                   {character.episodes.length}
                 </div>
-                <p className="text-gray-200">bölümde yer aldı</p>
+                <p className="text-gray-200">{texts.episodesInfo.replace('{count}', character.episodes.length.toString())}</p>
               </div>
               
               <Link
                 href={`/episodes?character=${character.id}`}
                 className="mt-4 inline-flex items-center text-[#FF4655]/90 hover:text-[#FF4655] transition-colors"
               >
-                <span>Bu karakterin yer aldığı bölümleri görüntüle</span>
+                <span>{texts.viewEpisodesLink}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>

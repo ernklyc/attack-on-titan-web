@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 export const metadata: Metadata = {
-  title: 'Karakterler | Attack on Titan',
-  description: 'Attack on Titan evrenindeki tüm karakterler: Eren Yeager, Mikasa Ackerman, Levi ve daha fazlası.',
-  keywords: 'attack on titan, karakterler, eren yeager, mikasa ackerman, levi',
+  title: textContent.charactersPage.metadata.title, // Use textContent
+  description: textContent.charactersPage.metadata.description, // Use textContent
+  keywords: textContent.charactersPage.metadata.keywords, // Use textContent
   openGraph: {
-    title: 'Attack on Titan Karakterleri',
-    description: 'Attack on Titan evrenindeki tüm karakterleri keşfedin.',
-    images: ['/images/aot-characters-banner.jpg'],
+    title: textContent.charactersPage.metadata.openGraph.title, // Use textContent
+    description: textContent.charactersPage.metadata.openGraph.description, // Use textContent
+    images: textContent.charactersPage.metadata.openGraph.images, // Use textContent
   },
 };

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Modal from '@/components/Modal';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 // Dummy episode data for demo purposes
 const generateEpisodes = (season: number) => {
@@ -29,6 +30,7 @@ const dummyEpisodes = {
 export default function Episodes() {
   const [selectedEpisode, setSelectedEpisode] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const texts = textContent.episodesPage; // Get texts for this page
 
   const openEpisodeModal = (episode: any) => {
     setSelectedEpisode(episode);
@@ -46,13 +48,13 @@ export default function Episodes() {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="aot-container relative z-10 flex flex-col items-center justify-center">
           <span className="inline-block px-4 py-1.5 text-xs font-medium bg-purple-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
-            Attack on Titan Evrenini Keşfet
+            {texts.banner.badge} {/* Use textContent */}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
-            Bölümler
+            {texts.banner.title} {/* Use textContent */}
           </h1>
           <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
-            Attack on Titan'ın tüm bölümlerini kronolojik olarak keşfedin ve hikayeyi baştan sona takip edin.
+            {texts.banner.description} {/* Use textContent */}
           </p>
           <div className="mt-10 relative">
             <div className="h-[3px] w-24 bg-gradient-to-r from-purple-400/50 to-purple-600/50 rounded-full mx-auto"></div>
@@ -66,7 +68,7 @@ export default function Episodes() {
         {[1, 2, 3, 4].map((season) => (
           <div key={season} className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-6 border-b border-purple-800 pb-2">
-              Season {season}
+              {texts.seasonTitle.replace('{seasonNumber}', season.toString())} {/* Use textContent */}
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -86,7 +88,7 @@ export default function Episodes() {
                         onClick={() => openEpisodeModal(episode)} 
                         className="text-sm text-purple-400 hover:underline"
                       >
-                        View details
+                        {texts.viewDetailsButton} {/* Use textContent */}
                       </button>
                     </div>
                   </div>
@@ -98,10 +100,9 @@ export default function Episodes() {
 
         {/* Note about the placeholder content */}
         <div className="mt-12 bg-gray-800/50 rounded-lg p-6 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">More Episodes Coming Soon</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">{texts.comingSoon.title}</h2> {/* Use textContent */}
           <p className="text-gray-300">
-            We're currently working on adding detailed information for all Attack on Titan episodes.
-            Check back soon for updates!
+            {texts.comingSoon.description} {/* Use textContent */}
           </p>
         </div>
       </div>
@@ -111,7 +112,7 @@ export default function Episodes() {
         <Modal 
           isOpen={isModalOpen} 
           onClose={closeModal} 
-          title={`Season ${selectedEpisode.seasonNumber} - ${selectedEpisode.title}`}
+          title={`${texts.modal.titlePrefix.replace('{seasonNumber}', selectedEpisode.seasonNumber)} ${selectedEpisode.title}`} // Use textContent
         >
           <div className="space-y-6">
             <div className="flex justify-center mb-6">
@@ -125,37 +126,37 @@ export default function Episodes() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="text-lg font-semibold text-purple-400">Air Date</h4>
+                  <h4 className="text-lg font-semibold text-purple-400">{texts.modal.airDate}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedEpisode.airDate}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-purple-400">Runtime</h4>
+                  <h4 className="text-lg font-semibold text-purple-400">{texts.modal.runtime}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedEpisode.runtime}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-purple-400">Director</h4>
+                  <h4 className="text-lg font-semibold text-purple-400">{texts.modal.director}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedEpisode.director}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-purple-400">Writer</h4>
+                  <h4 className="text-lg font-semibold text-purple-400">{texts.modal.writer}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedEpisode.writer}</p>
                 </div>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-purple-400">Synopsis</h4>
+                <h4 className="text-lg font-semibold text-purple-400">{texts.modal.synopsis}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
                   {selectedEpisode.synopsis}
                 </p>
                 <p className="text-gray-400 mt-4">
-                  Detailed episode summary will be available soon. This will include key plot points, character developments, and important moments from the episode.
+                  {texts.modal.synopsisPlaceholder} {/* Use textContent */}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-purple-400">Key Moments</h4>
+                <h4 className="text-lg font-semibold text-purple-400">{texts.modal.keyMoments}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Information about key moments in this episode will be added soon.
+                  {texts.modal.keyMomentsPlaceholder} {/* Use textContent */}
                 </p>
               </div>
             </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Modal from '@/components/Modal';
+import { textContent } from '@/data/textContent'; // Import textContent
 
 // Dummy titan data for demo purposes
 const dummyTitans = [
@@ -114,6 +115,7 @@ const pureTitans = dummyTitans.filter(titan => titan.id > 9);
 export default function Titans() {
   const [selectedTitan, setSelectedTitan] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const texts = textContent.titansPage; // Get texts for this page
 
   const openTitanModal = (titan: any) => {
     setSelectedTitan(titan);
@@ -131,13 +133,13 @@ export default function Titans() {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="aot-container relative z-10 flex flex-col items-center justify-center">
           <span className="inline-block px-4 py-1.5 text-xs font-medium bg-red-600/40 text-white rounded-full mb-6 backdrop-blur backdrop-filter">
-            Attack on Titan Evrenini Keşfet
+            {texts.banner.badge} {/* Use textContent */}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 text-center tracking-wide">
-            Titanlar
+            {texts.banner.title} {/* Use textContent */}
           </h1>
           <p className="text-xl text-gray-100 max-w-2xl text-center leading-relaxed">
-            Attack on Titan evrenindeki devasa titanlar hakkında bilgi edinin ve özgün yeteneklerini keşfedin.
+            {texts.banner.description} {/* Use textContent */}
           </p>
           <div className="mt-10 relative">
             <div className="h-[3px] w-24 bg-gradient-to-r from-red-400/50 to-red-600/50 rounded-full mx-auto"></div>
@@ -150,7 +152,7 @@ export default function Titans() {
         {/* Nine Titans section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-white mb-6 border-b border-red-800 pb-2">
-            The Nine Titans
+            {texts.sections.nineTitans} {/* Use textContent */}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -170,7 +172,7 @@ export default function Titans() {
                       onClick={() => openTitanModal(titan)} 
                       className="text-sm text-red-400 hover:underline"
                     >
-                      View details
+                      {texts.viewDetailsButton} {/* Use textContent */}
                     </button>
                   </div>
                 </div>
@@ -182,7 +184,7 @@ export default function Titans() {
         {/* Pure Titans section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-white mb-6 border-b border-red-800 pb-2">
-            Pure Titans
+            {texts.sections.pureTitans} {/* Use textContent */}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -202,7 +204,7 @@ export default function Titans() {
                       onClick={() => openTitanModal(titan)} 
                       className="text-sm text-red-400 hover:underline"
                     >
-                      View details
+                      {texts.viewDetailsButton} {/* Use textContent */}
                     </button>
                   </div>
                 </div>
@@ -213,29 +215,28 @@ export default function Titans() {
 
         {/* Titan Abilities section */}
         <section className="bg-gray-900 rounded-lg p-8 mt-12">
-          <h2 className="text-2xl font-bold text-white mb-6">Titan Powers & Abilities</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">{texts.sections.abilities}</h2> {/* Use textContent */}
           <div className="space-y-4">
             <div className="bg-gray-800 rounded p-4">
-              <h3 className="font-semibold text-white">Regeneration</h3>
-              <p className="text-gray-400 mt-1">All titans possess the ability to regenerate lost body parts as long as the nape of the neck remains intact.</p>
+              <h3 className="font-semibold text-white">{texts.abilitiesInfo.regenerationTitle}</h3> {/* Use textContent */}
+              <p className="text-gray-400 mt-1">{texts.abilitiesInfo.regenerationDesc}</p> {/* Use textContent */}
             </div>
             <div className="bg-gray-800 rounded p-4">
-              <h3 className="font-semibold text-white">Enhanced Strength</h3>
-              <p className="text-gray-400 mt-1">Titans possess strength proportional to their size, far exceeding human capabilities.</p>
+              <h3 className="font-semibold text-white">{texts.abilitiesInfo.strengthTitle}</h3> {/* Use textContent */}
+              <p className="text-gray-400 mt-1">{texts.abilitiesInfo.strengthDesc}</p> {/* Use textContent */}
             </div>
             <div className="bg-gray-800 rounded p-4">
-              <h3 className="font-semibold text-white">Titan Inheritance</h3>
-              <p className="text-gray-400 mt-1">When a titan shifter dies without passing their power, it transfers to an Eldian baby born at that moment.</p>
+              <h3 className="font-semibold text-white">{texts.abilitiesInfo.inheritanceTitle}</h3> {/* Use textContent */}
+              <p className="text-gray-400 mt-1">{texts.abilitiesInfo.inheritanceDesc}</p> {/* Use textContent */}
             </div>
           </div>
         </section>
 
         {/* Note about the placeholder content */}
         <div className="mt-12 bg-gray-800/50 rounded-lg p-6 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">More Titan Details Coming Soon</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">{texts.comingSoon.title}</h2> {/* Use textContent */}
           <p className="text-gray-300">
-            We're currently working on adding more detailed information for all Attack on Titan titans.
-            Check back soon for updates!
+            {texts.comingSoon.description} {/* Use textContent */}
           </p>
         </div>
       </div>
@@ -257,42 +258,42 @@ export default function Titans() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="text-lg font-semibold text-red-400">Type</h4>
+                  <h4 className="text-lg font-semibold text-red-400">{texts.modal.type}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedTitan.type}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-red-400">Height</h4>
+                  <h4 className="text-lg font-semibold text-red-400">{texts.modal.height}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedTitan.height}</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-red-400">Current Holder</h4>
+                  <h4 className="text-lg font-semibold text-red-400">{texts.modal.currentHolder}</h4> {/* Use textContent */}
                   <p className="text-white">{selectedTitan.currentHolder}</p>
                 </div>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-red-400">Abilities</h4>
+                <h4 className="text-lg font-semibold text-red-400">{texts.modal.abilities}</h4> {/* Use textContent */}
                 <p className="text-white">{selectedTitan.abilities}</p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-red-400">Description</h4>
+                <h4 className="text-lg font-semibold text-red-400">{texts.modal.description}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Detailed information about the {selectedTitan.name} will be available soon. This will include its appearance, history, and significance to the story.
+                  {texts.modal.descriptionPlaceholder.replace('{titanName}', selectedTitan.name)} {/* Use textContent */}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-red-400">Previous Holders</h4>
+                <h4 className="text-lg font-semibold text-red-400">{texts.modal.previousHolders}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Information about previous holders of this titan will be added soon.
+                  {texts.modal.previousHoldersPlaceholder} {/* Use textContent */}
                 </p>
               </div>
               
               <div>
-                <h4 className="text-lg font-semibold text-red-400">Key Battles</h4>
+                <h4 className="text-lg font-semibold text-red-400">{texts.modal.keyBattles}</h4> {/* Use textContent */}
                 <p className="text-gray-300">
-                  Significant battles involving this titan will be added soon.
+                  {texts.modal.keyBattlesPlaceholder} {/* Use textContent */}
                 </p>
               </div>
             </div>
