@@ -49,16 +49,18 @@ const cleanImageUrl = (url: string) => {
   // Eğer URL boş veya geçersizse, varsayılan görüntüyü döndür
   if (!url) return '/placeholder.png';
   
-  // URL'den revision/latest parametrelerini kaldırarak daha sağlam bir URL oluştur
-  try {
-    if (url.includes('/revision/')) {
+  // Wikia görüntü URL'lerini temizle
+  if (url.includes('wikia.nocookie.net')) {
+    // /revision/latest parametrelerini kaldırarak daha sağlam bir URL oluştur
+    try {
       const baseUrl = url.split('/revision/')[0];
       return baseUrl;
+    } catch (e) {
+      return url; // Hata durumunda orijinal URL'yi döndür
     }
-    return url;
-  } catch (e) {
-    return url; // Hata durumunda orijinal URL'yi döndür
   }
+  
+  return url;
 };
 
 // Fallback görüntüsü oluşturma fonksiyonu
@@ -389,8 +391,8 @@ export default function Characters() {
             Karakter Filtrele
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-            <div className="relative">
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="flex-1 min-w-[160px]">
               <label htmlFor="name-filter" className="text-sm font-medium text-gray-300 mb-2 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
@@ -404,7 +406,7 @@ export default function Characters() {
                   value={nameFilter}
                   onChange={(e) => setNameFilter(e.target.value)}
                   placeholder="Karakter adı girin..."
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all pl-10"
+                  className="w-full px-4 py-2 h-10 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all pl-10 text-sm"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -427,7 +429,7 @@ export default function Characters() {
               </div>
             </div>
             
-            <div>
+            <div className="flex-1 min-w-[140px]">
               <label htmlFor="status-filter" className="text-sm font-medium text-gray-300 mb-2 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
@@ -439,7 +441,7 @@ export default function Characters() {
                   id="status-filter"
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none pl-10"
+                  className="w-full px-4 py-2 h-10 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none pl-10 text-sm"
                 >
                   <option value="">Tümü</option>
                   <option value="alive">Hayatta</option>
@@ -451,15 +453,26 @@ export default function Characters() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                   </svg>
                 </div>
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  {selectedStatus && (
+                    <button
+                      onClick={() => setSelectedStatus('')}
+                      className="text-gray-400 hover:text-white transition-colors mr-6"
+                      aria-label="Temizle"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  )}
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
               </div>
             </div>
             
-            <div>
+            <div className="flex-1 min-w-[140px]">
               <label htmlFor="gender-filter" className="text-sm font-medium text-gray-300 mb-2 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
@@ -471,7 +484,7 @@ export default function Characters() {
                   id="gender-filter"
                   value={selectedGender}
                   onChange={(e) => setSelectedGender(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none pl-10"
+                  className="w-full px-4 py-2 h-10 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none pl-10 text-sm"
                 >
                   <option value="">Tümü</option>
                   <option value="male">Erkek</option>
@@ -483,15 +496,26 @@ export default function Characters() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  {selectedGender && (
+                    <button
+                      onClick={() => setSelectedGender('')}
+                      className="text-gray-400 hover:text-white transition-colors mr-6"
+                      aria-label="Temizle"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  )}
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
               </div>
             </div>
             
-            <div>
+            <div className="flex-1 min-w-[140px]">
               <label htmlFor="occupation-filter" className="text-sm font-medium text-gray-300 mb-2 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" />
@@ -506,7 +530,7 @@ export default function Characters() {
                   value={selectedOccupation}
                   onChange={(e) => setSelectedOccupation(e.target.value)}
                   placeholder="Meslek girin..."
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all pl-10"
+                  className="w-full px-4 py-2 h-10 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all pl-10 text-sm"
                 />
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -528,18 +552,18 @@ export default function Characters() {
                 )}
               </div>
             </div>
-          </div>
-          
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button
-              onClick={handleClearFilters}
-              className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all duration-300 shadow-md hover:shadow-lg flex items-center"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-              Filtreleri Temizle
-            </button>
+            
+            <div className="min-w-[160px]">
+              <button
+                onClick={handleClearFilters}
+                className="w-full px-4 py-2 h-10 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center text-sm"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+                Filtreleri Temizle
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -761,8 +785,9 @@ export default function Characters() {
                   <Image 
                     src={cleanImageUrl(selectedCharacter.img)} 
                     alt={selectedCharacter.name}
-                    fill
-                    className="object-cover"
+                    width={300}
+                    height={300}
+                    className="object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
