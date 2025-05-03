@@ -26,7 +26,7 @@ interface CharacterCardProps {
 const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => {
   return (
     <motion.div 
-      className="group relative bg-gradient-to-br from-gray-800/90 to-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-[380px] cursor-pointer"
+      className="group relative bg-gradient-to-br from-gray-800/90 to-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-[360px] cursor-pointer"
       onClick={onClick}
       whileHover={{ 
         y: -8, 
@@ -35,7 +35,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => 
       whileTap={{ scale: 0.98 }}
     >
       {/* Image Container with Effect */}
-      <div className="h-56 overflow-hidden relative">
+      <div className="h-48 overflow-hidden relative">
         {character.img ? (
           <div className="relative w-full h-full">
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 opacity-60"></div>
@@ -43,8 +43,8 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => 
               src={cleanImageUrl(character.img)} 
               alt={character.name}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover transform group-hover:scale-110 transition-transform duration-700"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover object-center transform group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
               onError={(e) => {
                 // Fallback for failed images
@@ -74,35 +74,41 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => 
         {/* Status Badge */}
         <div className="absolute top-3 right-3 z-20">
           <span className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${
-            character.status === 'Alive' ? 'bg-green-500/80 text-white' : 
-            character.status === 'Deceased' ? 'bg-red-500/80 text-white' : 
+            character.status?.toLowerCase() === 'alive' ? 'bg-green-500/80 text-white' : 
+            character.status?.toLowerCase() === 'deceased' ? 'bg-red-500/80 text-white' : 
             'bg-gray-500/80 text-white'
           }`}>
-            {character.status === 'Alive' ? 'Hayatta' : 
-             character.status === 'Deceased' ? 'Ölü' : 
+            {character.status?.toLowerCase() === 'alive' ? 'Hayatta' : 
+             character.status?.toLowerCase() === 'deceased' ? 'Ölü' : 
              'Bilinmiyor'}
           </span>
         </div>
       </div>
       
-      {/* Card Content Area */}
-      <div className="p-5 flex flex-col h-[148px]">
-        <h3 className="text-xl font-bold text-white mb-1 truncate font-display">
-          {character.name}
-        </h3>
-        <p className="text-gray-400 text-sm mb-2 truncate">
-          {character.species?.join(', ') || 'Bilinmiyor'}
-        </p>
-        {character.alias && character.alias.length > 0 && (
-          <p className="text-gray-500 text-xs italic mb-auto truncate">
-            Alias: {character.alias[0]}{character.alias.length > 1 ? '...' : ''}
+      {/* Card Content Area - Improved text handling */}
+      <div className="p-4 flex flex-col h-[112px] justify-between">
+        <div className="space-y-1 flex-grow">
+          <h3 className="text-base font-bold text-white line-clamp-1 font-display">
+            {character.name}
+          </h3>
+          <p className="text-sm text-gray-400 line-clamp-1">
+            {character.species?.join(', ') || 'Bilinmiyor'}
           </p>
-        )}
+          
+          {/* Alias section with better text handling */}
+          {character.alias && character.alias.length > 0 && (
+            <p className="text-xs text-gray-500 italic line-clamp-1">
+              <span className="font-medium text-gray-400">Lakap:</span> {character.alias[0]}
+              {character.alias.length > 1 ? '...' : ''}
+            </p>
+          )}
+        </div>
         
-        {/* Action Button */}
+        {/* Action Button - with proper spacing */}
         <button 
           type="button"
-          className="mt-auto py-2.5 bg-gradient-to-r from-red-700 to-red-900 hover:from-red-600 hover:to-red-800 text-white rounded-lg transition-all duration-300 text-sm font-medium flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-900/20"
+          className="mt-1 py-1.5 bg-gradient-to-r from-red-700 to-red-800 hover:from-red-600 hover:to-red-700 text-white rounded-lg transition-all duration-300 text-sm font-medium flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-900/20"
+          aria-label={`${character.name} hakkında detaylı bilgi`}
         >
           <span>Detaylı Bilgi</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -114,6 +120,15 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, onClick }) => 
       {/* Hover Effects */}
       <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-red-500 to-red-700 group-hover:w-full transition-all duration-700"></div>
+      
+      {/* Status indicator on side - Fixed to properly show green/red based on lowercase comparison */}
+      <div 
+        className={`absolute top-0 left-0 h-full w-1 ${
+          character.status?.toLowerCase() === 'alive' ? 'bg-green-500/50' : 
+          character.status?.toLowerCase() === 'deceased' ? 'bg-red-500/50' : 
+          'bg-gray-500/30'
+        }`}
+      ></div>
     </motion.div>
   );
 };

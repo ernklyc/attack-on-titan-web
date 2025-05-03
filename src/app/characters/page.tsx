@@ -48,21 +48,29 @@ export default function Characters() {
     threshold: 0.1
   });
   
-  // Get URL params on initial load
+  // Get URL params on initial load - MODIFIED to prevent auto-filtering
   useEffect(() => {
-    // Get filter parameters from URL if they exist
-    const pageParam = searchParams.get('page');
-    const nameParam = searchParams.get('name');
-    const statusParam = searchParams.get('status');
-    const genderParam = searchParams.get('gender');
-    const occupationParam = searchParams.get('occupation');
+    // Only apply URL filters if explicitly requested by user
+    // Removed auto-filtering on page load to avoid unexpected filtering
     
-    if (pageParam) setCurrentPage(parseInt(pageParam));
-    if (nameParam) setNameFilter(nameParam);
-    if (statusParam) setSelectedStatus(statusParam);
-    if (genderParam) setSelectedGender(genderParam);
-    if (occupationParam) setSelectedOccupation(occupationParam);
-  }, []);
+    // For specific directed navigation from other pages, we can implement
+    // a special flag in the URL like ?applyFilters=true&name=Eren
+    const shouldApplyFilters = searchParams.get('applyFilters') === 'true';
+    
+    if (shouldApplyFilters) {
+      const pageParam = searchParams.get('page');
+      const nameParam = searchParams.get('name');
+      const statusParam = searchParams.get('status');
+      const genderParam = searchParams.get('gender');
+      const occupationParam = searchParams.get('occupation');
+      
+      if (pageParam) setCurrentPage(parseInt(pageParam));
+      if (nameParam) setNameFilter(nameParam);
+      if (statusParam) setSelectedStatus(statusParam);
+      if (genderParam) setSelectedGender(genderParam);
+      if (occupationParam) setSelectedOccupation(occupationParam);
+    }
+  }, [searchParams]);
 
   // Fetch characters when dependencies change
   useEffect(() => {
@@ -312,49 +320,56 @@ export default function Characters() {
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <div ref={topRef} className="scroll-mt-20" id="top"></div> {/* Scroll target with offset for fixed header */}
       
-      {/* Hero Banner with parallax effect */}
+      {/* Hero Banner with more compact, improved design */}
       <motion.div 
         ref={bannerRef}
         initial={{ opacity: 0 }}
         animate={bannerInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative h-[40vh] md:h-[50vh] flex items-center bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
+        className="relative h-[30vh] md:h-[35vh] flex items-center bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-gray-900/90"></div>
+        {/* Improved overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-900/95"></div>
         
-        {/* Animated title section */}
-        <div className="aot-container relative z-10">
+        {/* Animated title section with compact layout */}
+        <div className="relative z-10 container mx-auto px-4">
           <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={bannerInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-center max-w-4xl mx-auto"
+            initial={{ y: 20, opacity: 0 }}
+            animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-1.5 text-xs font-medium bg-red-600/40 text-white rounded-full mb-6 backdrop-blur-sm">
+            {/* Compact badge */}
+            <div className="inline-block px-4 py-1 text-xs font-medium bg-red-600/40 text-white rounded-full mb-3 backdrop-blur-sm border border-red-500/20 shadow-sm">
               Attack on Titan Evrenini Keşfet
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6 text-center tracking-tight">
+            </div>
+            
+            {/* Clean title design */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
               Karakterler
             </h1>
-            <p className="text-xl text-gray-100 max-w-2xl mx-auto text-center leading-relaxed">
+            
+            {/* Simplified description */}
+            <p className="text-lg text-gray-300 mx-auto leading-relaxed max-w-2xl">
               Attack on Titan evreninin kahramanlarını, kötü adamlarını ve tüm karakterlerini keşfedin.
             </p>
             
-            {/* Decorative element */}
-            <div className="mt-10 relative">
-              <div className="h-[3px] w-24 bg-gradient-to-r from-red-400/60 to-red-600/60 rounded-full mx-auto"></div>
-            </div>
+            {/* Simple decorative element */}
+            <div className="mt-4 h-1 w-24 bg-gradient-to-r from-red-500/30 to-red-600/50 rounded-full mx-auto"></div>
           </motion.div>
         </div>
+        
+        {/* Simple bottom gradient transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-gray-900 z-10"></div>
       </motion.div>
 
-      {/* Filter Section - Floating Card Design */}
+      {/* Filter Section - Floating Card Design - Adjusted width to match grid */}
       <div className="relative z-20 -mt-8 md:-mt-12 px-4">
         <motion.div 
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="max-w-6xl mx-auto bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden border border-gray-700/50"
+          className="max-w-7xl mx-auto bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden border border-gray-700/50"
         >
           <CharacterFilter
             nameFilter={nameFilter}

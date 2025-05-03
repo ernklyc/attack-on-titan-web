@@ -45,13 +45,13 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
 
   return (
     <motion.div 
-      className="p-6 sm:p-8"
+      className="p-4 sm:p-6" // Reduced padding for more compact design
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
-      <motion.div variants={itemVariants} className="flex items-center mb-6">
-        <h2 className="text-xl font-bold text-white flex items-center">
+      <motion.div variants={itemVariants} className="flex items-center mb-4">
+        <h2 className="text-lg font-bold text-white flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
           </svg>
@@ -69,7 +69,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
         )}
       </motion.div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Name filter */}
         <motion.div variants={itemVariants}>
           <label htmlFor="name-filter" className="text-sm font-medium text-gray-300 mb-2 flex items-center">
@@ -85,8 +85,9 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               value={nameFilter}
               onChange={(e) => setNameFilter(e.target.value)}
               placeholder="Karakter adı girin..."
-              className="w-full px-4 py-2.5 h-11 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all pl-10 text-sm group-hover:border-gray-500"
               aria-label="Karakter ismine göre filtrele"
+              autoComplete="off" // Prevents browser autofill
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,7 +124,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               id="status-filter"
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-4 py-2.5 h-11 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all appearance-none pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all appearance-none pl-10 text-sm group-hover:border-gray-500"
               aria-label="Durum filtresini seçin"
             >
               <option value="">Tümü</option>
@@ -169,7 +170,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               id="gender-filter"
               value={selectedGender}
               onChange={(e) => setSelectedGender(e.target.value)}
-              className="w-full px-4 py-2.5 h-11 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all appearance-none pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all appearance-none pl-10 text-sm group-hover:border-gray-500"
               aria-label="Cinsiyet filtresini seçin"
             >
               <option value="">Tümü</option>
@@ -218,8 +219,9 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               value={selectedOccupation}
               onChange={(e) => setSelectedOccupation(e.target.value)}
               placeholder="Meslek girin..."
-              className="w-full px-4 py-2.5 h-11 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all pl-10 text-sm group-hover:border-gray-500"
+              className="w-full px-4 py-2 h-10 bg-gray-700/70 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all pl-10 text-sm group-hover:border-gray-500"
               aria-label="Mesleklere göre filtrele"
+              autoComplete="off" // Prevents browser autofill
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
