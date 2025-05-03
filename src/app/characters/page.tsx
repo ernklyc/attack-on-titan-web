@@ -347,42 +347,61 @@ export default function Characters() {
         initial={{ opacity: 0 }}
         animate={bannerInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative h-[30vh] md:h-[35vh] flex items-center bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
+        className="relative h-[40vh] md:h-[50vh] flex items-center bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
       >
-        {/* Improved overlay with consistent color */}
-        <div className="absolute inset-0 bg-[#0F1923]/90 opacity-90"></div>
+        {/* Enhanced overlay with gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F1923]/90 via-[#0F1923]/80 to-[#0F1923] opacity-95"></div>
         
-        {/* Animated title section with compact layout */}
+        {/* Extra decorative elements */}
+        <div className="absolute inset-0 bg-[url('/images/character-placeholder.png')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+        
+        {/* Animated title section with improved layout */}
         <div className="relative z-10 container mx-auto px-4">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-4xl mx-auto"
           >
-            {/* Compact badge with new red gradient */}
-            <div className="inline-block px-4 py-1 text-xs font-medium bg-[#FF4655]/40 text-white rounded-full mb-3 backdrop-blur-sm border border-[#FF4655]/20 shadow-sm">
-              Attack on Titan Evrenini Keşfet
+            {/* Enhanced badge with new design */}
+            <div className="relative mb-6 inline-block">
+              <div className="absolute inset-0 bg-[#FF4655] blur-md opacity-30"></div>
+              <div className="relative flex items-center px-5 py-2 bg-gradient-to-r from-[#FF4655]/40 to-[#FF4655]/20 rounded-lg backdrop-blur-md border border-[#FF4655]/30">
+                <div className="h-4 w-1 bg-[#FF4655] rounded-full mr-3"></div>
+                <span className="text-sm font-medium text-white tracking-wide uppercase">Attack on Titan Evrenini Keşfet</span>
+                <div className="h-4 w-1 bg-[#FF4655] rounded-full ml-3"></div>
+              </div>
             </div>
             
-            {/* Clean title design */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-              Karakterler
+            {/* Enhanced title design with animation */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight relative">
+              <span className="relative inline-block">
+                K
+                <span className="absolute -top-1 -right-1 h-2 w-2 bg-[#FF4655] rounded-full animate-pulse"></span>
+              </span>
+              arakterler
+              <div className="h-1 w-24 bg-gradient-to-r from-[#FF4655] to-transparent mt-4"></div>
             </h1>
             
-            {/* Simplified description */}
-            <p className="text-lg text-gray-300 mx-auto leading-relaxed max-w-2xl">
-              Attack on Titan evreninin kahramanlarını, kötü adamlarını ve tüm karakterlerini keşfedin.
+            {/* Enhanced description */}
+            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl">
+              Attack on Titan evreninin <span className="text-white font-medium">kahramanlarını</span>, 
+              <span className="text-[#FF4655] font-medium"> kötü adamlarını</span> ve tüm karakterlerini 
+              <span className="relative inline-block px-2">
+                <span className="relative z-10 text-white font-medium">keşfedin</span>
+                <span className="absolute bottom-0 left-0 right-0 h-1/3 bg-[#FF4655]/20 rounded"></span>
+              </span>.
             </p>
-            
-            {/* Simple decorative element with updated red color */}
-            <div className="mt-4 h-1 w-24 bg-gradient-to-r from-[#FF4655]/70 to-[#FF4655] rounded-full mx-auto"></div>
           </motion.div>
         </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0F1923] to-transparent"></div>
+        <div className="absolute bottom-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF4655]/30 to-transparent"></div>
       </motion.div>
 
       {/* Filter Section - Glass morphism design */}
-      <div className="relative z-20 -mt-8 md:-mt-12 px-4">
+      <div className="relative z-20 -mt-12 md:-mt-16 px-4">
         <motion.div 
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
