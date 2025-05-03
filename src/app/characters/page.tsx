@@ -44,6 +44,35 @@ interface FilterParams {
   occupation?: string;
 }
 
+// Görüntü URL'sini temizleyen ve düzelten yardımcı fonksiyon
+const cleanImageUrl = (url: string) => {
+  // Eğer URL boş veya geçersizse, varsayılan görüntüyü döndür
+  if (!url) return '/placeholder.png';
+  
+  // URL'den revision/latest parametrelerini kaldırarak daha sağlam bir URL oluştur
+  try {
+    if (url.includes('/revision/')) {
+      const baseUrl = url.split('/revision/')[0];
+      return baseUrl;
+    }
+    return url;
+  } catch (e) {
+    return url; // Hata durumunda orijinal URL'yi döndür
+  }
+};
+
+// Fallback görüntüsü oluşturma fonksiyonu
+const createImageFallback = (container: HTMLElement, name: string, size: 'sm' | 'lg' = 'sm') => {
+  container.classList.add('bg-gray-700', 'flex', 'items-center', 'justify-center');
+  
+  const placeholder = document.createElement('div');
+  placeholder.className = size === 'sm' 
+    ? 'w-24 h-24 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white'
+    : 'w-32 h-32 rounded-full bg-gray-600 flex items-center justify-center text-4xl font-bold text-white';
+  placeholder.textContent = name.charAt(0).toUpperCase();
+  container.appendChild(placeholder);
+};
+
 export default function Characters() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
@@ -187,7 +216,7 @@ export default function Characters() {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(
           <button
-            key={i}
+            key={`page-${i}`}
             onClick={() => handlePageChange(i)}
             className={`w-8 h-8 flex items-center justify-center mx-1 rounded-md transition-colors ${
               currentPage === i
@@ -203,7 +232,7 @@ export default function Characters() {
       // İlk sayfa her zaman gösterilir
       pages.push(
         <button
-          key={1}
+          key="page-1"
           onClick={() => handlePageChange(1)}
           className={`w-8 h-8 flex items-center justify-center mx-1 rounded-md transition-colors ${
             currentPage === 1
@@ -230,7 +259,7 @@ export default function Characters() {
         // "..." yerine 2 göster
         pages.push(
           <button
-            key={2}
+            key="page-2"
             onClick={() => handlePageChange(2)}
             className={`w-8 h-8 flex items-center justify-center mx-1 rounded-md transition-colors ${
               currentPage === 2
@@ -248,7 +277,7 @@ export default function Characters() {
       for (let i = startPage; i <= endPage; i++) {
         pages.push(
           <button
-            key={i}
+            key={`page-${i}`}
             onClick={() => handlePageChange(i)}
             className={`w-8 h-8 flex items-center justify-center mx-1 rounded-md transition-colors ${
               currentPage === i
@@ -268,19 +297,20 @@ export default function Characters() {
             ...
           </span>
         );
-      } else if (endPage === totalPages - 1) {
-        // "..." yerine son sayfa - 1 göster
+        
+        // Son sayfa - 1'i ekle (çakışmayı önlemek için)
+        const secondLastPage = totalPages - 1;
         pages.push(
           <button
-            key={totalPages - 1}
-            onClick={() => handlePageChange(totalPages - 1)}
+            key={`page-second-last`}
+            onClick={() => handlePageChange(secondLastPage)}
             className={`w-8 h-8 flex items-center justify-center mx-1 rounded-md transition-colors ${
-              currentPage === totalPages - 1
+              currentPage === secondLastPage
                 ? 'bg-blue-600 text-white font-medium'
                 : 'text-gray-400 hover:bg-gray-700 hover:text-white'
             }`}
           >
-            {totalPages - 1}
+            {secondLastPage}
           </button>
         );
       }
@@ -288,7 +318,7 @@ export default function Characters() {
       // Son sayfa her zaman gösterilir
       pages.push(
         <button
-          key={totalPages}
+          key={`page-last`}
           onClick={() => handlePageChange(totalPages)}
           className={`w-8 h-8 flex items-center justify-center mx-1 rounded-md transition-colors ${
             currentPage === totalPages
@@ -571,7 +601,7 @@ export default function Characters() {
                       <div className="relative w-full h-full group-hover:scale-110 transition-transform duration-500">
                         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 opacity-60"></div>
                         <Image 
-                          src={character.img} 
+                          src={cleanImageUrl(character.img)} 
                           alt={character.name}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -580,13 +610,10 @@ export default function Characters() {
                             // Resim yüklenemezse fallback göster
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';
-                            target.parentElement!.classList.add('bg-gray-700', 'flex', 'items-center', 'justify-center');
-                            
-                            // İlk harfi gösteren placeholder oluştur
-                            const placeholder = document.createElement('div');
-                            placeholder.className = 'w-24 h-24 rounded-full bg-gray-600 flex items-center justify-center text-2xl font-bold text-white';
-                            placeholder.textContent = character.name.charAt(0);
-                            target.parentElement!.appendChild(placeholder);
+                            const container = target.parentElement;
+                            if (container) {
+                              createImageFallback(container, character.name, 'sm');
+                            }
                           }}
                         />
                       </div>
@@ -732,19 +759,17 @@ export default function Characters() {
               <div className="relative h-80 w-full flex items-center justify-center bg-gray-700 rounded-lg overflow-hidden">
                 {selectedCharacter.img ? (
                   <Image 
-                    src={selectedCharacter.img} 
+                    src={cleanImageUrl(selectedCharacter.img)} 
                     alt={selectedCharacter.name}
                     fill
                     className="object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
-                      target.parentElement!.classList.add('bg-gray-700', 'flex', 'items-center', 'justify-center');
-                      
-                      const placeholder = document.createElement('div');
-                      placeholder.className = 'w-32 h-32 rounded-full bg-gray-600 flex items-center justify-center text-4xl font-bold text-white';
-                      placeholder.textContent = selectedCharacter.name.charAt(0);
-                      target.parentElement!.appendChild(placeholder);
+                      const container = target.parentElement;
+                      if (container) {
+                        createImageFallback(container, selectedCharacter.name, 'lg');
+                      }
                     }}
                   />
                 ) : (

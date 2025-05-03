@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['static.wikia.nocookie.net'],
     remotePatterns: [
       {
         protocol: 'https',
