@@ -391,7 +391,20 @@ export default function Characters() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F1923] text-gray-100">
+    <div className="min-h-screen relative bg-[#0F1923] text-gray-100">
+      {/* Background image with semi-transparent black overlay */}
+      <div className="fixed inset-0 z-0">
+        <Image 
+          src="/images/backgrounds/titan-bg.webp"
+          alt="Attack on Titan Background"
+          fill
+          sizes="100vw"
+          priority
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
+        <div className="absolute inset-0 bg-black opacity-70"></div>
+      </div>
+      
       {/* Wrap useSearchParams in Suspense boundary */}
       <Suspense fallback={null}>
         <SearchParamsWrapper>
@@ -400,98 +413,97 @@ export default function Characters() {
       </Suspense>
       
       <div ref={topRef} className="scroll-mt-20" id="top"></div> {/* Scroll target with offset for fixed header */}
-      
-      {/* Hero Banner with improved design and single color scheme */}
-      <motion.div 
-        ref={bannerRef}
-        initial={{ opacity: 0 }}
-        animate={bannerInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.7 }}
-        className="relative flex items-center pt-6 md:pt-10 bg-[url('/placeholder.png')] bg-cover bg-center overflow-hidden"
-        style={{ minHeight: '200px' }}
-      >
-        {/* Enhanced overlay with gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0F1923]/90 via-[#0F1923]/80 to-[#0F1923] opacity-95"></div>
-        
-        {/* Extra decorative elements */}
-        <div className="absolute inset-0 bg-[url('/images/character-placeholder.png')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
-        
-        {/* Animated title section with improved layout - Left aligned */}
-        <div className="relative z-10 w-full py-6">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Badge - Fotoğrafta gösterildiği gibi düzenlendi */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="mb-2"
-            >
-              <div className="inline-block px-4 py-1 bg-[#FF4655]/40 rounded-md backdrop-blur-md">
-                <span className="text-xs font-medium text-white tracking-wide uppercase">{textContent.charactersPage.banner.badge}</span>
-              </div>
-            </motion.div>
-            
-            {/* Main content grid - Fotoğrafta gösterildiği düzende responsive olarak ayarlandı */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-              {/* SOL TARAF - Ana başlık ve açıklama - 7 sütun genişliğinde */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="lg:col-span-7"
-              >
-                <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
-                  {textContent.charactersPage.banner.title}
-                  <div className="h-1 w-16 bg-[#FF4655] mt-2 mb-3"></div>
-                </h1>
-                
-                <p className="text-base sm:text-lg text-gray-300 max-w-2xl" dangerouslySetInnerHTML={{ 
-                  __html: textContent.charactersPage.banner.description 
-                }}>
-                </p>
-              </motion.div>
 
-              {/* SAĞ TARAF - API Bilgileri - 5 sütun genişliğinde */}
+      {/* Content container with relative positioning to appear above background */}
+      <div className="relative z-10 w-full">
+        {/* Hero Banner with improved design and single color scheme */}
+        <motion.div 
+          ref={bannerRef}
+          initial={{ opacity: 0 }}
+          animate={bannerInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.7 }}
+          className="relative flex items-center pt-6 md:pt-10 overflow-hidden"
+          style={{ minHeight: '200px' }}
+        >
+          {/* Enhanced overlay with gradient - removed background images since we now have a global background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0F1923]/50 via-[#0F1923]/40 to-transparent"></div>
+          
+          {/* Animated title section with improved layout - Left aligned */}
+          <div className="relative z-10 w-full py-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Badge */}
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="lg:col-span-5"
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="mb-2"
               >
-                <div className="text-xs sm:text-sm text-gray-400 space-y-3 sm:space-y-4">
-                  <p className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo1 }}></span>
-                  </p>
-                  <p className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo2 }}></span>
-                  </p>
-                  <p className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
-                    </svg>
-                    <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo3 }}></span>
-                  </p>
+                <div className="inline-block px-4 py-1 bg-[#FF4655]/40 rounded-md backdrop-blur-md">
+                  <span className="text-xs font-medium text-white tracking-wide uppercase">{textContent.charactersPage.banner.badge}</span>
                 </div>
               </motion.div>
+              
+              {/* Main content grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+                {/* SOL TARAF - Ana başlık ve açıklama - 7 sütun genişliğinde */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className="lg:col-span-7"
+                >
+                  <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
+                    {textContent.charactersPage.banner.title}
+                    <div className="h-1 w-16 bg-[#FF4655] mt-2 mb-3"></div>
+                  </h1>
+                  
+                  <p className="text-base sm:text-lg text-gray-300 max-w-2xl" dangerouslySetInnerHTML={{ 
+                    __html: textContent.charactersPage.banner.description 
+                  }}>
+                  </p>
+                </motion.div>
+
+                {/* SAĞ TARAF - API Bilgileri - 5 sütun genişliğinde */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={bannerInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                  className="lg:col-span-5"
+                >
+                  <div className="text-xs sm:text-sm text-gray-400 space-y-3 sm:space-y-4">
+                    <p className="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo1 }}></span>
+                    </p>
+                    <p className="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                      <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo2 }}></span>
+                    </p>
+                    <p className="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                      </svg>
+                      <span dangerouslySetInnerHTML={{ __html: textContent.charactersPage.banner.apiInfo3 }}></span>
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Filter Section - Glass morphism design */}
-      <div className="relative z-20 py-8 sm:py-10 md:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Content with Staggered Animation */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+          {/* Filter Section - Glass morphism design - Moved closer to character list */}
           <motion.div 
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5"
+            className="bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5 mb-8"
           >
             <CharacterFilter
               nameFilter={nameFilter}
@@ -505,203 +517,233 @@ export default function Characters() {
               handleClearFilters={handleClearFilters}
             />
           </motion.div>
-        </div>
-      </div>
 
-      {/* Main Content with Staggered Animation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-            {[...Array(12)].map((_, i) => (
-              <CharacterSkeleton key={i} />
-            ))}
-          </div>
-        ) : error ? (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-[#FF4655]/20 border border-[#FF4655]/30 text-white p-6 rounded-xl backdrop-blur-sm"
-          >
-            <h3 className="text-xl font-bold mb-3">{textContent.charactersPage.error.title}</h3>
-            <p className="mb-4">{error}</p>
-            <div className="flex flex-wrap gap-4">
-              <button 
-                onClick={() => fetchCharacters(currentPage, filters)} 
-                className="px-4 py-2 bg-[#FF4655]/70 hover:bg-[#FF4655] rounded-md flex items-center transition-colors backdrop-blur-sm"
-                aria-label={textContent.charactersPage.error.retryButton}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
-                </svg>
-                {textContent.charactersPage.error.retryButton}
-              </button>
-              <button 
-                onClick={handleClearFilters} 
-                className="px-4 py-2 bg-[#1A242D]/70 hover:bg-[#1A242D] rounded-md flex items-center transition-colors backdrop-blur-sm"
-                aria-label={textContent.charactersPage.error.clearFiltersButton}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-                {textContent.charactersPage.error.clearFiltersButton}
-              </button>
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+              {[...Array(12)].map((_, i) => (
+                <CharacterSkeleton key={i} />
+              ))}
             </div>
-          </motion.div>
-        ) : characters.length === 0 ? (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center py-20"
-          >
-            <div className="mx-auto w-24 h-24 rounded-full bg-[#1A242D]/80 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/5">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl text-gray-300 mb-4">{textContent.charactersPage.noResults.message}</h3>
-            <button
-              onClick={handleClearFilters}
-              className="px-6 py-3 bg-[#FF4655]/70 hover:bg-[#FF4655] text-white rounded-lg transition-colors shadow-lg hover:shadow-[#FF4655]/30 backdrop-blur-sm"
-              aria-label={textContent.charactersPage.noResults.clearFiltersButton}
+          ) : error ? (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-[#FF4655]/20 border border-[#FF4655]/30 text-white p-6 rounded-xl backdrop-blur-sm"
             >
-              {textContent.charactersPage.noResults.clearFiltersButton}
-            </button>
-          </motion.div>
-        ) : (
-          <>
-            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-              <AnimatePresence>
-                {characters.map((character, index) => (
-                  <motion.div
-                    key={character.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ 
-                      opacity: 1, 
-                      y: 0,
-                      transition: { duration: 0.5, delay: index * 0.05 } 
-                    }}
-                    exit={{ opacity: 0, y: -10 }}
-                    layout
-                  >
-                    <Suspense fallback={<CharacterSkeleton />}>
-                      <CharacterCard 
-                        character={character} 
-                        onClick={() => openCharacterModal(character)}
-                      />
-                    </Suspense>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+              <h3 className="text-xl font-bold mb-3">{textContent.charactersPage.error.title}</h3>
+              <p className="mb-4">{error}</p>
+              <div className="flex flex-wrap gap-4">
+                <button 
+                  onClick={() => fetchCharacters(currentPage, filters)} 
+                  className="px-4 py-2 bg-[#FF4655]/70 hover:bg-[#FF4655] rounded-md flex items-center transition-colors backdrop-blur-sm"
+                  aria-label={textContent.charactersPage.error.retryButton}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                  </svg>
+                  {textContent.charactersPage.error.retryButton}
+                </button>
+                <button 
+                  onClick={handleClearFilters} 
+                  className="px-4 py-2 bg-[#1A242D]/70 hover:bg-[#1A242D] rounded-md flex items-center transition-colors backdrop-blur-sm"
+                  aria-label={textContent.charactersPage.error.clearFiltersButton}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                  {textContent.charactersPage.error.clearFiltersButton}
+                </button>
+              </div>
             </motion.div>
-
-            {/* Enhanced Pagination with updated styling */}
-            {totalPages > 1 && (
+          ) : characters.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center py-20"
+            >
+              <div className="mx-auto w-24 h-24 rounded-full bg-[#1A242D]/80 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/5">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl text-gray-300 mb-4">{textContent.charactersPage.noResults.message}</h3>
+              <button
+                onClick={handleClearFilters}
+                className="px-6 py-3 bg-[#FF4655]/70 hover:bg-[#FF4655] text-white rounded-lg transition-colors shadow-lg hover:shadow-[#FF4655]/30 backdrop-blur-sm"
+                aria-label={textContent.charactersPage.noResults.clearFiltersButton}
+              >
+                {textContent.charactersPage.noResults.clearFiltersButton}
+              </button>
+            </motion.div>
+          ) : (
+            <>
+              {/* Glassmorphic container for character cards */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-16 mb-8"
+                transition={{ duration: 0.5 }}
+                className="bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/5 shadow-xl"
               >
-                <div className="flex flex-col items-center">
-                  {/* Page information */}
-                  <div className="text-center mb-6">
-                    <p className="text-gray-400" dangerouslySetInnerHTML={{
-                      __html: textContent.charactersPage.pagination.pageInfo
-                        .replace('{totalPages}', totalPages.toString())
-                        .replace('{totalCharacters}', (totalPages * characters.length).toString())
-                    }}>
-                    </p>
-                  </div>
-                  
-                  {/* Page navigation - glassmorphism style */}
-                  <div className="inline-flex bg-[#1A242D]/60 backdrop-blur-lg rounded-lg p-2 shadow-xl border border-white/5">
-                    {/* First page */}
-                    <button
-                      onClick={() => handlePageChange(1)}
-                      disabled={currentPage === 1}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
-                        ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label={textContent.charactersPage.pagination.firstPageLabel}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zM6.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L2.414 10l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-                      </svg>
-                    </button>
-                    
-                    {/* Previous page */}
-                    <button
-                      onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
-                        ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label={textContent.charactersPage.pagination.previousPageLabel}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </button>
-                    
-                    {/* Page numbers */}
-                    <div className="flex items-center px-2">
-                      {/* Use the existing renderPageNumbers but we'll update the styles below */}
-                      {renderPageNumbers()}
+                <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                  <AnimatePresence>
+                    {characters.map((character, index) => (
+                      <motion.div
+                        key={character.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ 
+                          opacity: 1, 
+                          y: 0,
+                          transition: { duration: 0.5, delay: index * 0.05 } 
+                        }}
+                        exit={{ opacity: 0, y: -10 }}
+                        layout
+                      >
+                        <Suspense fallback={<CharacterSkeleton />}>
+                          <CharacterCard 
+                            character={character} 
+                            onClick={() => openCharacterModal(character)}
+                          />
+                        </Suspense>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              </motion.div>
+
+              {/* Enhanced Pagination with updated styling in a separate glassmorphic container */}
+              {totalPages > 1 && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="mt-8 mb-8 bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-6 border border-white/5 shadow-xl"
+                >
+                  <div className="flex flex-col items-center">
+                    {/* Page information */}
+                    <div className="text-center mb-6">
+                      <p className="text-gray-400" dangerouslySetInnerHTML={{
+                        __html: textContent.charactersPage.pagination.pageInfo
+                          .replace('{totalPages}', totalPages.toString())
+                          .replace('{totalCharacters}', (totalPages * characters.length).toString())
+                      }}>
+                      </p>
                     </div>
                     
-                    {/* Next page */}
-                    <button
-                      onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
-                        ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label={textContent.charactersPage.pagination.nextPageLabel}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </button>
-                    
-                    {/* Last page */}
-                    <button 
-                      onClick={() => handlePageChange(totalPages)}
-                      disabled={currentPage === totalPages}
-                      className={`w-10 h-10 flex items-center justify-center mx-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4655]/70 transition-all duration-300 
-                        ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'text-white hover:bg-[#0F1923]/60'}`}
-                      aria-label={textContent.charactersPage.pagination.lastPageLabel}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10l-4.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0zM13.293 15.707a1 1 0 010-1.414L17.586 10l-4.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </>
-        )}
-      </div>
+                    {/* Page navigation - glassmorphism style with nested glass effect */}
+                    <div className="inline-flex bg-[#1A242D]/60 backdrop-blur-lg rounded-lg p-2 shadow-lg border border-white/5">
+                      <button
+                        onClick={() => handlePageChange(1)}
+                        disabled={currentPage === 1}
+                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === 1 
+                          ? 'text-gray-500 cursor-not-allowed' 
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                        aria-label={textContent.charactersPage.pagination.firstPageLabel}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fillRule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M9.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 000-1.414l5-5a1 1 0 00-1.414 1.414L5.414 10l-4.293 4.293a1 1 0 000 1.414z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === 1 
+                          ? 'text-gray-500 cursor-not-allowed' 
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                        aria-label={textContent.charactersPage.pagination.previousPageLabel}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </button>
 
-      {/* Character Detail Modal with animated transitions and new glassmorphism styling */}
-      <AnimatePresence>
-        {isModalOpen && selectedCharacter && (
-          <Modal 
-            isOpen={isModalOpen} 
-            onClose={closeModal} 
-            title={selectedCharacter.name}
-            motionProps={{
-              initial: { opacity: 0, scale: 0.95 },
-              animate: { opacity: 1, scale: 1 },
-              exit: { opacity: 0, scale: 0.95 },
-              transition: { duration: 0.3 }
-            }}
-            accessibility={{
-              ariaLabelledBy: "character-modal-title",
-              ariaDescribedBy: "character-modal-description"
-            }}
-          >
-            <CharacterDetail character={selectedCharacter} texts={textContent.charactersPage.modal} />
-          </Modal>
-        )}
-      </AnimatePresence>
+                      {/* Page numbers */}
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        // Logic to show correct page numbers based on current page
+                        let pageNum;
+                        if (totalPages <= 5) {
+                          pageNum = i + 1;
+                        } else if (currentPage <= 3) {
+                          pageNum = i + 1;
+                        } else if (currentPage >= totalPages - 2) {
+                          pageNum = totalPages - 4 + i;
+                        } else {
+                          pageNum = currentPage - 2 + i;
+                        }
+                        
+                        return (
+                          <button
+                            key={i}
+                            onClick={() => handlePageChange(pageNum)}
+                            className={`w-10 h-10 mx-1 flex items-center justify-center rounded-md transition-colors ${
+                              currentPage === pageNum
+                                ? 'bg-[#FF4655] text-white'
+                                : 'text-gray-300 hover:bg-[#FF4655]/20 hover:text-white'
+                            }`}
+                            aria-label={`${textContent.charactersPage.pagination.pageLabel} ${pageNum}`}
+                            aria-current={currentPage === pageNum ? 'page' : undefined}
+                          >
+                            {pageNum}
+                          </button>
+                        );
+                      })}
+
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === totalPages 
+                          ? 'text-gray-500 cursor-not-allowed' 
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                        aria-label={textContent.charactersPage.pagination.nextPageLabel}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => handlePageChange(totalPages)}
+                        disabled={currentPage === totalPages}
+                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === totalPages 
+                          ? 'text-gray-500 cursor-not-allowed' 
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                        aria-label={textContent.charactersPage.pagination.lastPageLabel}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fillRule="evenodd" d="M4.293 15.707a1 1 0 001.414 0l5-5a1 1 0 000-1.414l-5-5a1 1 0 00-1.414 1.414L8.586 10l-4.293 4.293a1 1 0 000 1.414z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M10.293 15.707a1 1 0 001.414 0l5-5a1 1 0 000-1.414l-5-5a1 1 0 00-1.414 1.414L14.586 10l-4.293 4.293a1 1 0 000 1.414z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* Character Detail Modal with animated transitions and new glassmorphism styling */}
+        <AnimatePresence>
+          {isModalOpen && selectedCharacter && (
+            <Modal 
+              isOpen={isModalOpen} 
+              onClose={closeModal} 
+              title={selectedCharacter.name}
+              motionProps={{
+                initial: { opacity: 0, scale: 0.95 },
+                animate: { opacity: 1, scale: 1 },
+                exit: { opacity: 0, scale: 0.95 },
+                transition: { duration: 0.3 }
+              }}
+              accessibility={{
+                ariaLabelledBy: "character-modal-title",
+                ariaDescribedBy: "character-modal-description"
+              }}
+            >
+              <CharacterDetail character={selectedCharacter} texts={textContent.charactersPage.modal} />
+            </Modal>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -711,7 +753,7 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
   return (
     <div className="flex flex-col md:flex-row gap-8">
       <div className="md:w-1/3">
-        <div className="relative h-80 w-full flex items-center justify-center bg-[#0F1923]/80 rounded-lg overflow-hidden backdrop-blur-md border border-white/5 shadow-lg">
+        <div className="relative h-80 w-full flex items-center justify-center bg-[#0F1923]/40 rounded-lg overflow-hidden backdrop-blur-lg border border-white/10 shadow-lg">
           {character.img ? (
             <div className="relative w-full h-full">
               <Image 
@@ -733,7 +775,7 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
               />
             </div>
           ) : (
-            <div className="w-32 h-32 rounded-full bg-[#1A242D]/90 flex items-center justify-center text-4xl font-bold text-white shadow-inner border border-white/10">
+            <div className="w-32 h-32 rounded-full bg-[#1A242D]/50 backdrop-blur-md flex items-center justify-center text-4xl font-bold text-white shadow-inner border border-white/10">
               {character.name.charAt(0)}
             </div>
           )}
@@ -741,10 +783,10 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
         
         <div className="mt-4">
           <div className="flex flex-wrap gap-2">
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-              character.status === 'Alive' ? 'bg-green-900/40 text-green-300 border border-green-700/30 backdrop-blur-sm' : 
-              character.status === 'Deceased' ? 'bg-[#FF4655]/20 text-white border border-[#FF4655]/30 backdrop-blur-sm' : 
-              'bg-[#1A242D]/70 text-gray-300 border border-white/10 backdrop-blur-sm'
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium backdrop-blur-lg border shadow-lg ${
+              character.status === 'Alive' ? 'bg-green-900/30 text-green-300 border-green-700/50' : 
+              character.status === 'Deceased' ? 'bg-[#FF4655]/30 text-white border-[#FF4655]/50' : 
+              'bg-[#1A242D]/50 text-gray-300 border-white/20'
             }`}>
               {character.status === 'Alive' ? texts.status.alive : 
                character.status === 'Deceased' ? texts.status.deceased : 
@@ -752,18 +794,18 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
             </span>
             
             {character.species?.map((species, index) => (
-              <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#1A242D]/70 text-blue-300 border border-white/10 backdrop-blur-sm">
+              <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#1A242D]/40 text-blue-300 border border-blue-500/30 backdrop-blur-lg shadow-md">
                 {species}
               </span>
             ))}
           </div>
           
           {character.alias && character.alias.length > 0 && (
-            <div className="mt-6">
+            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 shadow-lg">
               <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.aliases}</h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {character.alias.map((alias, index) => (
-                  <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#0F1923]/70 text-gray-300 border border-white/5 backdrop-blur-sm">
+                  <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#0F1923]/40 text-gray-300 border border-white/5 backdrop-blur-md">
                     {alias}
                   </span>
                 ))}
@@ -785,42 +827,42 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Character properties grid layout */}
             {character.gender && (
-              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
                 <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.gender}</h3>
                 <p className="text-gray-200">{character.gender}</p>
               </div>
             )}
             
             {character.age !== null && character.age !== undefined && (
-              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
                 <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.age}</h3>
                 <p className="text-gray-200">{character.age}</p>
               </div>
             )}
             
             {character.height && (
-              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
                 <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.height}</h3>
                 <p className="text-gray-200">{character.height}</p>
               </div>
             )}
             
             {character.birthplace && (
-              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
                 <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.birthplace}</h3>
                 <p className="text-gray-200">{character.birthplace}</p>
               </div>
             )}
             
             {character.residence && (
-              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
                 <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.residence}</h3>
                 <p className="text-gray-200">{character.residence}</p>
               </div>
             )}
             
             {character.occupation && (
-              <div className="bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
                 <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.occupation}</h3>
                 <p className="text-gray-200">{character.occupation}</p>
               </div>
@@ -829,16 +871,16 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
           
           {/* Character groups */}
           {character.groups && character.groups.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
               <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.groups}</h3>
               <div className="space-y-4">
                 {character.groups.map((group, index) => (
-                  <div key={index} className="bg-[#0F1923]/70 p-4 rounded-lg border border-white/5">
+                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5">
                     <h4 className="font-medium text-gray-200 mb-2">{group.name}</h4>
                     {group.sub_groups && group.sub_groups.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-2">
                         {group.sub_groups.map((subGroup, subIndex) => (
-                          <span key={subIndex} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#1A242D]/90 text-gray-300 border border-white/5">
+                          <span key={subIndex} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#1A242D]/70 backdrop-blur-lg text-gray-300 border border-white/5 shadow-md">
                             {subGroup}
                           </span>
                         ))}
@@ -852,13 +894,13 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
           
           {/* Character roles */}
           {character.roles && character.roles.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
               <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.roles}</h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {character.roles.map((role, index) => (
                   <span 
                     key={index} 
-                    className="px-3 py-1.5 bg-[#0F1923]/80 text-gray-200 rounded-lg text-sm border border-white/5"
+                    className="px-3 py-1.5 bg-[#0F1923]/60 backdrop-blur-md text-gray-200 rounded-lg text-sm border border-white/5 shadow-md"
                   >
                     {role}
                   </span>
@@ -869,11 +911,11 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
           
           {/* Character relatives */}
           {character.relatives && character.relatives.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
               <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.relatives}</h3>
               <div className="space-y-4">
                 {character.relatives.map((relative, index) => (
-                  <div key={index} className="bg-[#0F1923]/70 p-4 rounded-lg border border-white/5">
+                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5">
                     <h4 className="font-medium text-gray-200 mb-2">{relative.family}</h4>
                     {relative.members && relative.members.length > 0 && (
                       <ul className="list-disc pl-5 text-gray-300 space-y-1">
@@ -894,10 +936,10 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
           
           {/* Character episodes */}
           {character.episodes && character.episodes.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/60 p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors backdrop-blur-md">
+            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
               <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.episodes}</h3>
               <div className="flex items-center gap-3">
-                <div className="bg-[#FF4655]/30 text-white border border-[#FF4655]/40 rounded-full px-4 py-1 text-xl font-bold backdrop-blur-sm">
+                <div className="bg-[#FF4655]/30 text-white border border-[#FF4655]/40 rounded-full px-4 py-1 text-xl font-bold backdrop-blur-lg shadow-md">
                   {character.episodes.length}
                 </div>
                 <p className="text-gray-200">{texts.episodesInfo.replace('{count}', character.episodes.length.toString())}</p>
@@ -905,7 +947,7 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
               
               <Link
                 href={`/episodes?character=${character.id}`}
-                className="mt-4 inline-flex items-center text-[#FF4655]/90 hover:text-[#FF4655] transition-colors"
+                className="mt-4 inline-flex items-center text-[#FF4655]/90 hover:text-[#FF4655] transition-colors bg-[#0F1923]/40 hover:bg-[#0F1923]/60 px-3 py-2 rounded-md backdrop-blur-md border border-[#FF4655]/20 hover:border-[#FF4655]/40 shadow-md"
               >
                 <span>{texts.viewEpisodesLink}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
