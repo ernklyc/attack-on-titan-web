@@ -737,137 +737,214 @@ export default function Characters() {
 
 // Character Detail Component (Extracted for cleaner code organization)
 function CharacterDetail({ character, texts }: { character: Character, texts: typeof textContent.charactersPage.modal }) {
+  // Karakter durum renk sınıfları
+  const statusColorClasses = {
+    'Alive': 'bg-emerald-500/30 text-emerald-300 border-emerald-500/30',
+    'Deceased': 'bg-[#FF4655]/30 text-white border-[#FF4655]/30',
+    'Unknown': 'bg-gray-500/30 text-gray-300 border-gray-500/30'
+  };
+
+  // Karakterin durumuna göre renk sınıfı seçimi
+  const statusClass = character.status === 'Alive' ? statusColorClasses.Alive : 
+                      character.status === 'Deceased' ? statusColorClasses.Deceased : 
+                      statusColorClasses.Unknown;
+
+  // Karakter başlık renk aksanı
+  const accentColor = character.status === 'Alive' ? 'from-emerald-500 to-emerald-700' : 
+                     character.status === 'Deceased' ? 'from-[#FF4655] to-[#FF2238]' : 
+                     'from-gray-500 to-gray-700';
+
   return (
-    <div className="flex flex-col md:flex-row gap-8">
-      <div className="md:w-1/3">
-        <div className="relative h-80 w-full flex items-center justify-center bg-[#0F1923]/40 rounded-lg overflow-hidden backdrop-blur-lg border border-white/10 shadow-lg">
-          {character.img ? (
-            <div className="relative w-full h-full">
-              <Image 
-                src={cleanImageUrl(character.img)} 
-                alt={character.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 300px"
-                className="object-contain"
-                loading="eager"
-                priority
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const container = target.parentElement;
-                  if (container) {
-                    createImageFallback(container, character.name, 'lg');
-                  }
-                }}
-              />
-            </div>
-          ) : (
-            <div className="w-32 h-32 rounded-full bg-[#1A242D]/50 backdrop-blur-md flex items-center justify-center text-4xl font-bold text-white shadow-inner border border-white/10">
-              {character.name.charAt(0)}
-            </div>
-          )}
-        </div>
+    <div className="space-y-8">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-xl bg-[#1A242D]/60 backdrop-blur-lg border border-white/10 shadow-xl">
+        {/* Background gradient and blur effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F1923]/80 to-transparent"></div>
         
-        <div className="mt-4">
-          <div className="flex flex-wrap gap-2">
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium backdrop-blur-lg border shadow-lg ${
-              character.status === 'Alive' ? 'bg-green-900/30 text-green-300 border-green-700/50' : 
-              character.status === 'Deceased' ? 'bg-[#FF4655]/30 text-white border-[#FF4655]/50' : 
-              'bg-[#1A242D]/50 text-gray-300 border-white/20'
-            }`}>
-              {character.status === 'Alive' ? texts.status.alive : 
-               character.status === 'Deceased' ? texts.status.deceased : 
-               texts.status.unknown}
-            </span>
-            
-            {character.species?.map((species, index) => (
-              <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#1A242D]/40 text-blue-300 border border-blue-500/30 backdrop-blur-lg shadow-md">
-                {species}
-              </span>
-            ))}
-          </div>
-          
-          {character.alias && character.alias.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 shadow-lg">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.aliases}</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {character.alias.map((alias, index) => (
-                  <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#0F1923]/40 text-gray-300 border border-white/5 backdrop-blur-md">
-                    {alias}
-                  </span>
-                ))}
-              </div>
+        <div className="flex flex-col md:flex-row items-center md:items-start relative z-10 p-6">
+          {/* Character Image Section */}
+          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+            <div className="relative mx-auto md:mx-0 aspect-square w-56 md:w-full max-w-[240px] rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/10 transform md:translate-y-0 md:translate-x-0">
+              {character.img ? (
+                <Image 
+                  src={cleanImageUrl(character.img)} 
+                  alt={character.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  className="object-cover"
+                  loading="eager"
+                  priority
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const container = target.parentElement;
+                    if (container) {
+                      createImageFallback(container, character.name, 'lg');
+                    }
+                  }}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-[#0F1923]/70 text-6xl font-bold text-white">
+                  {character.name.charAt(0).toUpperCase()}
+                </div>
+              )}
+              
+              {/* Shine effect overlay */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent"></div>
             </div>
-          )}
+          </div>
+
+          {/* Character Info Section */}
+          <div className="w-full md:w-2/3 md:pl-8 text-center md:text-left">
+            {/* Character name with gradient underline matching status color */}
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg" id="character-modal-title">
+              {character.name}
+              <div className={`h-1 w-24 bg-gradient-to-r ${accentColor} rounded-full mt-2 mx-auto md:mx-0`}></div>
+            </h2>
+            
+            {/* Character status and badges */}
+            <div className="flex flex-wrap gap-2 justify-center md:justify-start mt-4 mb-5">
+              <span className={`px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-lg border shadow-lg ${statusClass}`}>
+                {character.status === 'Alive' ? texts.status.alive : 
+                character.status === 'Deceased' ? texts.status.deceased : 
+                texts.status.unknown}
+              </span>
+              
+              {character.species?.map((species, index) => (
+                <span key={index} className="px-3 py-1.5 rounded-full text-sm font-medium bg-[#1A242D]/70 text-blue-300 border border-blue-500/30 backdrop-blur-lg shadow-md">
+                  {species}
+                </span>
+              ))}
+            </div>
+
+            {/* Quick stats summary */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
+              {character.gender && (
+                <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5">
+                  <p className="text-gray-400 mb-1">{texts.gender}</p>
+                  <p className="text-white font-medium">{character.gender}</p>
+                </div>
+              )}
+              
+              {character.age !== null && character.age !== undefined && (
+                <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5">
+                  <p className="text-gray-400 mb-1">{texts.age}</p>
+                  <p className="text-white font-medium">{character.age}</p>
+                </div>
+              )}
+              
+              {character.height && (
+                <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5">
+                  <p className="text-gray-400 mb-1">{texts.height}</p>
+                  <p className="text-white font-medium">{character.height}</p>
+                </div>
+              )}
+            </div>
+            
+            {/* Aliases list as tags */}
+            {character.alias && character.alias.length > 0 && (
+              <div className="mt-5">
+                <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-2">{texts.aliases}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {character.alias.map((alias, index) => (
+                    <span key={index} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-[#0F1923]/40 text-gray-300 border border-white/5 backdrop-blur-md">
+                      {alias}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      
-      <div className="md:w-2/3">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center" id="character-modal-title">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 mr-3 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-          {texts.title}
-        </h2>
-        
-        <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar rounded-lg" id="character-modal-description">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Character properties grid layout */}
-            {character.gender && (
-              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.gender}</h3>
-                <p className="text-gray-200">{character.gender}</p>
-              </div>
-            )}
-            
-            {character.age !== null && character.age !== undefined && (
-              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.age}</h3>
-                <p className="text-gray-200">{character.age}</p>
-              </div>
-            )}
-            
-            {character.height && (
-              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.height}</h3>
-                <p className="text-gray-200">{character.height}</p>
-              </div>
-            )}
-            
-            {character.birthplace && (
-              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.birthplace}</h3>
-                <p className="text-gray-200">{character.birthplace}</p>
-              </div>
-            )}
-            
-            {character.residence && (
-              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.residence}</h3>
-                <p className="text-gray-200">{character.residence}</p>
-              </div>
-            )}
-            
-            {character.occupation && (
-              <div className="bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-                <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.occupation}</h3>
-                <p className="text-gray-200">{character.occupation}</p>
-              </div>
-            )}
+
+      {/* Content Sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" id="character-modal-description">
+        {/* Left Column */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Personal info section - Fixed the missing 'background' property */}
+          <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {texts.title || "Kişisel Bilgiler"}
+            </h3>
+
+            <div className="space-y-4">
+              {character.birthplace && (
+                <div>
+                  <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1.5">{texts.birthplace}</h4>
+                  <p className="text-gray-200">{character.birthplace}</p>
+                </div>
+              )}
+              
+              {character.residence && (
+                <div>
+                  <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1.5">{texts.residence}</h4>
+                  <p className="text-gray-200">{character.residence}</p>
+                </div>
+              )}
+              
+              {character.occupation && (
+                <div>
+                  <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1.5">{texts.occupation}</h4>
+                  <p className="text-gray-200">{character.occupation}</p>
+                </div>
+              )}
+            </div>
           </div>
           
-          {/* Character groups */}
+          {/* Character episodes section */}
+          {character.episodes && character.episodes.length > 0 && (
+            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                {texts.episodes}
+              </h3>
+              
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-[#FF4655]/30 text-white border border-[#FF4655]/40 rounded-full px-4 py-1 text-xl font-bold backdrop-blur-lg shadow-md">
+                  {character.episodes.length}
+                </div>
+                <p className="text-gray-200">{texts.episodesInfo.replace('{count}', character.episodes.length.toString())}</p>
+              </div>
+              
+              <Link
+                href={`/episodes?character=${character.id}`}
+                className="inline-flex items-center text-[#FF4655]/90 hover:text-[#FF4655] transition-colors bg-[#0F1923]/40 hover:bg-[#0F1923]/60 px-3 py-2 rounded-md backdrop-blur-md border border-[#FF4655]/20 hover:border-[#FF4655]/40 shadow-md"
+              >
+                <span>{texts.viewEpisodesLink}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1.5 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Middle and Right Columns */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Character affiliations/groups */}
           {character.groups && character.groups.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.groups}</h3>
-              <div className="space-y-4">
+            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                {texts.groups}
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {character.groups.map((group, index) => (
-                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5">
-                    <h4 className="font-medium text-gray-200 mb-2">{group.name}</h4>
+                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
+                    <h4 className="font-medium text-white mb-2 pb-2 border-b border-white/5">{group.name}</h4>
                     {group.sub_groups && group.sub_groups.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-2">
                         {group.sub_groups.map((subGroup, subIndex) => (
-                          <span key={subIndex} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#1A242D]/70 backdrop-blur-lg text-gray-300 border border-white/5 shadow-md">
+                          <span key={subIndex} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-[#1A242D]/70 backdrop-blur-lg text-gray-300 border border-white/5 shadow-sm">
                             {subGroup}
                           </span>
                         ))}
@@ -881,13 +958,19 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
           
           {/* Character roles */}
           {character.roles && character.roles.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.roles}</h3>
-              <div className="flex flex-wrap gap-2 mt-2">
+            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                </svg>
+                {texts.roles}
+              </h3>
+              
+              <div className="flex flex-wrap gap-3">
                 {character.roles.map((role, index) => (
                   <span 
                     key={index} 
-                    className="px-3 py-1.5 bg-[#0F1923]/60 backdrop-blur-md text-gray-200 rounded-lg text-sm border border-white/5 shadow-md"
+                    className="px-4 py-2 bg-[#0F1923]/60 backdrop-blur-md text-gray-200 rounded-lg text-sm border border-white/5 shadow-md hover:bg-[#0F1923]/80 transition-colors"
                   >
                     {role}
                   </span>
@@ -898,19 +981,28 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
           
           {/* Character relatives */}
           {character.relatives && character.relatives.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-3">{texts.relatives}</h3>
-              <div className="space-y-4">
+            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                {texts.relatives}
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {character.relatives.map((relative, index) => (
-                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5">
-                    <h4 className="font-medium text-gray-200 mb-2">{relative.family}</h4>
+                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
+                    <h4 className="font-medium text-white mb-2 pb-2 border-b border-white/5">{relative.family}</h4>
                     {relative.members && relative.members.length > 0 && (
-                      <ul className="list-disc pl-5 text-gray-300 space-y-1">
+                      <ul className="space-y-2 pl-2">
                         {relative.members.map((member, memberIndex) => (
-                          <li key={memberIndex}>
-                            {typeof member === 'string' && member.startsWith('http')
-                              ? texts.relatedCharacter
-                              : member}
+                          <li key={memberIndex} className="flex items-center">
+                            <span className="w-1.5 h-1.5 bg-[#FF4655] rounded-full mr-2"></span>
+                            <span className="text-gray-300">
+                              {typeof member === 'string' && member.startsWith('http')
+                                ? texts.relatedCharacter
+                                : member}
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -918,29 +1010,6 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-          
-          {/* Character episodes */}
-          {character.episodes && character.episodes.length > 0 && (
-            <div className="mt-6 bg-[#1A242D]/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-[#FF4655] mb-2">{texts.episodes}</h3>
-              <div className="flex items-center gap-3">
-                <div className="bg-[#FF4655]/30 text-white border border-[#FF4655]/40 rounded-full px-4 py-1 text-xl font-bold backdrop-blur-lg shadow-md">
-                  {character.episodes.length}
-                </div>
-                <p className="text-gray-200">{texts.episodesInfo.replace('{count}', character.episodes.length.toString())}</p>
-              </div>
-              
-              <Link
-                href={`/episodes?character=${character.id}`}
-                className="mt-4 inline-flex items-center text-[#FF4655]/90 hover:text-[#FF4655] transition-colors bg-[#0F1923]/40 hover:bg-[#0F1923]/60 px-3 py-2 rounded-md backdrop-blur-md border border-[#FF4655]/20 hover:border-[#FF4655]/40 shadow-md"
-              >
-                <span>{texts.viewEpisodesLink}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </Link>
             </div>
           )}
         </div>
