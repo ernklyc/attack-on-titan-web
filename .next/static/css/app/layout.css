@@ -2431,6 +2431,12 @@ body {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
+/* Dropdown styles */
+.character-dropdown {
+  z-index: 99999 !important; /* Ensure dropdowns appear above modals */
+  position: relative;
+}
+
 /* Glass morphism effect */
 .glass-effect {
   background: rgba(30, 41, 59, 0.7);

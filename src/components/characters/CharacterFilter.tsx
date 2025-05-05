@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // Import from our local mock instead of framer-motion
 import { motion } from '@/utils/motion-mock';
+import FixedPositionDropdown from './FixedPositionDropdown';
 
 interface CharacterFilterProps {
   nameFilter: string;
@@ -30,6 +31,10 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
   // State for managing custom dropdowns
   const [statusDropdownOpen, setStatusDropdownOpen] = useState(false);
   const [genderDropdownOpen, setGenderDropdownOpen] = useState(false);
+  
+  // Refs for dropdown trigger elements
+  const statusDropdownRef = useRef<HTMLDivElement>(null);
+  const genderDropdownRef = useRef<HTMLDivElement>(null);
   // State for mobile filter toggle
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
@@ -197,6 +202,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
             <div className="relative">
               {/* Custom dropdown button */}
               <div
+                ref={statusDropdownRef}
                 className={`w-full px-4 py-2 h-10 bg-[#0F1923]/50 backdrop-blur-lg border ${statusDropdownOpen ? 'border-[#FF4655]/30 ring-2 ring-[#FF4655]/50' : 'border-white/10'} text-white rounded-lg cursor-pointer flex items-center justify-between transition-all duration-200`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -219,27 +225,25 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 </svg>
               </div>
               
-              {/* Dropdown menu */}
-              {statusDropdownOpen && (
-                <div 
-                  className="absolute z-[100] w-full mt-1 bg-[#1A242D]/90 backdrop-blur-lg border border-white/10 rounded-lg shadow-xl max-h-60 overflow-auto custom-scrollbar"
-                  style={{ maxHeight: '250px' }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {statusOptions.map((option) => (
-                    <div 
-                      key={option.value} 
-                      className={`px-4 py-2.5 cursor-pointer text-sm hover:bg-[#FF4655]/20 transition-colors ${option.value === selectedStatus ? 'bg-[#FF4655]/30 text-white' : 'text-gray-300'}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleStatusSelect(option.value);
-                      }}
-                    >
-                      {option.label}
-                    </div>
-                  ))}
-                </div>
-              )}
+              {/* Dropdown menu - using portal to render at body level */}
+              <FixedPositionDropdown
+                isOpen={statusDropdownOpen}
+                onClose={() => setStatusDropdownOpen(false)}
+                triggerRef={statusDropdownRef}
+              >
+                {statusOptions.map((option) => (
+                  <div 
+                    key={option.value} 
+                    className={`px-4 py-2.5 cursor-pointer text-sm hover:bg-[#FF4655]/20 transition-colors ${option.value === selectedStatus ? 'bg-[#FF4655]/30 text-white' : 'text-gray-300'}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleStatusSelect(option.value);
+                    }}
+                  >
+                    {option.label}
+                  </div>
+                ))}
+              </FixedPositionDropdown>
             </div>
           </motion.div>
           
@@ -254,6 +258,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
             <div className="relative">
               {/* Custom dropdown button */}
               <div
+                ref={genderDropdownRef}
                 className={`w-full px-4 py-2 h-10 bg-[#0F1923]/50 backdrop-blur-lg border ${genderDropdownOpen ? 'border-[#FF4655]/30 ring-2 ring-[#FF4655]/50' : 'border-white/10'} text-white rounded-lg cursor-pointer flex items-center justify-between transition-all duration-200`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -276,27 +281,25 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 </svg>
               </div>
               
-              {/* Dropdown menu */}
-              {genderDropdownOpen && (
-                <div 
-                  className="absolute z-[100] w-full mt-1 bg-[#1A242D]/90 backdrop-blur-lg border border-white/10 rounded-lg shadow-xl max-h-60 overflow-auto custom-scrollbar"
-                  style={{ maxHeight: '250px' }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {genderOptions.map((option) => (
-                    <div 
-                      key={option.value} 
-                      className={`px-4 py-2.5 cursor-pointer text-sm hover:bg-[#FF4655]/20 transition-colors ${option.value === selectedGender ? 'bg-[#FF4655]/30 text-white' : 'text-gray-300'}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleGenderSelect(option.value);
-                      }}
-                    >
-                      {option.label}
-                    </div>
-                  ))}
-                </div>
-              )}
+              {/* Dropdown menu - using portal to render at body level */}
+              <FixedPositionDropdown
+                isOpen={genderDropdownOpen}
+                onClose={() => setGenderDropdownOpen(false)}
+                triggerRef={genderDropdownRef}
+              >
+                {genderOptions.map((option) => (
+                  <div 
+                    key={option.value} 
+                    className={`px-4 py-2.5 cursor-pointer text-sm hover:bg-[#FF4655]/20 transition-colors ${option.value === selectedGender ? 'bg-[#FF4655]/30 text-white' : 'text-gray-300'}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleGenderSelect(option.value);
+                    }}
+                  >
+                    {option.label}
+                  </div>
+                ))}
+              </FixedPositionDropdown>
             </div>
           </motion.div>
           
