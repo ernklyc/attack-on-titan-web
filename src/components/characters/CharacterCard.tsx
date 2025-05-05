@@ -66,7 +66,10 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
             </div>
           )}
           
-          {/* Sadece hafif gradient overlay - arkaplanı tamamen karartmadan */}
+          {/* Arka plan gölge efekti - hover durumunda görünür, alttan yukarı doğru gölge */}
+          <div className="absolute inset-0 bg-gradient-to-t from-transparent to-transparent group-hover:from-black/70 group-hover:to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          {/* Hafif gradient overlay - her zaman görünür */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
         </div>
         
@@ -84,16 +87,16 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
           </div>
         )}
         
-        {/* Karakter bilgileri - kartın en altında, şeffaf arka plan ile */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 z-20 transition-all duration-300 group-hover:translate-y-[-60px]">
-          {/* İsim ve Meslek Alanı - siyah arkaplan olmadan */}
+        {/* Karakter bilgileri - kartın en altında, hover durumunda yukarı kayacak */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 z-30 transition-all duration-300 group-hover:translate-y-[-60px]">
+          {/* İsim ve Meslek Alanı - artırılmış okunabilirlik için drop-shadow */}
           <div className="space-y-1">
-            <h3 className="text-xl font-bold text-white group-hover:text-[#FF4655] transition-colors duration-300 drop-shadow-lg">
+            <h3 className="text-xl font-bold text-white group-hover:text-[#FF4655] transition-colors duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               {character.name}
             </h3>
             
             {characterTitle && (
-              <p className="text-sm text-gray-200 max-w-full truncate drop-shadow-lg">
+              <p className="text-sm text-gray-200 max-w-full truncate drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)]">
                 {characterTitle}
               </p>
             )}
@@ -101,10 +104,10 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
         </div>
 
         {/* Detaylı bilgi butonu - sadece hover durumunda görünür */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+        <div className="absolute bottom-0 left-0 right-0 p-4 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
           <button 
             type="button"
-            className="w-full py-2 bg-gradient-to-r from-[#FF4655]/80 to-[#FF4655] text-white rounded-md text-sm font-medium flex items-center justify-center shadow-lg"
+            className="w-full py-2 bg-gradient-to-r from-[#FF4655]/80 to-[#FF4655] text-white rounded-md text-sm font-medium flex items-center justify-center shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
             aria-label={`${character.name} hakkında detaylı bilgi`}
           >
             <span>Detaylı Bilgi</span>
