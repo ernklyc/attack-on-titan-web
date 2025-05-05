@@ -737,281 +737,599 @@ export default function Characters() {
 
 // Character Detail Component (Extracted for cleaner code organization)
 function CharacterDetail({ character, texts }: { character: Character, texts: typeof textContent.charactersPage.modal }) {
-  // Karakter durum renk sınıfları
-  const statusColorClasses = {
-    'Alive': 'bg-emerald-500/30 text-emerald-300 border-emerald-500/30',
-    'Deceased': 'bg-[#FF4655]/30 text-white border-[#FF4655]/30',
-    'Unknown': 'bg-gray-500/30 text-gray-300 border-gray-500/30'
+  // State for animation triggers and tabs
+  const [activeTab, setActiveTab] = React.useState("info"); // 'info', 'groups', 'episodes'
+  const [expandedImage, setExpandedImage] = React.useState(false);
+  
+  // Refs for scroll animations
+  const imageRef = React.useRef<HTMLDivElement>(null);
+  
+  // Karakter durum renk sınıfları ve statüs belirlemeleri - zenginleştirilmiş renklerle
+  const statusStyles = {
+    'Alive': {
+      bgClass: 'bg-gradient-to-r from-emerald-500/30 to-emerald-600/30',
+      textClass: 'text-emerald-300',
+      borderClass: 'border-emerald-500/30',
+      iconClass: 'text-emerald-400',
+      accentColor: 'from-emerald-500 to-emerald-600',
+      pulseColor: 'emerald',
+      statusEmoji: '💚'
+    },
+    'Deceased': {
+      bgClass: 'bg-gradient-to-r from-[#FF4655]/30 to-[#FF2238]/30',
+      textClass: 'text-[#FF4655]',
+      borderClass: 'border-[#FF4655]/30',
+      iconClass: 'text-[#FF4655]',
+      accentColor: 'from-[#FF4655] to-[#FF2238]',
+      pulseColor: 'red',
+      statusEmoji: '💔'
+    },
+    'Unknown': {
+      bgClass: 'bg-gradient-to-r from-gray-600/30 to-gray-700/30',
+      textClass: 'text-gray-300',
+      borderClass: 'border-gray-500/30',
+      iconClass: 'text-gray-400',
+      accentColor: 'from-gray-500 to-gray-700',
+      pulseColor: 'gray',
+      statusEmoji: '❓'
+    }
   };
 
-  // Karakterin durumuna göre renk sınıfı seçimi
-  const statusClass = character.status === 'Alive' ? statusColorClasses.Alive : 
-                      character.status === 'Deceased' ? statusColorClasses.Deceased : 
-                      statusColorClasses.Unknown;
+  // Karakterin durumuna göre stilini belirle
+  const statusStyle = character.status === 'Alive' ? statusStyles.Alive : 
+                      character.status === 'Deceased' ? statusStyles.Deceased : 
+                      statusStyles.Unknown;
 
-  // Karakter başlık renk aksanı
-  const accentColor = character.status === 'Alive' ? 'from-emerald-500 to-emerald-700' : 
-                     character.status === 'Deceased' ? 'from-[#FF4655] to-[#FF2238]' : 
-                     'from-gray-500 to-gray-700';
-
-  return (
-    <div className="space-y-8">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-xl bg-[#1A242D]/60 backdrop-blur-lg border border-white/10 shadow-xl">
-        {/* Background gradient and blur effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0F1923]/80 to-transparent"></div>
+  // Karakter detaylarını modal içinde render ederken kullanılacak olan fonksiyonlar
+  const renderInfoTab = () => (
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.4 }}
+      className="space-y-6"
+    >
+      {/* Character hero stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-sm">
+        {character.gender && (
+          <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5 hover:border-white/20 transition-all hover:bg-[#0F1923]/70 group">
+            <div className="flex justify-between items-start mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-400">{texts.gender}</p>
+              <span className="text-[#FF4655] opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </span>
+            </div>
+            <p className="text-white font-medium">{character.gender}</p>
+          </div>
+        )}
         
-        <div className="flex flex-col md:flex-row items-center md:items-start relative z-10 p-6">
-          {/* Character Image Section */}
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
-            <div className="relative mx-auto md:mx-0 aspect-square w-56 md:w-full max-w-[240px] rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/10 transform md:translate-y-0 md:translate-x-0">
+        {character.age !== null && character.age !== undefined && (
+          <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5 hover:border-white/20 transition-all hover:bg-[#0F1923]/70 group">
+            <div className="flex justify-between items-start mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-400">{texts.age}</p>
+              <span className="text-[#FF4655] opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </span>
+            </div>
+            <p className="text-white font-medium">{character.age}</p>
+          </div>
+        )}
+        
+        {character.height && (
+          <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5 hover:border-white/20 transition-all hover:bg-[#0F1923]/70 group">
+            <div className="flex justify-between items-start mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-400">{texts.height}</p>
+              <span className="text-[#FF4655] opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+              </span>
+            </div>
+            <p className="text-white font-medium">{character.height}</p>
+          </div>
+        )}
+        
+        {character.status && (
+          <div className={`${statusStyle.bgClass} rounded-lg p-3 backdrop-blur-sm border ${statusStyle.borderClass} transition-all group`}>
+            <div className="flex justify-between items-start mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-200">Status</p>
+              <span className={statusStyle.iconClass}>
+                {character.status === 'Alive' && (
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                )}
+              </span>
+            </div>
+            <p className={`font-medium ${statusStyle.textClass}`}>
+              {character.status === 'Alive' ? texts.status.alive : 
+              character.status === 'Deceased' ? texts.status.deceased : 
+              texts.status.unknown}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Personal background */}
+      <div className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 shadow-lg">
+        <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+          <span className={`inline-flex items-center justify-center w-8 h-8 rounded-md mr-3 ${statusStyle.bgClass} ${statusStyle.borderClass}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            </svg>
+          </span>
+          <span>{texts.title || "Kişisel Bilgiler"}</span>
+          <span className="ml-2 text-sm font-normal text-gray-400">BIO</span>
+        </h3>
+
+        <div className="space-y-5">
+          {character.birthplace && (
+            <div className="group">
+              <div className="flex items-center">
+                <span className={`w-2 h-2 rounded-full ${statusStyle.bgClass} mr-2`}></span>
+                <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1 group-hover:text-white transition-colors">{texts.birthplace}</h4>
+              </div>
+              <p className="text-gray-200 pl-4 border-l border-white/10 py-1 ml-[0.15rem]">{character.birthplace}</p>
+            </div>
+          )}
+          
+          {character.residence && (
+            <div className="group">
+              <div className="flex items-center">
+                <span className={`w-2 h-2 rounded-full ${statusStyle.bgClass} mr-2`}></span>
+                <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1 group-hover:text-white transition-colors">{texts.residence}</h4>
+              </div>
+              <p className="text-gray-200 pl-4 border-l border-white/10 py-1 ml-[0.15rem]">{character.residence}</p>
+            </div>
+          )}
+          
+          {character.occupation && (
+            <div className="group">
+              <div className="flex items-center">
+                <span className={`w-2 h-2 rounded-full ${statusStyle.bgClass} mr-2`}></span>
+                <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1 group-hover:text-white transition-colors">{texts.occupation}</h4>
+              </div>
+              <p className="text-gray-200 pl-4 border-l border-white/10 py-1 ml-[0.15rem]">{character.occupation}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    
+      {/* Aliases section */}
+      {character.alias && character.alias.length > 0 && (
+        <div className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 shadow-lg">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+            <span className={`inline-flex items-center justify-center w-8 h-8 rounded-md mr-3 ${statusStyle.bgClass} ${statusStyle.borderClass}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd" />
+              </svg>
+            </span>
+            <span>{texts.aliases}</span>
+            <span className="ml-2 text-sm font-normal text-gray-400">ID</span>
+          </h3>
+          
+          <div className="flex flex-wrap gap-2">
+            {character.alias.map((alias, index) => (
+              <motion.span 
+                key={index} 
+                className="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-[#1A242D]/70 text-gray-200 border border-white/5 backdrop-blur-md shadow-md hover:border-white/20 hover:bg-[#1A242D]/90 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {alias}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+      )}
+    </motion.div>
+  );
+  
+  const renderGroupsTab = () => (
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.4 }}
+      className="space-y-6"
+    >
+      {/* Character groups */}
+      {character.groups && character.groups.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {character.groups.map((group, index) => (
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1, duration: 0.4 }}
+              className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-white text-lg group-hover:text-[#FF4655] transition-colors">{group.name}</h3>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center ${statusStyle.bgClass} ${statusStyle.borderClass} backdrop-blur-sm shadow-md`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                </span>
+              </div>
+              
+              {group.sub_groups && group.sub_groups.length > 0 && (
+                <div className="mt-4 pt-3 border-t border-white/10">
+                  <h4 className="text-xs uppercase tracking-wider text-gray-400 mb-3">Alt Gruplar</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {group.sub_groups.map((subGroup, subIndex) => (
+                      <motion.span 
+                        key={subIndex} 
+                        className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#1A242D]/70 text-gray-300 border border-white/5 shadow-sm"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        {subGroup}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      )}
+      
+      {/* Character roles */}
+      {character.roles && character.roles.length > 0 && (
+        <div className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+            <span className={`inline-flex items-center justify-center w-8 h-8 rounded-md mr-3 ${statusStyle.bgClass} ${statusStyle.borderClass}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+              </svg>
+            </span>
+            <span>{texts.roles}</span>
+            <span className="ml-2 text-sm font-normal text-gray-400">ROLE</span>
+          </h3>
+          
+          <div className="flex flex-wrap gap-2">
+            {character.roles.map((role, index) => (
+              <motion.span 
+                key={index}
+                className="px-4 py-2 bg-[#1A242D]/70 backdrop-blur-md text-gray-200 rounded-lg text-sm border border-white/5 shadow-md hover:border-white/20 hover:bg-[#1A242D]/90 transition-colors"
+                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 70, 85, 0.2)' }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {role}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Character relatives */}
+      {character.relatives && character.relatives.length > 0 && (
+        <div className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg">
+          <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+            <span className={`inline-flex items-center justify-center w-8 h-8 rounded-md mr-3 ${statusStyle.bgClass} ${statusStyle.borderClass}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
+              </svg>
+            </span>
+            <span>{texts.relatives}</span>
+            <span className="ml-2 text-sm font-normal text-gray-400">FAMILY</span>
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {character.relatives.map((relative, index) => (
+              <motion.div 
+                key={index}
+                className="bg-[#1A242D]/70 backdrop-blur-md rounded-lg border border-white/5 overflow-hidden group hover:border-white/20 transition-all duration-300"
+                whileHover={{ y: -4, boxShadow: "0 10px 25px -5px rgba(0,0,0,0.3)" }}
+              >
+                <div className={`p-3 ${statusStyle.bgClass} border-b ${statusStyle.borderClass}`}>
+                  <h4 className="font-medium text-white">{relative.family}</h4>
+                </div>
+                {relative.members && relative.members.length > 0 && (
+                  <ul className="p-4">
+                    {relative.members.map((member, memberIndex) => (
+                      <li key={memberIndex} className="flex items-center py-1.5 group/item">
+                        <div className={`w-1.5 h-1.5 ${statusStyle.bgClass} rounded-full mr-2 group-hover/item:scale-110 transition-transform`}></div>
+                        <span className="text-gray-300 group-hover/item:text-white transition-colors">
+                          {typeof member === 'string' && member.startsWith('http')
+                            ? texts.relatedCharacter
+                            : member}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      )}
+    </motion.div>
+  );
+
+  const renderEpisodesTab = () => (
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.4 }}
+      className="space-y-6"
+    >
+      {/* Character episodes */}
+      {character.episodes && character.episodes.length > 0 ? (
+        <div className="bg-[#0F1923]/70 backdrop-blur-lg rounded-xl border border-white/10 transition-all duration-300 shadow-lg overflow-hidden">
+          <div className={`p-5 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 ${statusStyle.bgClass}`}>
+            <div className="flex items-center">
+              <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full mr-3 bg-white/10 backdrop-blur-lg`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                </svg>
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-1">{texts.episodes}</h3>
+                <p className="text-sm text-white/80">{texts.episodesInfo.replace('{count}', character.episodes.length.toString())}</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center">
+              <div className={`bg-black/30 text-white border ${statusStyle.borderClass} rounded-full px-4 py-1 text-lg font-bold backdrop-blur-lg shadow-inner`}>
+                {character.episodes.length}
+              </div>
+            </div>
+          </div>
+          
+          <div className="p-5">
+            <div className="flex flex-wrap gap-3 mb-6">
+              {[...Array(Math.min(10, character.episodes.length))].map((_, index) => (
+                <motion.div 
+                  key={index}
+                  className="bg-[#1A242D]/70 backdrop-blur-md rounded-md py-1 px-3 text-white/90 text-sm border border-white/10 hover:border-white/20 transition-all"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  Ep {index + 1}
+                </motion.div>
+              ))}
+              {character.episodes.length > 10 && (
+                <motion.div 
+                  className="bg-[#1A242D]/70 backdrop-blur-md rounded-md py-1 px-3 text-white/90 text-sm border border-white/10 hover:border-white/20 transition-all"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  +{character.episodes.length - 10} daha
+                </motion.div>
+              )}
+            </div>
+            
+            <Link
+              href={`/episodes?character=${character.id}`}
+              className="inline-flex items-center text-white hover:text-[#FF4655] transition-colors bg-[#0F1923]/40 hover:bg-[#0F1923]/60 px-4 py-2.5 rounded-md backdrop-blur-md border border-white/10 hover:border-[#FF4655]/40 shadow-md group"
+            >
+              <span>{texts.viewEpisodesLink}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1.5 transform transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 transition-all duration-300 shadow-lg text-center py-10">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#1A242D]/70 flex items-center justify-center backdrop-blur-md">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <p className="text-gray-400">Bu karakter hiçbir bölümde görünmüyor.</p>
+        </div>
+      )}
+    </motion.div>
+  );
+
+  // Ana render fonksiyonu
+  return (
+    <div className="relative space-y-6 overflow-x-hidden">
+      {/* Hero Section - Visual Highlight */}
+      <div className="relative overflow-hidden rounded-xl bg-[#1A242D]/60 backdrop-blur-3xl border border-white/10 shadow-2xl min-h-[250px]">
+        {/* Animasyonlu arka plan dekorasyonu */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Durum rengine göre arka plan gradyanı */}
+          <div className={`absolute inset-0 bg-gradient-to-br from-[#0F1923]/90 via-[#1A242D]/80 to-[#0F1923]/90 z-0`}></div>
+          
+          {/* Dekoratif elementler */}
+          <motion.div 
+            className={`absolute -top-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${statusStyle.accentColor} opacity-20 blur-xl`}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ 
+              scale: [0.8, 1.2, 0.9, 1], 
+              opacity: [0, 0.2, 0.15, 0.25],
+              y: [0, -10, 5, 0],
+              x: [0, 5, -5, 0]
+            }}
+            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse" }}
+          ></motion.div>
+          
+          <motion.div 
+            className={`absolute -bottom-32 -left-16 w-64 h-64 rounded-full bg-gradient-to-tr ${statusStyle.accentColor} opacity-10 blur-xl`}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ 
+              scale: [1, 1.1, 0.9, 1], 
+              opacity: [0.1, 0.15, 0.1, 0.12],
+              y: [0, 10, -5, 0],
+              x: [0, -5, 5, 0]
+            }}
+            transition={{ duration: 7, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
+          ></motion.div>
+
+          {/* Semi-transparent pattern overlay */}
+          <div className="absolute inset-0 bg-[url('/images/noise.png')] opacity-[0.03] z-10"></div>
+        </div>
+
+        <div className="relative z-20 p-6 sm:p-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+            {/* Character Image */}
+            <motion.div 
+              ref={imageRef}
+              className={`w-full md:w-1/3 max-w-[220px] aspect-square relative rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 group cursor-pointer`}
+              onClick={() => setExpandedImage(!expandedImage)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              animate={{ 
+                scale: expandedImage ? 1.05 : 1,
+                boxShadow: expandedImage ? '0 0 60px rgba(0,0,0,0.7)' : '0 0 30px rgba(0,0,0,0.5)'
+              }}
+            >
               {character.img ? (
-                <Image 
-                  src={cleanImageUrl(character.img)} 
-                  alt={character.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 300px"
-                  className="object-cover"
-                  loading="eager"
-                  priority
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const container = target.parentElement;
-                    if (container) {
-                      createImageFallback(container, character.name, 'lg');
-                    }
-                  }}
-                />
+                <div className="relative w-full h-full overflow-hidden">
+                  <Image 
+                    src={cleanImageUrl(character.img)} 
+                    alt={character.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 300px"
+                    className={`object-cover transition-all duration-700 ${expandedImage ? 'scale-110' : 'scale-100'} group-hover:scale-110`}
+                    loading="eager"
+                    priority
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const container = target.parentElement;
+                      if (container) {
+                        createImageFallback(container, character.name, 'lg');
+                      }
+                    }}
+                  />
+                  
+                  {/* Semi-transparent gradient overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 ${expandedImage ? 'opacity-30' : 'opacity-50'} transition-opacity duration-500`}></div>
+                  
+                  {/* Image expand/collapse icon */}
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="w-8 h-8 rounded-full bg-black/50 backdrop-blur-lg flex items-center justify-center">
+                      {expandedImage ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Status indicator */}
+                  <div className="absolute bottom-3 left-3 flex items-center">
+                    <div className={`px-3 py-1 rounded-full backdrop-blur-lg ${statusStyle.bgClass} ${statusStyle.textClass} border ${statusStyle.borderClass} shadow-lg flex items-center gap-1.5`}>
+                      <span className="text-xs font-medium">{statusStyle.statusEmoji}</span>
+                      <span className="text-xs font-medium">
+                        {character.status === 'Alive' ? texts.status.alive : 
+                         character.status === 'Deceased' ? texts.status.deceased : 
+                         texts.status.unknown}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-[#0F1923]/70 text-6xl font-bold text-white">
+                <div className="w-full h-full flex items-center justify-center bg-[#0F1923]/90 text-6xl font-bold text-white">
                   {character.name.charAt(0).toUpperCase()}
                 </div>
               )}
-              
-              {/* Shine effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent"></div>
-            </div>
-          </div>
+            </motion.div>
 
-          {/* Character Info Section */}
-          <div className="w-full md:w-2/3 md:pl-8 text-center md:text-left">
-            {/* Character name with gradient underline matching status color */}
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg" id="character-modal-title">
-              {character.name}
-              <div className={`h-1 w-24 bg-gradient-to-r ${accentColor} rounded-full mt-2 mx-auto md:mx-0`}></div>
-            </h2>
-            
-            {/* Character status and badges */}
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start mt-4 mb-5">
-              <span className={`px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-lg border shadow-lg ${statusClass}`}>
-                {character.status === 'Alive' ? texts.status.alive : 
-                character.status === 'Deceased' ? texts.status.deceased : 
-                texts.status.unknown}
-              </span>
-              
-              {character.species?.map((species, index) => (
-                <span key={index} className="px-3 py-1.5 rounded-full text-sm font-medium bg-[#1A242D]/70 text-blue-300 border border-blue-500/30 backdrop-blur-lg shadow-md">
-                  {species}
-                </span>
-              ))}
-            </div>
-
-            {/* Quick stats summary */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
-              {character.gender && (
-                <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5">
-                  <p className="text-gray-400 mb-1">{texts.gender}</p>
-                  <p className="text-white font-medium">{character.gender}</p>
-                </div>
-              )}
-              
-              {character.age !== null && character.age !== undefined && (
-                <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5">
-                  <p className="text-gray-400 mb-1">{texts.age}</p>
-                  <p className="text-white font-medium">{character.age}</p>
-                </div>
-              )}
-              
-              {character.height && (
-                <div className="bg-[#0F1923]/50 rounded-lg p-3 backdrop-blur-sm border border-white/5">
-                  <p className="text-gray-400 mb-1">{texts.height}</p>
-                  <p className="text-white font-medium">{character.height}</p>
-                </div>
-              )}
-            </div>
-            
-            {/* Aliases list as tags */}
-            {character.alias && character.alias.length > 0 && (
-              <div className="mt-5">
-                <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-2">{texts.aliases}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {character.alias.map((alias, index) => (
-                    <span key={index} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-[#0F1923]/40 text-gray-300 border border-white/5 backdrop-blur-md">
-                      {alias}
+            {/* Character Info */}
+            <div className="w-full md:w-2/3 text-center md:text-left">
+              {/* Name and Tags */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="mb-2 flex flex-wrap items-center gap-2 justify-center md:justify-start">
+                  {character.species?.map((species, index) => (
+                    <span key={index} className="px-2.5 py-1 rounded-full text-xs font-medium bg-[#1A242D]/70 text-blue-300 border border-blue-500/30 backdrop-blur-lg shadow-md">
+                      {species}
                     </span>
                   ))}
                 </div>
+                
+                <motion.h2 
+                  className={`text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg`}
+                  id="character-modal-title"
+                >
+                  {character.name}
+                  <motion.div 
+                    className={`h-1 w-24 bg-gradient-to-r ${statusStyle.accentColor} rounded-full mt-2 mx-auto md:mx-0`}
+                    initial={{ width: 0 }}
+                    animate={{ width: "6rem" }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  ></motion.div>
+                </motion.h2>
+                
+                <motion.p 
+                  className="text-gray-300 mb-6 max-w-lg mx-auto md:mx-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  {character.occupation || character.residence || "Attack on Titan karakteri"}
+                </motion.p>
+              </motion.div>
+              
+              {/* Navigation Tabs */}
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-2">
+                <button 
+                  onClick={() => setActiveTab("info")} 
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    activeTab === "info" 
+                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-md` 
+                      : 'bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80'
+                  }`}
+                >
+                  Bilgiler
+                </button>
+                <button 
+                  onClick={() => setActiveTab("groups")} 
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    activeTab === "groups" 
+                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-md` 
+                      : 'bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80'
+                  }`}
+                >
+                  Gruplar & İlişkiler
+                </button>
+                <button 
+                  onClick={() => setActiveTab("episodes")} 
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    activeTab === "episodes" 
+                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-md` 
+                      : 'bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80'
+                  }`}
+                >
+                  Bölümler
+                </button>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Content Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" id="character-modal-description">
-        {/* Left Column */}
-        <div className="lg:col-span-1 space-y-6">
-          {/* Personal info section - Fixed the missing 'background' property */}
-          <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {texts.title || "Kişisel Bilgiler"}
-            </h3>
-
-            <div className="space-y-4">
-              {character.birthplace && (
-                <div>
-                  <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1.5">{texts.birthplace}</h4>
-                  <p className="text-gray-200">{character.birthplace}</p>
-                </div>
-              )}
-              
-              {character.residence && (
-                <div>
-                  <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1.5">{texts.residence}</h4>
-                  <p className="text-gray-200">{character.residence}</p>
-                </div>
-              )}
-              
-              {character.occupation && (
-                <div>
-                  <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-1.5">{texts.occupation}</h4>
-                  <p className="text-gray-200">{character.occupation}</p>
-                </div>
-              )}
-            </div>
-          </div>
-          
-          {/* Character episodes section */}
-          {character.episodes && character.episodes.length > 0 && (
-            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                {texts.episodes}
-              </h3>
-              
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-[#FF4655]/30 text-white border border-[#FF4655]/40 rounded-full px-4 py-1 text-xl font-bold backdrop-blur-lg shadow-md">
-                  {character.episodes.length}
-                </div>
-                <p className="text-gray-200">{texts.episodesInfo.replace('{count}', character.episodes.length.toString())}</p>
-              </div>
-              
-              <Link
-                href={`/episodes?character=${character.id}`}
-                className="inline-flex items-center text-[#FF4655]/90 hover:text-[#FF4655] transition-colors bg-[#0F1923]/40 hover:bg-[#0F1923]/60 px-3 py-2 rounded-md backdrop-blur-md border border-[#FF4655]/20 hover:border-[#FF4655]/40 shadow-md"
-              >
-                <span>{texts.viewEpisodesLink}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1.5 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </Link>
-            </div>
-          )}
+      {/* Content Section - Tab Based */}
+      <AnimatePresence>
+        <div className="min-h-[400px]" id="character-modal-description">
+          {activeTab === "info" && renderInfoTab()}
+          {activeTab === "groups" && renderGroupsTab()}
+          {activeTab === "episodes" && renderEpisodesTab()}
         </div>
-
-        {/* Middle and Right Columns */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Character affiliations/groups */}
-          {character.groups && character.groups.length > 0 && (
-            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                {texts.groups}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {character.groups.map((group, index) => (
-                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
-                    <h4 className="font-medium text-white mb-2 pb-2 border-b border-white/5">{group.name}</h4>
-                    {group.sub_groups && group.sub_groups.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {group.sub_groups.map((subGroup, subIndex) => (
-                          <span key={subIndex} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-[#1A242D]/70 backdrop-blur-lg text-gray-300 border border-white/5 shadow-sm">
-                            {subGroup}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {/* Character roles */}
-          {character.roles && character.roles.length > 0 && (
-            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
-                </svg>
-                {texts.roles}
-              </h3>
-              
-              <div className="flex flex-wrap gap-3">
-                {character.roles.map((role, index) => (
-                  <span 
-                    key={index} 
-                    className="px-4 py-2 bg-[#0F1923]/60 backdrop-blur-md text-gray-200 rounded-lg text-sm border border-white/5 shadow-md hover:bg-[#0F1923]/80 transition-colors"
-                  >
-                    {role}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {/* Character relatives */}
-          {character.relatives && character.relatives.length > 0 && (
-            <div className="bg-[#1A242D]/30 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-colors shadow-md">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                {texts.relatives}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {character.relatives.map((relative, index) => (
-                  <div key={index} className="bg-[#0F1923]/50 backdrop-blur-md p-4 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
-                    <h4 className="font-medium text-white mb-2 pb-2 border-b border-white/5">{relative.family}</h4>
-                    {relative.members && relative.members.length > 0 && (
-                      <ul className="space-y-2 pl-2">
-                        {relative.members.map((member, memberIndex) => (
-                          <li key={memberIndex} className="flex items-center">
-                            <span className="w-1.5 h-1.5 bg-[#FF4655] rounded-full mr-2"></span>
-                            <span className="text-gray-300">
-                              {typeof member === 'string' && member.startsWith('http')
-                                ? texts.relatedCharacter
-                                : member}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+      </AnimatePresence>
+      
+      {/* Footer */}
+      <div className="py-4 flex items-center justify-between text-sm text-gray-500 border-t border-white/5 mt-8">
+        <span>ID: {character.id}</span>
+        <div className="flex items-center">
+          <span className="mr-2">© Attack on Titan Wiki</span>
+          <span className={`inline-block w-2 h-2 rounded-full ${statusStyle.bgClass}`}></span>
         </div>
       </div>
     </div>
