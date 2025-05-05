@@ -29,10 +29,22 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
     Unknown: 'bg-gray-500/30 text-gray-300 border-gray-500/30'
   };
   
+  // Altındaki hover çizgisi için renkler
+  const hoverLineColors = {
+    Alive: 'from-emerald-500/70 to-emerald-500',
+    Deceased: 'from-[#FF4655]/70 to-[#FF4655]',
+    Unknown: 'from-gray-500/70 to-gray-500'
+  };
+  
   // Karakter durumunu kontrol et
   const statusClass = character.status === 'Alive' ? statusClasses.Alive : 
                       character.status === 'Deceased' ? statusClasses.Deceased : 
                       statusClasses.Unknown;
+                      
+  // Hover çizgisi için renk seçimi
+  const hoverLineColor = character.status === 'Alive' ? hoverLineColors.Alive : 
+                      character.status === 'Deceased' ? hoverLineColors.Deceased : 
+                      hoverLineColors.Unknown;
   
   return (
     <div 
@@ -118,8 +130,8 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
         </div>
       </div>
       
-      {/* Bottom shine effect */}
-      <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-[#FF4655]/70 to-[#FF4655] group-hover:w-full transition-all duration-700 z-20"></div>
+      {/* Bottom shine effect - Karakterin durumuna göre renk değişiyor */}
+      <div className={`absolute bottom-0 h-1 w-0 bg-gradient-to-r ${hoverLineColor} group-hover:w-full transition-all duration-700 z-20`}></div>
     </div>
   );
 }

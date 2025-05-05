@@ -1696,6 +1696,16 @@ video {
   --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.from-emerald-500\/70 {
+  --tw-gradient-from: rgb(16 185 129 / 0.7) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(16 185 129 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-gray-500\/70 {
+  --tw-gradient-from: rgb(107 114 128 / 0.7) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(107 114 128 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .via-\[\#0F1923\]\/20 {
   --tw-gradient-to: rgb(15 25 35 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), rgb(15 25 35 / 0.2) var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -1793,6 +1803,12 @@ video {
 }
 .to-\[\#0F1923\]\/70 {
   --tw-gradient-to: rgb(15 25 35 / 0.7) var(--tw-gradient-to-position);
+}
+.to-emerald-500 {
+  --tw-gradient-to: #10b981 var(--tw-gradient-to-position);
+}
+.to-gray-500 {
+  --tw-gradient-to: #6b7280 var(--tw-gradient-to-position);
 }
 .object-contain {
   -o-object-fit: contain;
