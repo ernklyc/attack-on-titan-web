@@ -29,6 +29,13 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
     Unknown: 'bg-gray-500/30 text-gray-300 border-gray-500/30'
   };
   
+  // Hover durumundaki border renkleri
+  const hoverBorderColors = {
+    Alive: 'group-hover:border-emerald-500/50',
+    Deceased: 'group-hover:border-[#FF4655]/50',
+    Unknown: 'group-hover:border-gray-500/50'
+  };
+  
   // Altındaki hover çizgisi için renkler
   const hoverLineColors = {
     Alive: 'from-emerald-500/70 to-emerald-500',
@@ -36,15 +43,32 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
     Unknown: 'from-gray-500/70 to-gray-500'
   };
   
+  // Hover durumundaki gölge renkleri
+  const hoverShadowColors = {
+    Alive: 'group-hover:shadow-emerald-500/20',
+    Deceased: 'group-hover:shadow-[#FF4655]/20',
+    Unknown: 'group-hover:shadow-gray-500/20'
+  };
+  
   // Karakter durumunu kontrol et
   const statusClass = character.status === 'Alive' ? statusClasses.Alive : 
                       character.status === 'Deceased' ? statusClasses.Deceased : 
                       statusClasses.Unknown;
+  
+  // Hover durumunda border rengi seçimi
+  const hoverBorderColor = character.status === 'Alive' ? hoverBorderColors.Alive : 
+                          character.status === 'Deceased' ? hoverBorderColors.Deceased : 
+                          hoverBorderColors.Unknown;
                       
   // Hover çizgisi için renk seçimi
   const hoverLineColor = character.status === 'Alive' ? hoverLineColors.Alive : 
                       character.status === 'Deceased' ? hoverLineColors.Deceased : 
                       hoverLineColors.Unknown;
+  
+  // Hover gölgesi için renk seçimi
+  const hoverShadowColor = character.status === 'Alive' ? hoverShadowColors.Alive : 
+                          character.status === 'Deceased' ? hoverShadowColors.Deceased : 
+                          hoverShadowColors.Unknown;
   
   return (
     <div 
@@ -55,7 +79,7 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
       aria-label={`Character: ${character.name}`}
     >
       {/* Ana kart konteyneri - Glass morphic tasarım */}
-      <div className="relative rounded-2xl overflow-hidden bg-[#1A242D]/60 backdrop-blur-lg border border-white/10 shadow-lg group-hover:shadow-xl group-hover:shadow-[#FF4655]/20 group-hover:border-[#FF4655]/30 transition-all duration-500 h-full">
+      <div className={`relative rounded-2xl overflow-hidden bg-[#1A242D]/60 backdrop-blur-lg border border-white/10 shadow-lg group-hover:shadow-xl ${hoverBorderColor} ${hoverShadowColor} transition-all duration-500 h-full`}>
         
         {/* Shine efekti - hover durumunda */}
         <div className="absolute top-0 -inset-x-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />
@@ -124,7 +148,7 @@ export default function CharacterCard({ character, onClick }: CharacterCardProps
           >
             <span>Detaylı Bilgi</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a 1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </button>
         </div>

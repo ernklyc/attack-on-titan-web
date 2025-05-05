@@ -214,6 +214,7 @@ export default function Characters() {
     }
   };
 
+  // Karakter detay ekranı için modal açıldığında
   const openCharacterModal = (character: Character) => {
     setSelectedCharacter(character);
     setIsModalOpen(true);
@@ -725,6 +726,12 @@ export default function Characters() {
                 ariaLabelledBy: "character-modal-title",
                 ariaDescribedBy: "character-modal-description"
               }}
+              statusColor={selectedCharacter.status === 'Alive' ? '#4ade80' : 
+                           selectedCharacter.status === 'Deceased' ? '#FF4655' : 
+                           '#6b7280'}
+              statusBorderClass={selectedCharacter.status === 'Alive' ? 'border-emerald-500/30' : 
+                                selectedCharacter.status === 'Deceased' ? 'border-[#FF4655]/30' : 
+                                'border-gray-500/30'}
             >
               <CharacterDetail character={selectedCharacter} texts={textContent.charactersPage.modal} />
             </Modal>
@@ -748,8 +755,8 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
   const statusStyles = {
     'Alive': {
       bgClass: 'bg-gradient-to-r from-emerald-500/30 to-emerald-600/30',
-      textClass: 'text-emerald-300',
-      borderClass: 'border-emerald-500/30',
+      textClass: 'emerald-300',
+      borderClass: 'emerald-500/30',
       iconClass: 'text-emerald-400',
       accentColor: 'from-emerald-500 to-emerald-600',
       pulseColor: 'emerald',
@@ -757,8 +764,8 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
     },
     'Deceased': {
       bgClass: 'bg-gradient-to-r from-[#FF4655]/30 to-[#FF2238]/30',
-      textClass: 'text-[#FF4655]',
-      borderClass: 'border-[#FF4655]/30',
+      textClass: '[#FF4655]',
+      borderClass: '[#FF4655]/30',
       iconClass: 'text-[#FF4655]',
       accentColor: 'from-[#FF4655] to-[#FF2238]',
       pulseColor: 'red',
@@ -766,8 +773,8 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
     },
     'Unknown': {
       bgClass: 'bg-gradient-to-r from-gray-600/30 to-gray-700/30',
-      textClass: 'text-gray-300',
-      borderClass: 'border-gray-500/30',
+      textClass: 'gray-300',
+      borderClass: 'gray-500/30',
       iconClass: 'text-gray-400',
       accentColor: 'from-gray-500 to-gray-700',
       pulseColor: 'gray',
@@ -938,7 +945,7 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
     >
       {/* Character groups */}
       {character.groups && character.groups.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 gap-5">
           {character.groups.map((group, index) => (
             <motion.div 
               key={index} 
@@ -1019,7 +1026,7 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
             <span className="ml-2 text-sm font-normal text-gray-400">FAMILY</span>
           </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {character.relatives.map((relative, index) => (
               <motion.div 
                 key={index}
@@ -1277,36 +1284,45 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
                 </motion.p>
               </motion.div>
               
-              {/* Navigation Tabs */}
-              <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-2">
+              {/* Navigation Tabs - Kırmızı kenarlık kaldırıldı */}
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-4">
                 <button 
                   onClick={() => setActiveTab("info")} 
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
                     activeTab === "info" 
-                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-md` 
-                      : 'bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80'
+                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-lg` 
+                      : `bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80 hover:text-white hover:shadow-md`
                   }`}
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   Bilgiler
                 </button>
                 <button 
                   onClick={() => setActiveTab("groups")} 
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
                     activeTab === "groups" 
-                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-md` 
-                      : 'bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80'
+                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-lg` 
+                      : `bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80 hover:text-white hover:shadow-md`
                   }`}
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
                   Gruplar & İlişkiler
                 </button>
                 <button 
                   onClick={() => setActiveTab("episodes")} 
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
                     activeTab === "episodes" 
-                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-md` 
-                      : 'bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80'
+                      ? `bg-gradient-to-r ${statusStyle.accentColor} text-white shadow-lg` 
+                      : `bg-[#0F1923]/60 text-gray-300 hover:bg-[#0F1923]/80 hover:text-white hover:shadow-md`
                   }`}
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                  </svg>
                   Bölümler
                 </button>
               </div>
