@@ -35,6 +35,9 @@ export const motion = {
   aside: (props: any) => React.createElement('aside', filterMotionProps(props), props.children),
   ul: (props: any) => React.createElement('ul', filterMotionProps(props), props.children),
   li: (props: any) => React.createElement('li', filterMotionProps(props), props.children),
+  h1: (props: any) => React.createElement('h1', filterMotionProps(props), props.children),
+  h2: (props: any) => React.createElement('h2', filterMotionProps(props), props.children),
+  h3: (props: any) => React.createElement('h3', filterMotionProps(props), props.children),
   // Add more elements as needed
 };
 

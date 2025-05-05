@@ -503,7 +503,7 @@ export default function Characters() {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5 mb-8"
+            className="bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5 mb-6 sm:mb-8"
           >
             <CharacterFilter
               nameFilter={nameFilter}
@@ -519,7 +519,7 @@ export default function Characters() {
           </motion.div>
 
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-6">
               {[...Array(12)].map((_, i) => (
                 <CharacterSkeleton key={i} />
               ))}
@@ -582,9 +582,9 @@ export default function Characters() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/5 shadow-xl"
+                className="bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-4 md:p-8 border border-white/5 shadow-xl"
               >
-                <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                <motion.div layout className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
                   <AnimatePresence>
                     {characters.map((character, index) => (
                       <motion.div
@@ -616,12 +616,12 @@ export default function Characters() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="mt-8 mb-8 bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-6 border border-white/5 shadow-xl"
+                  className="mt-8 mb-8 bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/5 shadow-xl"
                 >
                   <div className="flex flex-col items-center">
                     {/* Page information */}
-                    <div className="text-center mb-6">
-                      <p className="text-gray-400" dangerouslySetInnerHTML={{
+                    <div className="text-center mb-4 sm:mb-6">
+                      <p className="text-gray-400 text-sm sm:text-base" dangerouslySetInnerHTML={{
                         __html: textContent.charactersPage.pagination.pageInfo
                           .replace('{totalPages}', totalPages.toString())
                           .replace('{totalCharacters}', (totalPages * characters.length).toString())
@@ -630,85 +630,72 @@ export default function Characters() {
                     </div>
                     
                     {/* Page navigation - glassmorphism style with nested glass effect */}
-                    <div className="inline-flex bg-[#1A242D]/60 backdrop-blur-lg rounded-lg p-2 shadow-lg border border-white/5">
+                    <div className="inline-flex flex-wrap justify-center bg-[#1A242D]/60 backdrop-blur-lg rounded-lg p-2 shadow-lg border border-white/5 max-w-full overflow-hidden">
+                      {/* First page button */}
                       <button
                         onClick={() => handlePageChange(1)}
                         disabled={currentPage === 1}
-                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === 1 
+                        className={`flex items-center justify-center p-1.5 sm:p-2 rounded-md m-0.5 sm:m-1 min-w-8 sm:min-w-10 ${currentPage === 1 
                           ? 'text-gray-500 cursor-not-allowed' 
-                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655] transition-all duration-200'}`}
                         aria-label={textContent.charactersPage.pagination.firstPageLabel}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                           <path fillRule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-                          <path fillRule="evenodd" d="M9.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 000-1.414l5-5a1 1 0 00-1.414 1.414L5.414 10l-4.293 4.293a1 1 0 000 1.414z" clipRule="evenodd" />
+                          <path fillRule="evenodd" d="M9.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                         </svg>
                       </button>
+
+                      {/* Previous page button */}
                       <button
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === 1 
+                        className={`flex items-center justify-center p-1.5 sm:p-2 rounded-md m-0.5 sm:m-1 min-w-8 sm:min-w-10 ${currentPage === 1 
                           ? 'text-gray-500 cursor-not-allowed' 
-                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655] transition-all duration-200'}`}
                         aria-label={textContent.charactersPage.pagination.previousPageLabel}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                           <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                       </button>
 
-                      {/* Page numbers */}
-                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                        // Logic to show correct page numbers based on current page
-                        let pageNum;
-                        if (totalPages <= 5) {
-                          pageNum = i + 1;
-                        } else if (currentPage <= 3) {
-                          pageNum = i + 1;
-                        } else if (currentPage >= totalPages - 2) {
-                          pageNum = totalPages - 4 + i;
-                        } else {
-                          pageNum = currentPage - 2 + i;
-                        }
-                        
-                        return (
-                          <button
-                            key={i}
-                            onClick={() => handlePageChange(pageNum)}
-                            className={`w-10 h-10 mx-1 flex items-center justify-center rounded-md transition-colors ${
-                              currentPage === pageNum
-                                ? 'bg-[#FF4655] text-white'
-                                : 'text-gray-300 hover:bg-[#FF4655]/20 hover:text-white'
-                            }`}
-                            aria-label={`${textContent.charactersPage.pagination.pageLabel} ${pageNum}`}
-                            aria-current={currentPage === pageNum ? 'page' : undefined}
-                          >
-                            {pageNum}
-                          </button>
-                        );
-                      })}
+                      {/* Page numbers with responsive design */}
+                      <div className="hidden sm:flex items-center">
+                        {renderPageNumbers()}
+                      </div>
+                      
+                      {/* Mobile page indicator */}
+                      <div className="sm:hidden flex items-center justify-center">
+                        <span className="bg-[#FF4655]/50 text-white px-3 py-1 rounded-md text-sm font-medium min-w-16 text-center">
+                          {currentPage} / {totalPages}
+                        </span>
+                      </div>
 
+                      {/* Next page button */}
                       <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === totalPages 
+                        className={`flex items-center justify-center p-1.5 sm:p-2 rounded-md m-0.5 sm:m-1 min-w-8 sm:min-w-10 ${currentPage === totalPages 
                           ? 'text-gray-500 cursor-not-allowed' 
-                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655] transition-all duration-200'}`}
                         aria-label={textContent.charactersPage.pagination.nextPageLabel}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                           <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                         </svg>
                       </button>
+                      
+                      {/* Last page button */}
                       <button
                         onClick={() => handlePageChange(totalPages)}
                         disabled={currentPage === totalPages}
-                        className={`px-3 py-2 rounded-md mx-1 ${currentPage === totalPages 
+                        className={`flex items-center justify-center p-1.5 sm:p-2 rounded-md m-0.5 sm:m-1 min-w-8 sm:min-w-10 ${currentPage === totalPages 
                           ? 'text-gray-500 cursor-not-allowed' 
-                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655]'}`}
+                          : 'text-white hover:bg-[#FF4655]/20 hover:text-[#FF4655] transition-all duration-200'}`}
                         aria-label={textContent.charactersPage.pagination.lastPageLabel}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                           <path fillRule="evenodd" d="M4.293 15.707a1 1 0 001.414 0l5-5a1 1 0 000-1.414l-5-5a1 1 0 00-1.414 1.414L8.586 10l-4.293 4.293a1 1 0 000 1.414z" clipRule="evenodd" />
                           <path fillRule="evenodd" d="M10.293 15.707a1 1 0 001.414 0l5-5a1 1 0 000-1.414l-5-5a1 1 0 00-1.414 1.414L14.586 10l-4.293 4.293a1 1 0 000 1.414z" clipRule="evenodd" />
                         </svg>

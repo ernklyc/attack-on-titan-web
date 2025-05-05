@@ -19,6 +19,9 @@ export interface Character {
   residence: string | null;
   status: string;
   occupation: string | null;
+  title: string | null;  // Karakter ünvanı eklendi
+  rank: string | null;   // Karakter rütbesi eklendi
+  affiliation: string | null; // Karakter bağlılığı eklendi
   groups: { name: string; sub_groups: string[] }[];
   roles: string[];
   episodes: string[];
