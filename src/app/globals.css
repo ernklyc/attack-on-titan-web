@@ -163,6 +163,24 @@ body {
   position: relative;
 }
 
+/* Navbar hover line effect - removed */
+
+/* Remove focus outlines for navigation */
+a:focus, button:focus {
+  outline: none !important;
+}
+
+/* Remove default focus styles */
+:focus {
+  outline: none;
+}
+
+/* Custom focus styles without outlines */
+:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
 /* Glass morphism effect */
 .glass-effect {
   background: rgba(30, 41, 59, 0.7);

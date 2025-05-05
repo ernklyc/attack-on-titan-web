@@ -423,7 +423,7 @@ export default function Characters() {
           initial={{ opacity: 0 }}
           animate={bannerInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.7 }}
-          className="relative flex items-center pt-6 md:pt-10 overflow-hidden"
+          className="relative flex items-center pt-16 md:pt-20 overflow-hidden"
           style={{ minHeight: '200px' }}
         >
           {/* Enhanced overlay with gradient - removed background images since we now have a global background */}
@@ -498,7 +498,10 @@ export default function Characters() {
         </motion.div>
 
         {/* Main Content with Staggered Animation */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 -mt-10 mr-10 w-32 h-32 bg-gradient-to-br from-[#FF4655]/20 to-transparent rounded-full filter blur-2xl opacity-70"></div>
+          <div className="absolute bottom-0 left-0 -mb-16 ml-16 w-40 h-40 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full filter blur-3xl opacity-50"></div>
           {/* Filter Section - Glass morphism design - Moved closer to character list */}
           <motion.div 
             initial={{ y: 30, opacity: 0 }}
@@ -955,7 +958,7 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
               className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg group"
             >
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-semibold text-white text-lg group-hover:text-[#FF4655] transition-colors">{group.name}</h3>
+                <h3 className="font-semibold text-white text-lg transition-colors">{group.name}</h3>
                 <span className={`w-8 h-8 rounded-full flex items-center justify-center ${statusStyle.bgClass} ${statusStyle.borderClass} backdrop-blur-sm shadow-md`}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />

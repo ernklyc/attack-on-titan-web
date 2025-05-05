@@ -52,9 +52,10 @@ export default function Navbar() {
           >
             <div className="relative h-8 w-8 md:h-10 md:w-10">
               <Image 
-                src="/placeholder.png" 
+                src="/images/logo.svg" 
                 alt="Attack on Titan Logo"
                 fill
+                priority
                 className="object-contain"
               />
             </div>
@@ -71,43 +72,67 @@ export default function Navbar() {
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`relative px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                  className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 group focus:outline-none ${
                     isActive 
                       ? 'text-[#FF4655]' 
-                      : 'text-gray-300 hover:text-white hover:bg-white/10'
+                      : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {link.name}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF4655] rounded-full transform origin-left"></span>
-                  )}
+                  <span className={`absolute bottom-0 left-0 h-0.5 bg-[#FF4655]/70 rounded-full transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </Link>
               );
             })}
           </nav>
           
-          {/* Search button */}
+          {/* Language Switcher */}
           <div className="hidden md:flex items-center">
-            <button 
-              type="button"
-              className="ml-4 flex items-center justify-center p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300"
-              aria-label="Search"
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-5 w-5 text-gray-300"
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
+            <div className="flex rounded-md overflow-hidden border border-white/10 backdrop-blur-sm shadow-lg ml-3">
+              {/* Türkçe */}
+              <button 
+                type="button"
+                className="group flex items-center justify-center p-2 bg-gradient-to-b from-[#FF4655]/20 to-[#FF4655]/10 hover:from-[#FF4655]/30 hover:to-[#FF4655]/20 transition-all duration-300 text-white relative overflow-hidden"
+                aria-label="Türkçe"
+                title="Türkçe dilini seç"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
-                />
-              </svg>
-            </button>
+                <span className="flex items-center justify-center">
+                  <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner flex-shrink-0 flex items-center justify-center">
+                    <Image src="/icons/flags/tr.svg" alt="Türkçe" width={24} height={18} className="object-cover" />
+                  </div>
+                </span>
+                <span className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></span>
+              </button>
+              
+              {/* Japonca */}
+              <button 
+                type="button"
+                className="group flex items-center justify-center p-2 hover:bg-white/10 transition-all duration-300 text-white/80 hover:text-white relative overflow-hidden border-l border-r border-white/10"
+                aria-label="日本語"
+                title="日本語に切り替える"
+              >
+                <span className="flex items-center justify-center">
+                  <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner flex-shrink-0 flex items-center justify-center">
+                    <Image src="/icons/flags/jp.svg" alt="日本語" width={24} height={18} className="object-cover" />
+                  </div>
+                </span>
+                <span className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></span>
+              </button>
+
+              {/* İngilizce */}
+              <button 
+                type="button"
+                className="group flex items-center justify-center p-2 hover:bg-white/10 transition-all duration-300 text-white/80 hover:text-white relative overflow-hidden"
+                aria-label="English"
+                title="Switch to English"
+              >
+                <span className="flex items-center justify-center">
+                  <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner flex-shrink-0 flex items-center justify-center">
+                    <Image src="/icons/flags/gb.svg" alt="English" width={23} height={17} className="object-cover" style={{marginTop: '1px'}} />
+                  </div>
+                </span>
+                <span className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></span>
+              </button>
+            </div>
           </div>
           
           {/* Mobile menu button */}
@@ -160,34 +185,82 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 href={link.path}
-                className={`block px-3 py-3 rounded-md text-base font-medium ${
+                className={`block px-3 py-3 text-base font-medium relative group focus:outline-none ${
                   isActive 
-                    ? 'bg-[#FF4655]/20 text-[#FF4655]'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                    ? 'bg-[#FF4655]/10 text-[#FF4655]'
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
                 {link.name}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-[#FF4655]/70 rounded-full transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
               </Link>
             );
           })}
           
-          {/* Mobile search */}
-          <div className="px-3 py-3">
-            <button
-              type="button"
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-white/10 hover:bg-white/20 text-gray-300 transition-colors duration-300"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          {/* Mobile Language Switcher */}
+          <div className="px-3 py-3 flex flex-col gap-3">
+            <div className="text-sm font-medium text-gray-300 pb-1 border-b border-white/10 mb-1 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
               </svg>
-              <span>Search</span>
-            </button>
+              Dil Seçenekleri
+            </div>
+            
+            <div className="overflow-hidden rounded-lg border border-white/10 bg-[#0F1923]/70 shadow-lg">
+              <button
+                type="button"
+                className="w-full flex items-center px-4 py-3 bg-gradient-to-r from-[#FF4655]/20 to-transparent text-white transition-all duration-300 border-b border-white/5 hover:bg-[#FF4655]/10 relative overflow-hidden group"
+              >
+                <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
+                  <Image src="/icons/flags/tr.svg" alt="Türkçe" width={24} height={18} className="object-cover" />
+                </div>
+                <span className="flex flex-col items-start flex-grow">
+                  <span className="font-medium">Türkçe</span>
+                  <span className="text-xs text-gray-400">Varsayılan Dil</span>
+                </span>
+                <span className="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </button>
+              
+              <button
+                type="button"
+                className="w-full flex items-center px-4 py-3 text-gray-300 hover:text-white transition-all duration-300 border-b border-white/5 hover:bg-white/5 relative overflow-hidden group"
+              >
+                <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
+                  <Image src="/icons/flags/jp.svg" alt="日本語" width={24} height={18} className="object-cover" />
+                </div>
+                <span className="flex flex-col items-start flex-grow">
+                  <span className="font-medium">日本語</span>
+                  <span className="text-xs text-gray-500">日本語に切り替える</span>
+                </span>
+                <span className="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </button>
+              
+              <button
+                type="button"
+                className="w-full flex items-center px-4 py-3 text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5 relative overflow-hidden group"
+              >
+                <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
+                  <Image src="/icons/flags/gb.svg" alt="English" width={23} height={17} className="object-cover" style={{marginTop: '1px'}} />
+                </div>
+                <span className="flex flex-col items-start flex-grow">
+                  <span className="font-medium">English</span>
+                  <span className="text-xs text-gray-500">Change to English</span>
+                </span>
+                <span className="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
