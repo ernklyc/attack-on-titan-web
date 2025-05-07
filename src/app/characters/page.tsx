@@ -28,7 +28,7 @@ import { textContent } from '@/data/textContent';
 function SearchParamsWrapper({
   children
 }: {
-  children: (params: URLSearchParams | any) => React.ReactNode
+  children: (params: ReturnType<typeof useSearchParams>) => React.ReactNode
 }) {
   const searchParams = useSearchParams();
   return <>{children(searchParams)}</>;
@@ -368,9 +368,10 @@ export default function Characters() {
   };
 
   // Component to handle URL parameters safely
-  const handleSearchParams = (searchParams: URLSearchParams) => {
+  const handleSearchParams = (searchParams: ReturnType<typeof useSearchParams>) => {
+    if (!searchParams) return null;
+    
     // Only apply URL filters if explicitly requested by user
-    // Removed auto-filtering on page load to avoid unexpected filtering
     const shouldApplyFilters = searchParams.get('applyFilters') === 'true';
     
     if (shouldApplyFilters) {

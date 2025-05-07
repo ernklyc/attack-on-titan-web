@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Home.css';
-import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
+import Link from 'next/link'; // Replaced react-router-dom with next/link
 
 function Home() {
   return (
@@ -31,14 +31,14 @@ function Home() {
             
             <div className="flex flex-wrap gap-4">
               <Link 
-                to="/characters"
+                href="/characters"
                 className="px-8 py-3 bg-[#FF4655] text-white font-medium rounded-md hover:bg-[#ff2238] transition-colors duration-300 transform hover:scale-105 shadow-lg"
               >
                 Karakterleri Keşfet
               </Link>
               
               <Link 
-                to="/titans"
+                href="/titans"
                 className="px-8 py-3 bg-transparent border-2 border-white/50 text-white font-medium rounded-md hover:bg-white/10 transition-colors duration-300 transform hover:scale-105"
               >
                 Titanlar
@@ -95,7 +95,7 @@ function Home() {
                 Üç duvar arasında yaşayan insanlık, dışarıdaki dev titanlardan korunmak için yüzlerce yıldır bu duvarlara sığınıyor. Ancak duvarların ardında çok daha büyük sırlar ve gerçekler gizleniyor...
               </p>
               <Link 
-                to="/organizations"
+                href="/organizations"
                 className="px-6 py-2 bg-[#FF4655]/90 text-white font-medium rounded-md hover:bg-[#FF4655] transition-colors duration-300 inline-flex items-center"
               >
                 <span>Daha Fazla</span>
@@ -140,7 +140,7 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Characters Card */}
             <Link 
-              to="/characters" 
+              href="/characters" 
               className="block group bg-[#0F1923] rounded-xl overflow-hidden shadow-lg border border-white/10 hover:border-[#FF4655]/30 transition-all duration-500"
             >
               <div className="relative h-48 overflow-hidden">
@@ -167,7 +167,7 @@ function Home() {
 
             {/* Titans Card */}
             <Link 
-              to="/titans" 
+              href="/titans" 
               className="block group bg-[#0F1923] rounded-xl overflow-hidden shadow-lg border border-white/10 hover:border-blue-500/30 transition-all duration-500"
             >
               <div className="relative h-48 overflow-hidden">
@@ -194,7 +194,7 @@ function Home() {
 
             {/* Episodes Card */}
             <Link 
-              to="/episodes" 
+              href="/episodes" 
               className="block group bg-[#0F1923] rounded-xl overflow-hidden shadow-lg border border-white/10 hover:border-green-500/30 transition-all duration-500"
             >
               <div className="relative h-48 overflow-hidden">
@@ -222,7 +222,7 @@ function Home() {
 
           <div className="mt-12 text-center">
             <Link 
-              to="/characters"
+              href="/characters"
               className="inline-flex items-center bg-gradient-to-r from-[#FF4655]/20 to-[#FF2238]/20 hover:from-[#FF4655]/30 hover:to-[#FF2238]/30 px-8 py-4 rounded-xl backdrop-blur-md border border-white/10 hover:border-[#FF4655]/40 shadow-lg transition-all duration-300"
             >
               <span className="text-lg text-white hover:text-[#FF4655] font-medium transition-colors mr-2">
@@ -258,7 +258,7 @@ function Home() {
               Karakterler, titanlar ve Attack on Titan'ın sırları hakkında her şeyi öğrenin.
             </p>
             <Link 
-              to="/characters"
+              href="/characters"
               className="px-8 py-3 bg-[#FF4655] text-white font-medium rounded-md hover:bg-[#ff2238] transition-colors duration-300 transform hover:scale-105 shadow-lg"
             >
               Şimdi Keşfet
