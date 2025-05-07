@@ -395,40 +395,6 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
-
-          {/* Alt Keşfet Butonu - Geliştirildi */}
-          <motion.div 
-            className="mt-10 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <Link 
-              href="/characters"
-              className="group inline-flex items-center bg-gradient-to-r from-[#FF4655]/20 to-[#FF2238]/20 hover:from-[#FF4655]/30 hover:to-[#FF2238]/30 px-8 py-4 rounded-xl backdrop-blur-md border border-white/10 hover:border-[#FF4655]/40 shadow-lg hover:shadow-[#FF4655]/20 transition-all duration-300"
-            >
-              <span className="text-lg text-white group-hover:text-[#FF4655] font-medium transition-colors mr-2">Tüm kategorileri keşfet</span>
-              <motion.div 
-                className="bg-[#FF4655] rounded-full p-2"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 text-white" 
-                  viewBox="0 0 20 20" 
-                  fill="currentColor"
-                >
-                  <path 
-                    fillRule="evenodd" 
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" 
-                    clipRule="evenodd" 
-                  />
-                </svg>
-              </motion.div>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
@@ -502,45 +468,6 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0F1923]/50 to-transparent rounded-xl"></div>
               </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter / Call to Action */}
-      <section className="w-full py-16 bg-gradient-to-b from-transparent to-[#0F1923]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.h2 
-              className="text-3xl font-bold text-white mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              Attack on Titan evrenini keşfetmeye başla
-            </motion.h2>
-            <motion.p 
-              className="text-gray-300 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Karakterler, titanlar ve Attack on Titan'ın sırları hakkında her şeyi öğrenin.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <Link 
-                href="/characters"
-                className="px-8 py-3 bg-[#FF4655] text-white font-medium rounded-md hover:bg-[#ff2238] transition-colors duration-300 transform hover:scale-105 shadow-lg shadow-red-500/30"
-              >
-                Şimdi Keşfet
-              </Link>
             </motion.div>
           </div>
         </div>

@@ -97,7 +97,7 @@ export default function Navbar() {
               >
                 <span className="flex items-center justify-center">
                   <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner flex-shrink-0 flex items-center justify-center">
-                    <Image src="/icons/flags/tr.svg" alt="Türkçe" width={24} height={18} className="object-cover" />
+                    <Image src="/icons/flags/tr.svg" alt="Türkçe" width={24} height={18} className="object-cover" style={{ height: "auto" }} />
                   </div>
                 </span>
                 <span className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></span>
@@ -112,7 +112,7 @@ export default function Navbar() {
               >
                 <span className="flex items-center justify-center">
                   <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner flex-shrink-0 flex items-center justify-center">
-                    <Image src="/icons/flags/jp.svg" alt="日本語" width={24} height={18} className="object-cover" />
+                    <Image src="/icons/flags/jp.svg" alt="日本語" width={24} height={18} className="object-cover" style={{ height: "auto" }} />
                   </div>
                 </span>
                 <span className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></span>
@@ -127,7 +127,7 @@ export default function Navbar() {
               >
                 <span className="flex items-center justify-center">
                   <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner flex-shrink-0 flex items-center justify-center">
-                    <Image src="/icons/flags/gb.svg" alt="English" width={23} height={17} className="object-cover" style={{marginTop: '1px'}} />
+                    <Image src="/icons/flags/gb.svg" alt="English" width={23} height={17} className="object-cover" style={{ height: "auto", marginTop: '1px' }} />
                   </div>
                 </span>
                 <span className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></span>
@@ -212,7 +212,7 @@ export default function Navbar() {
                 className="w-full flex items-center px-4 py-3 bg-gradient-to-r from-[#FF4655]/20 to-transparent text-white transition-all duration-300 border-b border-white/5 hover:bg-[#FF4655]/10 relative overflow-hidden group"
               >
                 <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
-                  <Image src="/icons/flags/tr.svg" alt="Türkçe" width={24} height={18} className="object-cover" />
+                  <Image src="/icons/flags/tr.svg" alt="Türkçe" width={24} height={18} className="object-cover" style={{ height: "auto" }} />
                 </div>
                 <span className="flex flex-col items-start flex-grow">
                   <span className="font-medium">Türkçe</span>
@@ -230,7 +230,7 @@ export default function Navbar() {
                 className="w-full flex items-center px-4 py-3 text-gray-300 hover:text-white transition-all duration-300 border-b border-white/5 hover:bg-white/5 relative overflow-hidden group"
               >
                 <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
-                  <Image src="/icons/flags/jp.svg" alt="日本語" width={24} height={18} className="object-cover" />
+                  <Image src="/icons/flags/jp.svg" alt="日本語" width={24} height={18} className="object-cover" style={{ height: "auto" }} />
                 </div>
                 <span className="flex flex-col items-start flex-grow">
                   <span className="font-medium">日本語</span>
@@ -248,7 +248,7 @@ export default function Navbar() {
                 className="w-full flex items-center px-4 py-3 text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5 relative overflow-hidden group"
               >
                 <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
-                  <Image src="/icons/flags/gb.svg" alt="English" width={23} height={17} className="object-cover" style={{marginTop: '1px'}} />
+                  <Image src="/icons/flags/gb.svg" alt="English" width={23} height={17} className="object-cover" style={{ height: "auto", marginTop: '1px' }} />
                 </div>
                 <span className="flex flex-col items-start flex-grow">
                   <span className="font-medium">English</span>
