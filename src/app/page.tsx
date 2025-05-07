@@ -494,7 +494,7 @@ export default function Home() {
             >
               <div className="aspect-w-16 aspect-h-9">
                 <Image
-                  src="/images/backgrounds/titan-bg.webp"
+                  src="/home_image/highlights.jpg"
                   alt="Duvarların Sırrı"
                   width={600}
                   height={400}

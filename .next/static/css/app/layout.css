@@ -722,9 +722,6 @@ video {
 .bottom-0 {
   bottom: 0px;
 }
-.bottom-1\/2 {
-  bottom: 50%;
-}
 .bottom-10 {
   bottom: 2.5rem;
 }
@@ -805,12 +802,6 @@ video {
 }
 .col-span-1 {
   grid-column: span 1 / span 1;
-}
-.row-span-1 {
-  grid-row: span 1 / span 1;
-}
-.row-span-2 {
-  grid-row: span 2 / span 2;
 }
 .m-0\.5 {
   margin: 0.125rem;
@@ -952,9 +943,6 @@ video {
 .aspect-square {
   aspect-ratio: 1 / 1;
 }
-.aspect-\[9\/16\] {
-  aspect-ratio: 9/16;
-}
 .h-0\.5 {
   height: 0.125rem;
 }
@@ -1018,26 +1006,23 @@ video {
 .h-\[1px\] {
   height: 1px;
 }
+.h-\[290px\] {
+  height: 290px;
+}
 .h-\[300px\] {
   height: 300px;
 }
 .h-\[3px\] {
   height: 3px;
 }
+.h-\[600px\] {
+  height: 600px;
+}
 .h-full {
   height: 100%;
 }
 .h-screen {
   height: 100vh;
-}
-.h-80 {
-  height: 20rem;
-}
-.h-\[290px\] {
-  height: 290px;
-}
-.h-\[600px\] {
-  height: 600px;
 }
 .max-h-0 {
   max-height: 0px;
@@ -1050,9 +1035,6 @@ video {
 }
 .max-h-\[90vh\] {
   max-height: 90vh;
-}
-.min-h-\[240px\] {
-  min-height: 240px;
 }
 .min-h-\[250px\] {
   min-height: 250px;
@@ -1178,10 +1160,6 @@ video {
 }
 .translate-y-0 {
   --tw-translate-y: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.translate-y-1\/2 {
-  --tw-translate-y: 50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .translate-y-4 {
@@ -1997,9 +1975,6 @@ video {
 }
 .p-8 {
   padding: 2rem;
-}
-.p-7 {
-  padding: 1.75rem;
 }
 .px-2 {
   padding-left: 0.5rem;
@@ -2876,14 +2851,14 @@ a:focus, button:focus {
   --tw-scale-y: 1.1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-.group:hover .group-hover\:scale-110 {
-  --tw-scale-x: 1.1;
-  --tw-scale-y: 1.1;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
 .group:hover .group-hover\:scale-105 {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:scale-110 {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .group:hover .group-hover\:border-\[\#FF4655\]\/50 {
@@ -3166,16 +3141,16 @@ a:focus, button:focus {
     gap: 2rem;
   }
 
-  .md\:p-8 {
-    padding: 2rem;
-  }
-
   .md\:p-5 {
     padding: 1.25rem;
   }
 
   .md\:p-7 {
     padding: 1.75rem;
+  }
+
+  .md\:p-8 {
+    padding: 2rem;
   }
 
   .md\:py-12 {
@@ -3194,6 +3169,11 @@ a:focus, button:focus {
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .md\:text-4xl {
@@ -3216,11 +3196,6 @@ a:focus, button:focus {
     line-height: 1;
   }
 
-  .md\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -3241,6 +3216,10 @@ a:focus, button:focus {
     order: 2;
   }
 
+  .lg\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
   .lg\:col-span-2 {
     grid-column: span 2 / span 2;
   }
@@ -3251,10 +3230,6 @@ a:focus, button:focus {
 
   .lg\:col-span-7 {
     grid-column: span 7 / span 7;
-  }
-
-  .lg\:col-span-1 {
-    grid-column: span 1 / span 1;
   }
 
   .lg\:grid-cols-12 {
@@ -3271,10 +3246,6 @@ a:focus, button:focus {
 
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .lg\:grid-cols-5 {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .lg\:gap-8 {
