@@ -28,7 +28,7 @@ import { textContent } from '@/data/textContent';
 function SearchParamsWrapper({
   children
 }: {
-  children: (params: URLSearchParams) => React.ReactNode
+  children: (params: URLSearchParams | any) => React.ReactNode
 }) {
   const searchParams = useSearchParams();
   return <>{children(searchParams)}</>;
