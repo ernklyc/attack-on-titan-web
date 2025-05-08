@@ -76,13 +76,7 @@ const CharactersShowcase = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 bg-[#0A121A] overflow-hidden">
-      {/* Arka plan dekoratif elementleri */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#0F1923] to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0F1923] to-transparent"></div>
-      </div>
-      
+    <section ref={sectionRef} className="relative py-24 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section başlık */}
         <div className="text-center mb-16">
@@ -104,12 +98,12 @@ const CharactersShowcase = () => {
           </p>
         </div>
 
-        {/* Karakter Vitrin */}
+        {/* Karakter Vitrin - Improved Design */}
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Sol taraf - Karakter Görseli */}
-            <div className={`relative ${isInView ? 'reveal reveal-delay-300' : ''}`}>
-              <div className="relative h-[500px] md:h-[600px] rounded-lg overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Sol taraf - Karakter Görseli - Enhanced */}
+            <div className={`lg:col-span-7 relative ${isInView ? 'reveal reveal-delay-300' : ''}`}>
+              <div className="relative h-[500px] md:h-[600px] rounded-xl overflow-hidden shadow-2xl border border-white/10">
                 {characters.map((character, index) => (
                   <div
                     key={`char-img-${character.id}`}
@@ -124,32 +118,29 @@ const CharactersShowcase = () => {
                       className="object-cover"
                       priority={index === 0}
                     />
-                    <div className={`absolute inset-0 bg-gradient-to-t from-[#0A121A] via-[${character.color}]/10 to-transparent opacity-80`}></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A121A] to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    
+                    {/* Character name floating on image */}
+                    <div className="absolute bottom-0 left-0 w-full p-6">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <div className="h-1 w-10" style={{ backgroundColor: character.color }}></div>
+                        <span className="text-xs font-medium text-white/80 uppercase tracking-wider">{character.role}</span>
+                      </div>
+                      <h3 className="text-4xl md:text-5xl font-bold text-white">
+                        {character.name}
+                      </h3>
+                    </div>
                   </div>
                 ))}
               </div>
               
-              {/* Karakter isim göstergesi - Alt */}
-              <div className="hidden md:block absolute -bottom-10 -left-10 -right-10">
-                {characters.map((character, index) => (
-                  <div
-                    key={`char-name-large-${character.id}`}
-                    className={`transition-all duration-1000 ease-in-out absolute inset-0 ${
-                      activeCharacter === index ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-                    }`}
-                    style={{ transformOrigin: 'left center' }}
-                  >
-                    <h2 className="text-[140px] md:text-[180px] font-extrabold text-white opacity-10 whitespace-nowrap overflow-hidden">
-                      {character.name.toUpperCase()}
-                    </h2>
-                  </div>
-                ))}
-              </div>
+              {/* Decorative elements */}
+              <div className="absolute -bottom-6 -right-6 w-28 h-28 border-b-2 border-r-2 border-[#FF4655]/30 rounded-br-3xl"></div>
+              <div className="absolute -top-6 -left-6 w-28 h-28 border-t-2 border-l-2 border-[#FF4655]/30 rounded-tl-3xl"></div>
             </div>
             
-            {/* Sağ taraf - Karakter Detayları */}
-            <div className="lg:pl-6">
+            {/* Sağ taraf - Karakter Detayları - Enhanced */}
+            <div className="lg:col-span-5 lg:pl-6">
               <div className="relative">
                 {characters.map((character, index) => (
                   <div
@@ -158,43 +149,45 @@ const CharactersShowcase = () => {
                       activeCharacter === index ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8 absolute inset-0'
                     }`}
                   >
-                    <div className={`reveal reveal-delay-400 inline-block px-3 py-1 rounded-full text-xs font-medium text-white mb-4`} style={{ backgroundColor: character.color }}>
-                      {character.role}
+                    <div className="p-6 rounded-xl backdrop-blur-sm border border-white/10 bg-black/20 shadow-xl">
+                      <div className={`reveal reveal-delay-400 inline-block px-3 py-1 rounded-full text-xs font-medium text-white mb-4`} style={{ backgroundColor: character.color }}>
+                        {character.role}
+                      </div>
+                      
+                      <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 reveal reveal-delay-500">
+                        {character.name}
+                        <div className="h-1 w-16 mt-2" style={{ backgroundColor: character.color }}></div>
+                      </h3>
+                      
+                      <div className="flex items-start mb-6 reveal reveal-delay-600">
+                        <svg className="w-8 h-8 text-white/30 mr-4 mt-1 flex-shrink-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-10zm-14 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.999v10h-9.999z"/>
+                        </svg>
+                        <blockquote className="text-xl text-white/80 italic">
+                          "{character.quote}"
+                        </blockquote>
+                      </div>
+                      
+                      <p className="text-gray-300 mb-8 reveal reveal-delay-700">
+                        {character.description}
+                      </p>
+                      
+                      <Link 
+                        href="/characters" 
+                        className="reveal reveal-delay-800 px-6 py-3 bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-[#FF4655]/20 transition-all duration-300 inline-flex items-center group"
+                      >
+                        <span>Karakterleri Keşfet</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </Link>
                     </div>
-                    
-                    <h3 className="text-4xl font-bold text-white mb-4 reveal reveal-delay-500">
-                      {character.name}
-                      <div className="h-1 w-12 mt-2" style={{ backgroundColor: character.color }}></div>
-                    </h3>
-                    
-                    <div className="flex items-start mb-6 reveal reveal-delay-600">
-                      <svg className="w-8 h-8 text-white/30 mr-4 mt-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-10zm-14 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.999v10h-9.999z"/>
-                      </svg>
-                      <blockquote className="text-xl text-white/80 italic">
-                        "{character.quote}"
-                      </blockquote>
-                    </div>
-                    
-                    <p className="text-gray-300 mb-8 reveal reveal-delay-700">
-                      {character.description}
-                    </p>
-                    
-                    <Link 
-                      href="/characters" 
-                      className="reveal reveal-delay-800 px-6 py-3 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:border-[#FF4655] hover:bg-[#FF4655]/10 transition-all duration-300 inline-flex items-center group"
-                    >
-                      <span>Karakterleri Keşfet</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </Link>
                   </div>
                 ))}
               </div>
               
-              {/* Karakter İndikatör Noktaları */}
-              <div className="flex space-x-3 mt-10 reveal">
+              {/* Karakter İndikatör - Improved */}
+              <div className="flex space-x-4 mt-10 reveal justify-center lg:justify-start">
                 {characters.map((character, idx) => (
                   <button
                     key={`char-indicator-${character.id}`}
@@ -203,8 +196,11 @@ const CharactersShowcase = () => {
                   >
                     <div 
                       className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all duration-300 ${
-                        activeCharacter === idx ? `border-[${character.color}] scale-110` : 'border-white/20'
+                        activeCharacter === idx 
+                          ? 'border-2 scale-110' 
+                          : 'border-white/20 opacity-70 hover:opacity-100'
                       }`}
+                      style={{ borderColor: activeCharacter === idx ? character.color : undefined }}
                     >
                       <Image
                         src={character.image}

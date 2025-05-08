@@ -133,57 +133,53 @@ const FanCommunitySection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative py-24 bg-[#0F1923] overflow-hidden">
-      {/* Arka plan dekoratif elementleri */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-[#FF4655]/10 to-transparent rounded-full filter blur-[120px] opacity-30"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full filter blur-[120px] opacity-30"></div>
-      </div>
-      
+    <section ref={sectionRef} className="relative py-24 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Başlık */}
-        <div className="text-center mb-16">
-          <div className="reveal mb-4">
-            <span className="px-4 py-1 bg-gradient-to-r from-[#FF4655]/40 to-[#FF2238]/40 rounded-md backdrop-blur-sm text-xs font-medium text-white tracking-wide uppercase border border-[#FF4655]/20">
+        {/* Başlık - Enhanced */}
+        <div className="text-center mb-20">
+          <div className={`mb-4 inline-block px-6 py-2 bg-gradient-to-r from-[#FF4655]/30 to-[#FF2238]/30 rounded-full backdrop-blur-sm border border-[#FF4655]/20 transition-all duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
+            <span className="text-sm font-medium text-white tracking-wide uppercase">
               Topluluk
             </span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold text-white mt-4 reveal reveal-delay-100">
+          <h2 className={`text-4xl md:text-6xl font-bold text-white mt-6 mb-4 transition-all duration-1000 delay-100 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
             <span className="relative inline-block">
               Hayran Topluluğumuz
-              <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-[#FF4655] to-[#FF2238]"></div>
+              <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-[#FF4655] to-[#FF2238]"></div>
             </span>
           </h2>
           
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg mt-6 reveal reveal-delay-200">
+          <p className={`text-gray-300 max-w-3xl mx-auto text-lg md:text-xl mt-6 transition-all duration-1000 delay-200 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
             Attack on Titan severlerin buluşma noktası! Etkinlikler, topluluk paylaşımları ve daha fazlası.
           </p>
+          
+          <div className="h-px w-24 mx-auto bg-[#FF4655]/30 mt-10"></div>
         </div>
 
         <div className="max-w-7xl mx-auto">
-          {/* Tab Navigasyon */}
-          <div className="flex justify-center mb-12 reveal reveal-delay-100">
-            <div className="inline-flex bg-[#131E2A]/50 backdrop-blur-sm rounded-full p-1 border border-white/10">
+          {/* Tab Navigasyon - Enhanced */}
+          <div className={`flex justify-center mb-12 transition-all duration-1000 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="inline-flex rounded-xl p-1.5 border border-white/10 bg-black/20 backdrop-blur-md shadow-xl">
               <button
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeTab === 'comments' ? 'bg-[#FF4655] text-white' : 'text-white/70 hover:text-white'
+                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                  activeTab === 'comments' ? 'bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white shadow-lg' : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
                 onClick={() => switchTab('comments')}
               >
                 Yorumlar
               </button>
               <button
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeTab === 'events' ? 'bg-[#FF4655] text-white' : 'text-white/70 hover:text-white'
+                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                  activeTab === 'events' ? 'bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white shadow-lg' : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
                 onClick={() => switchTab('events')}
               >
                 Etkinlikler
               </button>
               <button
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeTab === 'connect' ? 'bg-[#FF4655] text-white' : 'text-white/70 hover:text-white'
+                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                  activeTab === 'connect' ? 'bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white shadow-lg' : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
                 onClick={() => switchTab('connect')}
               >
@@ -192,30 +188,34 @@ const FanCommunitySection = () => {
             </div>
           </div>
 
-          {/* İçerik */}
+          {/* İçerik - Enhanced */}
           <div className="relative min-h-[400px]">
-            {/* Yorumlar Tab İçeriği */}
+            {/* Yorumlar Tab İçeriği - Enhanced */}
             <div className={`transition-all duration-500 ${
               activeTab === 'comments' ? 'opacity-100 transform translate-y-0' : 'opacity-0 absolute inset-0 transform translate-y-8 pointer-events-none'
             }`}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {fanComments.map((comment, index) => (
                   <div 
                     key={comment.id} 
-                    className={`bg-[#131E2A]/50 backdrop-blur-sm border border-white/10 rounded-lg p-6 shadow-lg hover:border-[#FF4655]/30 transition-all duration-300 ${isInView ? 'reveal' : ''} ${isInView ? `reveal-delay-${index * 100}` : ''}`}
+                    className={`border border-white/10 rounded-xl p-6 shadow-xl backdrop-blur-sm bg-black/10 hover:border-[#FF4655]/30 transition-all duration-500 hover:-translate-y-1 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                    style={{ transitionDelay: `${index * 100 + 400}ms` }}
                   >
                     <div className="flex items-start mb-4">
-                      <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                        <Image 
-                          src={comment.avatar} 
-                          alt={comment.name} 
-                          width={48} 
-                          height={48} 
-                          className="object-cover"
-                        />
+                      <div className="relative">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#FF4655] to-[#FF2238] rounded-full blur opacity-30 group-hover:opacity-70"></div>
+                        <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/20 relative">
+                          <Image 
+                            src={comment.avatar} 
+                            alt={comment.name} 
+                            width={56} 
+                            height={56} 
+                            className="object-cover"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-white font-medium">{comment.name}</h3>
+                      <div className="ml-4">
+                        <h3 className="text-white font-bold text-lg">{comment.name}</h3>
                         <div className="flex mt-1">
                           {[...Array(5)].map((_, i) => (
                             <svg 
@@ -231,12 +231,13 @@ const FanCommunitySection = () => {
                         </div>
                       </div>
                     </div>
-                    <p className="text-gray-300 text-sm">{comment.comment}</p>
+                    <div className="h-px w-full bg-white/10 my-4"></div>
+                    <p className="text-gray-300 text-base leading-relaxed">{comment.comment}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-10 text-center">
-                <button className="px-6 py-3 bg-gradient-to-r from-[#FF4655]/70 to-[#FF2238]/70 text-white font-medium rounded-md hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300 inline-flex items-center group">
+              <div className="mt-12 text-center">
+                <button className="px-8 py-4 bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300 inline-flex items-center group">
                   <span>Tüm Yorumları Gör</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -245,43 +246,55 @@ const FanCommunitySection = () => {
               </div>
             </div>
             
-            {/* Etkinlikler Tab İçeriği */}
+            {/* Etkinlikler Tab İçeriği - Enhanced */}
             <div className={`transition-all duration-500 ${
               activeTab === 'events' ? 'opacity-100 transform translate-y-0' : 'opacity-0 absolute inset-0 transform translate-y-8 pointer-events-none'
             }`}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {communityEvents.map((event, index) => (
                   <div 
                     key={event.id} 
-                    className={`bg-[#131E2A]/50 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden shadow-lg hover:shadow-xl hover:border-[#FF4655]/30 transition-all duration-300 ${isInView ? 'reveal' : ''} ${isInView ? `reveal-delay-${index * 100}` : ''}`}
+                    className={`border border-white/10 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-[#FF4655]/30 transition-all duration-500 transform hover:-translate-y-2 group ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+                    style={{ transitionDelay: `${index * 100 + 400}ms` }}
                   >
                     <div className="aspect-w-16 aspect-h-9 relative">
                       <Image 
                         src={event.image} 
                         alt={event.title} 
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#131E2A] via-transparent to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                      
+                      {/* Decorative elements */}
+                      <div className="absolute -top-3 -right-3 w-16 h-16 border-t-2 border-r-2 border-[#FF4655]/30 rounded-tr-2xl z-10"></div>
+                      
+                      <div className="absolute bottom-4 right-4 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded text-white text-sm z-10">
+                        {event.location}
+                      </div>
                     </div>
                     
-                    <div className="p-6">
-                      <div className="flex justify-between items-center mb-3">
-                        <span className="text-[#FF4655] text-sm font-medium">{event.date}</span>
-                        <span className="bg-[#131E2A] text-white/70 text-xs px-2 py-1 rounded">{event.location}</span>
+                    <div className="p-6 bg-black/20 backdrop-blur-sm">
+                      <div className="flex items-center mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FF4655] mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-white/90 text-sm font-medium">{event.date}</span>
                       </div>
                       
-                      <h3 className="text-white text-xl font-bold mb-3">{event.title}</h3>
+                      <h3 className="text-white text-xl font-bold mb-4 group-hover:text-[#FF4655] transition-colors min-h-[3.5rem]">{event.title}</h3>
+                      
+                      <div className="h-0.5 w-12 bg-[#FF4655]/40 mb-4 group-hover:w-24 transition-all duration-500"></div>
                       
                       <div className="flex justify-between items-center">
-                        <button className="text-white/80 hover:text-[#FF4655] transition-colors text-sm inline-flex items-center">
+                        <Link href="#" className="text-white hover:text-[#FF4655] transition-colors text-sm inline-flex items-center group">
                           <span>Detaylı Bilgi</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                           </svg>
-                        </button>
+                        </Link>
                         
-                        <button className="bg-[#FF4655]/20 hover:bg-[#FF4655]/30 text-[#FF4655] text-xs font-medium px-3 py-1 rounded transition-colors">
+                        <button className="px-4 py-1.5 bg-gradient-to-r from-[#FF4655]/70 to-[#FF2238]/70 text-white text-sm font-medium rounded transition-all hover:shadow-md hover:shadow-[#FF4655]/20">
                           Kaydol
                         </button>
                       </div>
@@ -289,8 +302,8 @@ const FanCommunitySection = () => {
                   </div>
                 ))}
               </div>
-              <div className="mt-10 text-center">
-                <button className="px-6 py-3 bg-gradient-to-r from-[#FF4655]/70 to-[#FF2238]/70 text-white font-medium rounded-md hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300 inline-flex items-center group">
+              <div className="mt-12 text-center">
+                <button className="px-8 py-4 bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300 inline-flex items-center group">
                   <span>Tüm Etkinlikleri Gör</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -299,37 +312,37 @@ const FanCommunitySection = () => {
               </div>
             </div>
             
-            {/* Bağlantı Tab İçeriği */}
+            {/* Bağlantı Tab İçeriği - Enhanced */}
             <div className={`transition-all duration-500 ${
               activeTab === 'connect' ? 'opacity-100 transform translate-y-0' : 'opacity-0 absolute inset-0 transform translate-y-8 pointer-events-none'
             }`}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div className="reveal reveal-delay-100">
-                  <h3 className="text-2xl font-bold text-white mb-6">Sosyal Medya</h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div className={`transition-all duration-1000 delay-400 ${isInView && activeTab === 'connect' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                  <h3 className="text-3xl font-bold text-white mb-8">Sosyal Medya</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                     {socialMediaLinks.map((social) => (
-                      <a 
+                      <Link 
                         key={social.id}
                         href="#"
-                        className={`bg-[#131E2A]/50 backdrop-blur-sm border border-white/10 rounded-lg p-4 flex flex-col items-center hover:border-[${social.color}]/50 hover:bg-[${social.color}]/10 transition-all duration-300`}
+                        className="border border-white/10 rounded-xl p-5 flex flex-col items-center hover:border-white/20 hover:shadow-lg backdrop-blur-sm bg-black/10 transition-all duration-300 hover:-translate-y-1 group"
                         style={{ "--hover-color": social.color } as React.CSSProperties}
                       >
-                        <div className={`text-[${social.color}]`} style={{ color: social.color }}>
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-[#131E2A] to-black border border-white/10 group-hover:shadow-lg mb-3" style={{ color: social.color }}>
                           {social.icon}
                         </div>
-                        <span className="text-white/80 text-sm mt-2">{social.name}</span>
-                      </a>
+                        <span className="text-white text-base font-medium">{social.name}</span>
+                      </Link>
                     ))}
                   </div>
                   
-                  <div className="mt-10">
-                    <h3 className="text-2xl font-bold text-white mb-6">Topluluğa Katıl</h3>
-                    <p className="text-gray-300 mb-6">Attack on Titan hayranları Discord sunucumuza katılın ve diğer hayranlarla etkileşime geçin.</p>
+                  <div className="mt-12">
+                    <h3 className="text-3xl font-bold text-white mb-6">Topluluğa Katıl</h3>
+                    <p className="text-gray-300 mb-6 text-lg leading-relaxed">Attack on Titan hayranları Discord sunucumuza katılın ve diğer hayranlarla etkileşime geçin.</p>
                     <a 
                       href="#" 
-                      className="inline-flex items-center px-6 py-3 bg-[#7289DA] text-white font-medium rounded-md hover:bg-[#7289DA]/80 transition-all duration-300"
+                      className="inline-flex items-center px-8 py-4 bg-[#7289DA] text-white font-medium rounded-lg hover:bg-[#7289DA]/80 transition-all duration-300 shadow-lg hover:shadow-[#7289DA]/30"
                     >
-                      <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
                       </svg>
                       Discord'a Katıl
@@ -337,47 +350,47 @@ const FanCommunitySection = () => {
                   </div>
                 </div>
                 
-                <div className="reveal reveal-delay-200">
-                  <h3 className="text-2xl font-bold text-white mb-6">Bültenimize Abone Ol</h3>
-                  <p className="text-gray-300 mb-6">En son Attack on Titan haberleri, etkinlikler ve daha fazlası için bültenimize abone olun.</p>
+                <div className={`transition-all duration-1000 delay-600 ${isInView && activeTab === 'connect' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                  <h3 className="text-3xl font-bold text-white mb-8">Bültenimize Abone Ol</h3>
+                  <p className="text-gray-300 mb-6 text-lg leading-relaxed">En son Attack on Titan haberleri, etkinlikler ve daha fazlası için bültenimize abone olun.</p>
                   
-                  <form onSubmit={newsletterSubmit} className="bg-[#131E2A]/50 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-                    <div className="mb-4">
-                      <label htmlFor="name" className="block text-sm font-medium text-white/70 mb-2">İsim</label>
+                  <form onSubmit={newsletterSubmit} className="border border-white/10 rounded-xl p-8 shadow-xl backdrop-blur-sm bg-black/10">
+                    <div className="mb-6">
+                      <label htmlFor="name" className="block text-base font-medium text-white/80 mb-2">İsim</label>
                       <input 
                         type="text" 
                         id="name" 
-                        className="w-full bg-[#0A121A]/50 border border-white/10 rounded-md px-4 py-2 text-white focus:border-[#FF4655]/50 focus:outline-none focus:ring-1 focus:ring-[#FF4655]/50"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#FF4655]/50 focus:outline-none focus:ring-1 focus:ring-[#FF4655]/50 transition-all"
                         placeholder="Adınız"
                       />
                     </div>
                     
-                    <div className="mb-4">
-                      <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-2">E-posta</label>
+                    <div className="mb-6">
+                      <label htmlFor="email" className="block text-base font-medium text-white/80 mb-2">E-posta</label>
                       <input 
                         type="email" 
                         id="email" 
-                        className="w-full bg-[#0A121A]/50 border border-white/10 rounded-md px-4 py-2 text-white focus:border-[#FF4655]/50 focus:outline-none focus:ring-1 focus:ring-[#FF4655]/50"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#FF4655]/50 focus:outline-none focus:ring-1 focus:ring-[#FF4655]/50 transition-all"
                         placeholder="email@example.com"
                         required
                       />
                     </div>
                     
-                    <div className="flex items-center mb-6">
+                    <div className="flex items-center mb-8">
                       <input 
                         type="checkbox" 
                         id="consent" 
-                        className="w-4 h-4 accent-[#FF4655] bg-gray-100 border-gray-300 rounded focus:ring-[#FF4655]" 
+                        className="w-5 h-5 accent-[#FF4655] bg-white/5 border-white/20 rounded focus:ring-[#FF4655]" 
                         required
                       />
-                      <label htmlFor="consent" className="ml-2 text-sm text-white/70">
+                      <label htmlFor="consent" className="ml-3 text-sm text-white/80">
                         İletişim izni veriyorum
                       </label>
                     </div>
                     
                     <button 
                       type="submit"
-                      className="w-full px-4 py-3 bg-gradient-to-r from-[#FF4655] to-[#FF2238] text-white font-medium rounded-md hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300"
+                      className="w-full px-6 py-4 bg-gradient-to-r from-[#FF4655] to-[#FF2238] text-white font-medium rounded-lg hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300"
                     >
                       Abone Ol
                     </button>
