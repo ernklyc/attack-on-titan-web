@@ -1,42 +1,112 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const CallToActionSection = () => {
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
+
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0A121A] to-[#0F1923] relative">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] max-w-4xl h-[2px] bg-gradient-to-r from-transparent via-[#FF4655]/30 to-transparent"></div>
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-[#0A121A] to-transparent"></div>
+    <section 
+      ref={sectionRef}
+      className="relative py-24 overflow-hidden"
+      style={{
+        backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 35, 0.9), rgba(15, 25, 35, 0.98)), url(/images/backgrounds/titan-bg.webp)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
+      {/* Dekoratif elementler */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-[#FF4655]/10 to-transparent rounded-full filter blur-[120px] opacity-30"></div>
+        <div className="absolute -bottom-48 right-1/4 w-96 h-96 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full filter blur-[120px] opacity-30"></div>
       </div>
-      
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto bg-gradient-to-br from-[#131E2A]/80 to-[#0F1923]/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border border-white/10">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-[#FF4655]/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#FF4655]/30">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#FF4655]" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-              </svg>
-            </div>
-            
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-              Attack on Titan evrenini keşfetmeye başla
+        <div className="max-w-4xl mx-auto text-center">
+          <div className={`transform transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h2 className="text-4xl md:text-5xl font-bold text-white">
+              <span className="relative inline-block">
+                Özgürlüğün Peşindeki Yolculuğa Katıl
+                <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-[#FF4655] to-[#FF2238]"></div>
+              </span>
             </h2>
             
-            <p className="text-gray-300 mb-10 max-w-xl mx-auto text-lg">
-              Karakterler, titanlar ve Attack on Titan'ın sırları hakkında her şeyi öğrenin. Evreni keşfetmeye hazır mısınız?
+            <p className="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">
+              Attack on Titan'ın etkileyici dünyasını keşfet. 
+              Karakterlerden titanlara, organizasyonlardan önemli bölümlere kadar tüm detayları öğren.
             </p>
+
+            <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <Link 
+                href="/characters" 
+                className="px-8 py-4 bg-gradient-to-r from-[#FF4655] to-[#FF2238] text-white font-medium rounded-md hover:shadow-lg hover:shadow-[#FF4655]/30 transform hover:-translate-y-1 transition-all duration-300"
+              >
+                Keşfetmeye Başla
+              </Link>
+              
+              <Link 
+                href="/episodes" 
+                className="px-8 py-4 bg-transparent border-2 border-white/30 text-white font-medium rounded-md hover:border-white hover:bg-white/5 transform hover:-translate-y-1 transition-all duration-300"
+              >
+                Bölümleri İzle
+              </Link>
+            </div>
+          </div>
+          
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div className={`bg-[#131E2A]/50 backdrop-blur-sm border border-white/10 rounded-lg p-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '100ms' }}>
+              <div className="w-16 h-16 mx-auto mb-4 bg-[#FF4655]/10 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-[#FF4655]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Karakterleri Tanı</h3>
+              <p className="text-gray-300">Eren Yeager'dan Mikasa Ackerman'a, Levi'den Historia'ya kadar tüm sevdiğiniz karakterlerin derinlemesine analizlerini bulun.</p>
+            </div>
             
-            <Link 
-              href="/characters"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF4655] to-[#FF2238] text-white font-medium rounded-lg hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300 transform hover:scale-105"
-            >
-              <span className="mr-2">Şimdi Keşfet</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </Link>
+            <div className={`bg-[#131E2A]/50 backdrop-blur-sm border border-white/10 rounded-lg p-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
+              <div className="w-16 h-16 mx-auto mb-4 bg-[#FF4655]/10 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-[#FF4655]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Bölümleri İzle</h3>
+              <p className="text-gray-300">Tüm sezonların bölümlerini, özel bölümleri ve OVA'ları detaylı özetleri ve izleme rehberleri ile keşfedin.</p>
+            </div>
+            
+            <div className={`bg-[#131E2A]/50 backdrop-blur-sm border border-white/10 rounded-lg p-6 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '300ms' }}>
+              <div className="w-16 h-16 mx-auto mb-4 bg-[#FF4655]/10 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-[#FF4655]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Topluluk Oluştur</h3>
+              <p className="text-gray-300">Diğer hayranlarla tartışın, teorileri paylaşın ve çevrimiçi etkinliklere katılarak Attack on Titan deneyiminizi geliştirin.</p>
+            </div>
           </div>
         </div>
       </div>
