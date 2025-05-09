@@ -41,7 +41,7 @@ export default function CharactersShowcase() {
     },
   ];
 
-  const [hoveredCharacter, setHoveredCharacter] = useState(null);
+  const [hoveredCharacter, setHoveredCharacter] = useState<number | null>(null);
 
   return (
     <section className="bg-[#10171F] py-16 md:py-24">
