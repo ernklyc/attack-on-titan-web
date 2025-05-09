@@ -28,12 +28,11 @@ const CallToActionSection = () => {
     };
   }, []);
 
-  return (
-    <section 
+  return (    <section 
       ref={sectionRef}
-      className="relative py-24 overflow-hidden"
+      className="relative py-24 overflow-hidden bg-aot-dark"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(15, 25, 35, 0.9), rgba(15, 25, 35, 0.98)), url(/images/backgrounds/titan-bg.webp)`,
+        backgroundImage: `linear-gradient(to bottom, rgba(10, 16, 24, 0.9), rgba(10, 16, 24, 0.98)), url(/images/backgrounds/titan-bg.webp)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}

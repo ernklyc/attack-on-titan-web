@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const CategoriesSection = () => {
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative bg-aot-dark">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <div className="inline-block mb-3">

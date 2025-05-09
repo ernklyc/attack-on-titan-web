@@ -57,25 +57,24 @@ const NewsUpdatesSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto mb-16">
+    <section ref={sectionRef} className="py-24 relative bg-aot-dark">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">        <div className="max-w-7xl mx-auto mb-16">
           <div className="flex flex-col md:flex-row items-start justify-between">
             <div className={`transition-all duration-1000 transform ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-              <div className="mb-4 inline-block px-6 py-2 bg-gradient-to-r from-[#FF4655]/30 to-[#FF2238]/30 rounded-full backdrop-blur-sm border border-[#FF4655]/20">
+              <div className="mb-6 inline-block px-6 py-2 bg-gradient-to-r from-[#FF4655]/30 to-[#FF2238]/30 rounded-full backdrop-blur-sm border border-[#FF4655]/20">
                 <span className="text-sm font-medium text-white tracking-wide uppercase">
                   Son Gelişmeler
                 </span>
               </div>
               
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-6 mb-4">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-6 mb-6">
                 <span className="relative inline-block">
                   En Güncel Haberler ve Duyurular
                   <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-[#FF4655] to-[#FF2238]"></div>
                 </span>
               </h2>
               
-              <p className="text-gray-300 max-w-2xl text-lg md:text-xl mt-6">
+              <p className="text-gray-300 max-w-2xl text-lg md:text-xl mt-8">
                 Attack on Titan dünyasından en yeni gelişmeleri takip edin
               </p>
             </div>
@@ -93,8 +92,7 @@ const NewsUpdatesSection = () => {
           
           <div className="h-px w-24 bg-[#FF4655]/30 mt-10 mb-16"></div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-7xl">
           {newsItems.map((item, index) => (
             <div 
               key={item.id} 

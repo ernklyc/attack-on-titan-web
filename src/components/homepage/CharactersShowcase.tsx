@@ -41,10 +41,8 @@ export default function CharactersShowcase() {
     },
   ];
 
-  const [hoveredCharacter, setHoveredCharacter] = useState<number | null>(null);
-
-  return (
-    <section className="bg-[#10171F] py-16 md:py-24">
+  const [hoveredCharacter, setHoveredCharacter] = useState<number | null>(null);  return (
+    <section className="bg-aot-dark py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
@@ -55,7 +53,7 @@ export default function CharactersShowcase() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mx-auto max-w-7xl">
           {mainCharacters.map((character) => (
             <Link 
               href={character.path} 
@@ -64,7 +62,7 @@ export default function CharactersShowcase() {
               onMouseEnter={() => setHoveredCharacter(character.id)}
               onMouseLeave={() => setHoveredCharacter(null)}
             >
-              <div className="bg-[#0A1018] border border-gray-800 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-[#FF4655]/10 hover:border-[#FF4655]/20 hover:translate-y-[-5px] h-full">
+              <div className="bg-[#0A1018] border border-gray-800 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-[#FF4655]/10 hover:border-[#FF4655]/20 hover:translate-y-[-5px] h-full flex flex-col">
                 {/* Karakter görseli */}
                 <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-b from-[#0A1018]/30 to-transparent z-10"></div>
@@ -81,21 +79,21 @@ export default function CharactersShowcase() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A1018] to-transparent opacity-70"></div>
                 </div>
                 
-                {/* Karakter bilgileri */}
-                <div className="p-4">
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-1">{character.name}</h3>
-                  <p className="text-[#FF4655] text-xs sm:text-sm mb-2">{character.role}</p>
-                  <p className="text-gray-400 text-xs sm:text-sm">{character.description}</p>
+                {/* Karakter bilgileri */}                <div className="p-5 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-1">{character.name}</h3>
+                    <p className="text-[#FF4655] text-xs sm:text-sm mb-2">{character.role}</p>
+                    <p className="text-gray-400 text-xs sm:text-sm">{character.description}</p>
+                  </div>
                 </div>
               </div>
             </Link>
           ))}
         </div>
-        
-        <div className="mt-10 text-center">
+          <div className="mt-12 text-center">
           <Link 
             href="/characters"
-            className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-[#FF4655]/70 text-[#FF4655] font-medium rounded-md hover:bg-[#FF4655]/10 transition-all duration-300"
+            className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-[#FF4655]/70 text-[#FF4655] font-medium rounded-md hover:bg-[#FF4655]/10 transition-all duration-300"
           >
             Tüm Karakterleri Keşfet
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">

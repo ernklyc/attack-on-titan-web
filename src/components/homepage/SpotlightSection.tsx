@@ -88,7 +88,7 @@ const SpotlightSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 bg-[#0F1923] overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 bg-aot-dark overflow-hidden">
       {/* Arka plan dekoratif elementleri */}
       <div className="absolute top-0 right-0 w-1/3 h-screen bg-gradient-to-l from-[#FF4655]/5 to-transparent"></div>
       <div className="absolute top-1/2 left-0 w-1/4 h-screen bg-gradient-to-r from-blue-900/5 to-transparent"></div>

@@ -12,7 +12,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#0F1923]">
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-aot-dark">
       {/* Arka plan efekti */}
       <div className="absolute inset-0 z-0">
         <div 

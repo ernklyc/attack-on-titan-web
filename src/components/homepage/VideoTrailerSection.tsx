@@ -10,20 +10,19 @@ export default function VideoTrailerSection() {
     setIsPlaying(true);
   };
 
-  return (
-    <section className="bg-[#10171F] py-16 md:py-24 relative">
+  return (    <section className="bg-aot-dark py-16 md:py-24 relative">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="text-[#FF4655]">Resmi</span> Fragman
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
+          <p className="text-gray-300 max-w-2xl mx-auto mb-8">
             Attack on Titan'ın en etkileyici anlarını izleyin ve hikayenin derinliklerine dalın.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="relative rounded-lg overflow-hidden shadow-md border border-gray-800/50">
+          <div className="relative rounded-xl overflow-hidden shadow-xl border border-gray-800/50">
             {!isPlaying ? (
               <div className="relative aspect-video">
                 <Image
@@ -33,13 +32,12 @@ export default function VideoTrailerSection() {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A1018]/80 to-black/30"></div>
-                
-                <button
+                  <button
                   onClick={handlePlayVideo}
                   className="absolute inset-0 flex items-center justify-center group focus:outline-none"
                   aria-label="Videoyu oynat"
                 >
-                  <div className="w-20 h-20 rounded-full flex items-center justify-center bg-[#FF4655]/80 text-white backdrop-blur-sm shadow-md transform transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-24 h-24 rounded-full flex items-center justify-center bg-[#FF4655]/80 text-white backdrop-blur-sm shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:bg-[#FF4655]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-10 w-10"

@@ -133,7 +133,7 @@ const FanCommunitySection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative py-24 overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 overflow-hidden bg-aot-dark">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Başlık - Enhanced */}
         <div className="text-center mb-20">

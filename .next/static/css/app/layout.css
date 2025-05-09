@@ -1801,10 +1801,6 @@ video {
 .bg-\[\#0A1018\]\/80 {
   background-color: rgb(10 16 24 / 0.8);
 }
-.bg-\[\#0A121A\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(10 18 26 / var(--tw-bg-opacity, 1));
-}
 .bg-\[\#0F1923\] {
   --tw-bg-opacity: 1;
   background-color: rgb(15 25 35 / var(--tw-bg-opacity, 1));
@@ -3931,6 +3927,11 @@ a:focus, button:focus {
   border-color: rgb(107 114 128 / 0.5);
 }
 
+.group:hover .group-hover\:bg-\[\#FF4655\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 70 85 / var(--tw-bg-opacity, 1));
+}
+
 .group:hover .group-hover\:bg-\[\#FF4655\]\/30 {
   background-color: rgb(255 70 85 / 0.3);
 }
@@ -4129,14 +4130,19 @@ a:focus, button:focus {
     padding-right: 1.5rem;
   }
 
+  .sm\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
   .sm\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
 
-  .sm\:py-3 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+  .sm\:py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .sm\:pt-8 {
@@ -4308,10 +4314,6 @@ a:focus, button:focus {
 
   .md\:justify-start {
     justify-content: flex-start;
-  }
-
-  .md\:gap-6 {
-    gap: 1.5rem;
   }
 
   .md\:gap-8 {

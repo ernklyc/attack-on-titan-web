@@ -42,7 +42,7 @@ const QuoteSection = () => {
   }, []);
 
   return (
-    <section className="relative py-24 overflow-hidden bg-[#0A121A]">
+    <section className="relative py-24 overflow-hidden bg-aot-dark">
       <div className="absolute inset-0 bg-[url('/home_image/highlights.jpg')] bg-cover bg-center opacity-10"></div>
       <div className="absolute inset-0 bg-gradient-to-r from-[#0F1923] via-transparent to-[#0F1923]"></div>
       

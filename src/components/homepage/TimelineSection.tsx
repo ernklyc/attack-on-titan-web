@@ -36,7 +36,7 @@ export default function TimelineSection() {
   ];
 
   return (
-    <section className="bg-[#0A1018] py-16 md:py-24">
+    <section className="bg-aot-dark py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
