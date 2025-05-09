@@ -64,8 +64,8 @@ export default function Navbar() {
             </span>
           </Link>
           
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-1 lg:space-x-2">
+          {/* Desktop Navigation - Improved */}
+          <nav className="hidden md:flex space-x-3 lg:space-x-5">
             {navLinks.map((link) => {
               const isActive = pathname === link.path;
               return (
@@ -74,8 +74,8 @@ export default function Navbar() {
                   href={link.path}
                   className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 group focus:outline-none ${
                     isActive 
-                      ? 'text-[#FF4655]' 
-                      : 'text-gray-300 hover:text-white'
+                      ? 'text-[#FF4655] bg-[#FF4655]/10 rounded-md' 
+                      : 'text-gray-300 hover:text-white hover:bg-white/5 rounded-md'
                   }`}
                 >
                   {link.name}
@@ -188,11 +188,11 @@ export default function Navbar() {
                 className={`block px-3 py-3 text-base font-medium relative group focus:outline-none ${
                   isActive 
                     ? 'bg-[#FF4655]/10 text-[#FF4655]'
-                    : 'text-gray-300 hover:text-white'
-                }`}
+                    : 'text-gray-300 hover:text-white hover:bg-white/5'
+                } rounded-md mb-1`}
               >
                 {link.name}
-                <span className={`absolute bottom-0 left-0 h-0.5 bg-[#FF4655]/70 rounded-full transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                {isActive && <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#FF4655] rounded-r"></span>}
               </Link>
             );
           })}
@@ -248,11 +248,11 @@ export default function Navbar() {
                 className="w-full flex items-center px-4 py-3 text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5 relative overflow-hidden group"
               >
                 <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
-                  <Image src="/icons/flags/gb.svg" alt="English" width={23} height={17} className="object-cover" style={{ height: "auto", marginTop: '1px' }} />
+                  <Image src="/icons/flags/gb.svg" alt="English" width={24} height={18} className="object-cover" style={{ height: "auto" }} />
                 </div>
                 <span className="flex flex-col items-start flex-grow">
                   <span className="font-medium">English</span>
-                  <span className="text-xs text-gray-500">Change to English</span>
+                  <span className="text-xs text-gray-500">Switch to English</span>
                 </span>
                 <span className="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,229 +1,109 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const CharactersShowcase = () => {
-  const [activeCharacter, setActiveCharacter] = useState(0);
-  const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  
-  const characters = [
+export default function CharactersShowcase() {
+  // Ana karakterleri örnek verilerle tanımlıyorum
+  const mainCharacters = [
     {
       id: 1,
-      name: "Eren Yeager",
-      role: "Ana Karakter",
-      description: "İnsanlığın umudunu taşıyan, özgürlüğü için sonuna kadar savaşan ve Saldırı Titanı'nın gücüne sahip olan karakter.",
-      quote: "Bu dünyada yaşamak istiyorsanız savaşmanız gerekir!",
-      image: "/home_image/characters.jpg",
-      color: "#FF4655"
+      name: 'Eren Yeager',
+      role: 'Ana Kahraman / Titan Taşıyıcısı',
+      image: '/images/characters/eren-yeager.webp',
+      description: 'Kendini insanlığın özgürlüğüne adamış, kararlı ve öfkeli bir genç.',
+      path: '/characters/eren-yeager',
     },
     {
       id: 2,
-      name: "Mikasa Ackerman",
-      role: "Koruyucu Savaşçı",
-      description: "Üstün dövüş yetenekleriyle rakipsiz bir savaşçı. Eren'i korumak için her şeyi yapabilecek güçlü bir karakter.",
-      quote: "Dünya acımasız, ama aynı zamanda güzel.",
-      image: "/home_image/episodes.jpg",
-      color: "#3B82F6"
+      name: 'Mikasa Ackerman',
+      role: 'Savaşçı / Koruyucu',
+      image: '/images/characters/mikasa-ackerman.webp',
+      description: 'Olağanüstü savaş yeteneklerine sahip, Eren\'e karşı derin bir sevgi besleyen sadık bir koruyucu.',
+      path: '/characters/mikasa-ackerman',
     },
     {
       id: 3,
-      name: "Armin Arlert",
-      role: "Stratejist",
-      description: "Keskin zekası, stratejik düşünce yeteneği ve analitik yaklaşımıyla grubun beyin takımı.",
-      quote: "Dünyayı değiştiremeyenler hiçbir şeyi değiştiremez.",
-      image: "/home_image/titans.jpg",
-      color: "#10B981"
+      name: 'Armin Arlert',
+      role: 'Stratejist / Titan Taşıyıcısı',
+      image: '/images/characters/armin-arlert.webp',
+      description: 'Zeki ve stratejik düşünme yeteneğine sahip, çatışmaları beyniyle çözmeye çalışan bir karakter.',
+      path: '/characters/armin-arlert',
     },
     {
       id: 4,
-      name: "Levi Ackerman",
-      role: "İnsanlığın En Güçlü Askeri",
-      description: "Eşsiz savaş yetenekleri ve taktiksel zekasıyla, insanlığın en güçlü askeri olarak bilinen efsanevi bir karakter.",
-      quote: "Pişman olmamak için her kararımı kendim veririm.",
-      image: "/home_image/highlights.jpg",
-      color: "#6366F1"
-    }
+      name: 'Levi Ackerman',
+      role: 'Keşif Birliği Kaptanı',
+      image: '/images/characters/levi-ackerman.webp',
+      description: 'İnsanlığın en güçlü askeri olarak bilinen, disiplinli ve acımasız bir savaşçı.',
+      path: '/characters/levi-ackerman',
+    },
   ];
 
-  useEffect(() => {
-    // IntersectionObserver ile section görünür olduğunda animasyonları tetikle
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    // Karakter otomatik değiştirme
-    const interval = setInterval(() => {
-      setActiveCharacter((prev) => (prev + 1) % characters.length);
-    }, 5000);
-
-    return () => {
-      clearInterval(interval);
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
-  }, []);
+  const [hoveredCharacter, setHoveredCharacter] = useState(null);
 
   return (
-    <section ref={sectionRef} className="relative py-24 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section başlık */}
-        <div className="text-center mb-16">
-          <div className="reveal mb-4">
-            <span className="px-4 py-1 bg-gradient-to-r from-[#FF4655]/40 to-[#FF2238]/40 rounded-md backdrop-blur-sm text-xs font-medium text-white tracking-wide uppercase border border-[#FF4655]/20">
-              Karakterler
-            </span>
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-white mt-4 reveal reveal-delay-100">
-            <span className="relative inline-block">
-              Hikayenin Kahramanları
-              <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-[#FF4655] to-[#FF2238]"></div>
-            </span>
+    <section className="bg-[#10171F] py-16 md:py-24">
+      <div className="container mx-auto px-4">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3">
+            <span className="text-[#FF4655]">Ana</span> Karakterler
           </h2>
-          
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg mt-6 reveal reveal-delay-200">
-            Attack on Titan'ın unutulmaz karakterlerini ve onların hikayelerini keşfedin
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            Attack on Titan'ın hikayesini şekillendiren ve dünyayı değiştiren karakterleri keşfedin.
           </p>
         </div>
-
-        {/* Karakter Vitrin - Improved Design */}
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Sol taraf - Karakter Görseli - Enhanced */}
-            <div className={`lg:col-span-7 relative ${isInView ? 'reveal reveal-delay-300' : ''}`}>
-              <div className="relative h-[500px] md:h-[600px] rounded-xl overflow-hidden shadow-2xl border border-white/10">
-                {characters.map((character, index) => (
-                  <div
-                    key={`char-img-${character.id}`}
-                    className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-                      activeCharacter === index ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  >
-                    <Image
-                      src={character.image}
-                      alt={character.name}
-                      fill
-                      className="object-cover"
-                      priority={index === 0}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    
-                    {/* Character name floating on image */}
-                    <div className="absolute bottom-0 left-0 w-full p-6">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <div className="h-1 w-10" style={{ backgroundColor: character.color }}></div>
-                        <span className="text-xs font-medium text-white/80 uppercase tracking-wider">{character.role}</span>
-                      </div>
-                      <h3 className="text-4xl md:text-5xl font-bold text-white">
-                        {character.name}
-                      </h3>
-                    </div>
-                  </div>
-                ))}
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {mainCharacters.map((character) => (
+            <Link 
+              href={character.path} 
+              key={character.id}
+              className="group block"
+              onMouseEnter={() => setHoveredCharacter(character.id)}
+              onMouseLeave={() => setHoveredCharacter(null)}
+            >
+              <div className="bg-[#0A1018] border border-gray-800 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-[#FF4655]/10 hover:border-[#FF4655]/20 hover:translate-y-[-5px] h-full">
+                {/* Karakter görseli */}
+                <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#0A1018]/30 to-transparent z-10"></div>
+                  <Image
+                    src={character.image}
+                    alt={character.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    style={{
+                      objectPosition: 'center top'
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1018] to-transparent opacity-70"></div>
+                </div>
+                
+                {/* Karakter bilgileri */}
+                <div className="p-4">
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-1">{character.name}</h3>
+                  <p className="text-[#FF4655] text-xs sm:text-sm mb-2">{character.role}</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">{character.description}</p>
+                </div>
               </div>
-              
-              {/* Decorative elements */}
-              <div className="absolute -bottom-6 -right-6 w-28 h-28 border-b-2 border-r-2 border-[#FF4655]/30 rounded-br-3xl"></div>
-              <div className="absolute -top-6 -left-6 w-28 h-28 border-t-2 border-l-2 border-[#FF4655]/30 rounded-tl-3xl"></div>
-            </div>
-            
-            {/* Sağ taraf - Karakter Detayları - Enhanced */}
-            <div className="lg:col-span-5 lg:pl-6">
-              <div className="relative">
-                {characters.map((character, index) => (
-                  <div
-                    key={`char-details-${character.id}`}
-                    className={`transition-all duration-1000 ease-in-out ${
-                      activeCharacter === index ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8 absolute inset-0'
-                    }`}
-                  >
-                    <div className="p-6 rounded-xl backdrop-blur-sm border border-white/10 bg-black/20 shadow-xl">
-                      <div className={`reveal reveal-delay-400 inline-block px-3 py-1 rounded-full text-xs font-medium text-white mb-4`} style={{ backgroundColor: character.color }}>
-                        {character.role}
-                      </div>
-                      
-                      <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 reveal reveal-delay-500">
-                        {character.name}
-                        <div className="h-1 w-16 mt-2" style={{ backgroundColor: character.color }}></div>
-                      </h3>
-                      
-                      <div className="flex items-start mb-6 reveal reveal-delay-600">
-                        <svg className="w-8 h-8 text-white/30 mr-4 mt-1 flex-shrink-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-10zm-14 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.999v10h-9.999z"/>
-                        </svg>
-                        <blockquote className="text-xl text-white/80 italic">
-                          "{character.quote}"
-                        </blockquote>
-                      </div>
-                      
-                      <p className="text-gray-300 mb-8 reveal reveal-delay-700">
-                        {character.description}
-                      </p>
-                      
-                      <Link 
-                        href="/characters" 
-                        className="reveal reveal-delay-800 px-6 py-3 bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-[#FF4655]/20 transition-all duration-300 inline-flex items-center group"
-                      >
-                        <span>Karakterleri Keşfet</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Karakter İndikatör - Improved */}
-              <div className="flex space-x-4 mt-10 reveal justify-center lg:justify-start">
-                {characters.map((character, idx) => (
-                  <button
-                    key={`char-indicator-${character.id}`}
-                    onClick={() => setActiveCharacter(idx)}
-                    className={`transition-all duration-300 flex flex-col items-center group`}
-                  >
-                    <div 
-                      className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all duration-300 ${
-                        activeCharacter === idx 
-                          ? 'border-2 scale-110' 
-                          : 'border-white/20 opacity-70 hover:opacity-100'
-                      }`}
-                      style={{ borderColor: activeCharacter === idx ? character.color : undefined }}
-                    >
-                      <Image
-                        src={character.image}
-                        alt={character.name}
-                        width={50}
-                        height={50}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <span className={`text-xs mt-1 transition-all duration-300 ${
-                      activeCharacter === idx ? 'text-white' : 'text-white/50'
-                    }`}>
-                      {character.name.split(' ')[0]}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+            </Link>
+          ))}
+        </div>
+        
+        <div className="mt-10 text-center">
+          <Link 
+            href="/characters"
+            className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-[#FF4655]/70 text-[#FF4655] font-medium rounded-md hover:bg-[#FF4655]/10 transition-all duration-300"
+          >
+            Tüm Karakterleri Keşfet
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>
   );
-};
-
-export default CharactersShowcase;
+}

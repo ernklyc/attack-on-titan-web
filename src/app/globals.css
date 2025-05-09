@@ -5,14 +5,21 @@
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 15, 25, 35;
-  --background-end-rgb: 10, 15, 23;
+  --background-end-rgb: 15, 25, 35;
+  --color-aot-red: #FF4655;
+  --color-aot-dark: #0A1018;
+  --color-aot-dark-secondary: #10171F;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
-      rgb(var(--background-start-rgb)),
+      transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
@@ -237,7 +244,11 @@ a:focus, button:focus {
 
 /* Text shadow for better readability */
 .text-shadow {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 /* Image hover zoom effect */
@@ -257,4 +268,232 @@ a:focus, button:focus {
 *:focus {
   outline: 2px solid rgba(255, 70, 85, 0.5);
   outline-offset: 2px;
+}
+
+/* Text shadow utility */
+.text-shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0F1923;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF4655;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e63e4c;
+}
+
+/* Custom selection color */
+::selection {
+  background: #FF4655;
+  color: white;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease-out;
+}
+
+/* Custom gradients */
+.bg-aot-gradient {
+  background: linear-gradient(135deg, var(--color-aot-dark) 0%, var(--color-aot-dark-secondary) 100%);
+}
+
+.bg-aot-dark-gradient {
+  background: linear-gradient(135deg, #0F1923 0%, #1A2C3B 100%);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(90deg, #FF4655, #FF8E53);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* Custom card styles */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(15, 25, 35, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-[#FF4655];
+}
+
+/* Added utility classes for spacing and layout */
+.section-spacing {
+  @apply py-16 md:py-24;
+}
+
+.content-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Custom list styles */
+.custom-list {
+  @apply space-y-2;
+}
+
+.custom-list li {
+  @apply flex items-start;
+}
+
+.custom-list li::before {
+  content: "•";
+  @apply text-[#FF4655] mr-2 font-bold;
+}
+
+/* Custom transitions */
+.transition-all-200 {
+  @apply transition-all duration-200;
+}
+
+.transition-all-300 {
+  @apply transition-all duration-300;
+}
+
+.transition-all-500 {
+  @apply transition-all duration-500;
+}
+
+/* Custom border colors */
+.border-aot-red {
+  @apply border-[#FF4655];
+}
+
+.border-aot-light {
+  @apply border-gray-200/10;
+}
+
+/* Responsive font utilities */
+.responsive-heading {
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold;
+}
+
+.responsive-subheading {
+  @apply text-xl md:text-2xl lg:text-3xl font-semibold;
+}
+
+/* globals.css dosyasının altına hide-scrollbar sınıfını ekliyorum */
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE ve Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari ve Opera */
+}
+
+/* Ana tema renkleri için yeni tanımlar */
+:root {
+  --color-aot-red: #FF4655;
+  --color-aot-dark: #0A1018;
+  --color-aot-dark-secondary: #10171F;
+}
+
+/* Tutarlı kenar çizgileri için */
+.border-aot {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Tutarlı geçişler */
+.transition-standard {
+  transition: all 0.3s ease;
+}
+
+/* Daha yeni ve temiz bir gölge tanımı */
+.shadow-soft {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Kart kapsayıcılar için gölge düzeltmesi */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Buton gölgelerini standartlaştırma */
+.btn-aot {
+  @apply bg-[#FF4655] text-white border-0 rounded-md px-4 py-2;
+  box-shadow: 0 2px 8px rgba(255, 70, 85, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-aot:hover {
+  box-shadow: 0 4px 12px rgba(255, 70, 85, 0.3);
+}
+
+/* Arka plan gradyanları */
+.bg-aot-gradient {
+  background: linear-gradient(135deg, var(--color-aot-dark) 0%, var(--color-aot-dark-secondary) 100%);
+}
+
+.bg-aot-gradient-red {
+  background: linear-gradient(135deg, #FF4655 0%, #ff6b75 100%);
 }

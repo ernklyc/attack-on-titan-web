@@ -1,150 +1,99 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
-const VideoTrailerSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+export default function VideoTrailerSection() {
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+  const handlePlayVideo = () => {
+    setIsPlaying(true);
+  };
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <div className={`mb-4 inline-block px-6 py-2 bg-gradient-to-r from-[#FF4655]/30 to-[#FF2238]/30 rounded-full backdrop-blur-sm border border-[#FF4655]/20 transition-all duration-1000 transform ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
-            <span className="text-sm font-medium text-white tracking-wide uppercase">Resmi Fragman</span>
+    <section className="bg-[#10171F] py-16 md:py-24 relative">
+      <div className="container mx-auto px-4">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3">
+            <span className="text-[#FF4655]">Resmi</span> Fragman
+          </h2>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            Attack on Titan'ın en etkileyici anlarını izleyin ve hikayenin derinliklerine dalın.
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="relative rounded-lg overflow-hidden shadow-md border border-gray-800/50">
+            {!isPlaying ? (
+              <div className="relative aspect-video">
+                <Image
+                  src="/images/trailers/final-season-trailer.webp"
+                  alt="Attack on Titan Fragman"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1018]/80 to-black/30"></div>
+                
+                <button
+                  onClick={handlePlayVideo}
+                  className="absolute inset-0 flex items-center justify-center group focus:outline-none"
+                  aria-label="Videoyu oynat"
+                >
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center bg-[#FF4655]/80 text-white backdrop-blur-sm shadow-md transform transition-transform duration-300 group-hover:scale-110">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-10 w-10"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span className="absolute mt-24 text-white text-lg font-medium text-shadow">Fragmanı İzle</span>
+                </button>
+              </div>
+            ) : (
+              <div className="aspect-video bg-black">
+                <iframe
+                  src="https://www.youtube.com/embed/MUCN-JwUvbY?autoplay=1"
+                  title="Attack on Titan Final Season Trailer"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            )}
           </div>
           
-          <h2 className={`text-4xl md:text-6xl font-bold text-white mt-6 mb-4 transition-all duration-1000 delay-100 transform ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
-            <span className="relative inline-block">
-              Animenin Dünyasına Hoş Geldiniz
-              <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-[#FF4655] to-[#FF2238]"></div>
-            </span>
-          </h2>
-          
-          <p className={`text-gray-300 max-w-3xl mx-auto text-lg md:text-xl mt-6 mb-12 transition-all duration-1000 delay-200 transform ${isInView ? 'opacity-100' : 'opacity-0 translate-y-6'}`}>
-            Attack on Titan'ın resmi fragmanını izleyin ve bu epik hikayeye dalın.
-          </p>
-          
-          <div className="h-px w-24 mx-auto bg-[#FF4655]/30 mt-10 mb-16"></div>
-        </div>
-        
-        {/* Video Trailer Card - Enhanced */}
-        <div className={`relative mx-auto max-w-6xl rounded-2xl overflow-hidden shadow-2xl border border-white/10 group transition-all duration-1000 delay-300 transform ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Decorative elements */}
-          <div className="absolute -bottom-6 -right-6 w-28 h-28 border-b-2 border-r-2 border-[#FF4655]/30 rounded-br-3xl z-10"></div>
-          <div className="absolute -top-6 -left-6 w-28 h-28 border-t-2 border-l-2 border-[#FF4655]/30 rounded-tl-3xl z-10"></div>
-          
-          <div className="aspect-w-16 aspect-h-9 relative">
-            <Image 
-              src="/home_image/highlights.jpg"
-              alt="Attack on Titan Season 4 Trailer"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/30 to-black/60"></div>
+          <div className="mt-6 flex flex-wrap gap-3 justify-center">
+            <div className="bg-[#0A1018] rounded-md px-4 py-2 flex items-center border border-gray-800/50">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#FF4655] mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+              </svg>
+              <span className="text-white text-sm">Yayınlanma: 2023</span>
+            </div>
             
-            {/* Play Button - Enhanced */}
-            <div 
-              className="absolute inset-0 flex items-center justify-center cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <div className="relative w-24 h-24 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                {/* Pulsing ring effect */}
-                <div className="absolute inset-0 rounded-full bg-[#FF4655]/20 animate-ping opacity-75"></div>
-                <div className="absolute inset-0 rounded-full bg-white/10 backdrop-blur-md border border-white/20"></div>
-                <div className="relative w-20 h-20 bg-gradient-to-br from-[#FF4655] to-[#FF2238] rounded-full flex items-center justify-center shadow-lg shadow-[#FF4655]/30">
-                  <svg className="w-10 h-10 text-white ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"></path>
-                  </svg>
-                </div>
-              </div>
-              
-              <div className="absolute bottom-8 left-8 text-white z-10">
-                <span className="px-4 py-1.5 bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white text-sm font-semibold rounded-md shadow-lg">
-                  Final Sezon
-                </span>
-                <h4 className="text-3xl font-bold mt-3 drop-shadow-lg group-hover:text-[#FF4655] transition-colors">
-                  Attack on Titan: Final Season
-                </h4>
-                <div className="h-1 w-16 bg-white/50 mt-3 group-hover:bg-[#FF4655] transition-colors"></div>
-              </div>
-              
-              <div className="absolute bottom-8 right-8 text-white z-10 flex items-center space-x-2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <svg className="w-4 h-4 text-[#FF4655]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"></path>
-                </svg>
-                <span className="text-sm font-medium">2:45</span>
-              </div>
+            <div className="bg-[#0A1018] rounded-md px-4 py-2 flex items-center border border-gray-800/50">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#FF4655] mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+              </svg>
+              <span className="text-white text-sm">HD Kalite</span>
+            </div>
+            
+            <div className="bg-[#0A1018] rounded-md px-4 py-2 flex items-center border border-gray-800/50">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#FF4655] mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.616a1 1 0 01.894-1.79l1.599.8L9 4.323V3a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              <span className="text-white text-sm">Son Sezon</span>
             </div>
           </div>
-        </div>
-        
-        {/* Watch Now Button */}
-        <div className={`text-center mt-10 transition-all duration-1000 delay-500 transform ${isInView ? 'opacity-100' : 'opacity-0'}`}>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center px-8 py-4 bg-transparent border border-white/20 rounded-lg text-white hover:bg-[#FF4655]/10 hover:border-[#FF4655] transition-all duration-300 group"
-          >
-            <svg className="w-5 h-5 mr-2 text-[#FF4655]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"></path>
-            </svg>
-            <span className="font-medium">Fragmanı İzle</span>
-          </button>
         </div>
       </div>
-      
-      {/* Video Modal - Enhanced */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4" onClick={() => setIsModalOpen(false)}>
-          <div className="relative w-full max-w-6xl aspect-w-16 aspect-h-9">
-            <div className="absolute -top-12 right-0 flex items-center mb-4">
-              <span className="mr-4 text-white/70 text-sm">Attack on Titan Final Season</span>
-              <button 
-                className="w-10 h-10 bg-black/50 border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#FF4655] transition-colors duration-300"
-                onClick={() => setIsModalOpen(false)}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
-            </div>
-            
-            <iframe
-              src="https://www.youtube.com/embed/SlNpRThS9t8?autoplay=1"
-              title="Attack on Titan Season 4 Trailer"
-              className="w-full h-full border-0 rounded-xl shadow-2xl"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      )}
     </section>
   );
-};
-
-export default VideoTrailerSection;
+}
