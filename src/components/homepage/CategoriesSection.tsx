@@ -6,11 +6,15 @@ import Image from 'next/image';
 
 const CategoriesSection = () => {
   return (
-    <section className="py-24 relative bg-aot-dark">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-12 relative">
+      {/* Dekoratif elementler */}
+      <div className="absolute top-0 right-0 -mt-10 mr-10 w-32 h-32 bg-gradient-to-br from-[#FF4655]/20 to-transparent rounded-full filter blur-2xl opacity-70"></div>
+      <div className="absolute bottom-0 left-0 -mb-16 ml-16 w-40 h-40 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full filter blur-3xl opacity-50"></div>
+      
+      <div className="relative z-10">
         <div className="text-center mb-16">
           <div className="inline-block mb-3">
-            <span className="text-xs font-medium text-[#FF4655] tracking-widest uppercase">Keşfet</span>
+            <span className="text-xs font-medium text-[#FF4655] tracking-widest uppercase bg-[#FF4655]/10 px-4 py-1 rounded-full">Keşfet</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">Kategoriler</h2>
           <div className="h-1 w-24 bg-[#FF4655] mx-auto mb-6"></div>
@@ -24,7 +28,7 @@ const CategoriesSection = () => {
           <div className="md:w-1/2">
             <Link 
               href="/characters" 
-              className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-[#FF4655]/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-[#FF4655]/10 hover:shadow-2xl h-full block"
+              className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-[#FF4655]/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-[#FF4655]/10 hover:shadow-2xl h-full block bg-[#1A242D]/40 backdrop-blur-lg"
             >
               <div className="relative h-[400px] overflow-hidden">
                 <Image 
@@ -34,11 +38,14 @@ const CategoriesSection = () => {
                   className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923] via-[#0F1923]/70 to-transparent"></div>
+                
+                {/* Shine effect on hover */}
+                <div className="absolute top-0 -inset-x-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />
               </div>
               
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="bg-[#FF4655]/70 px-3 py-1 rounded-full text-xs text-white font-medium">
+                  <span className="bg-[#FF4655]/70 px-3 py-1 rounded-full text-xs text-white font-medium backdrop-blur-sm">
                     Ana Kategori
                   </span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FF4655] opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 20 20" fill="currentColor">
@@ -56,6 +63,9 @@ const CategoriesSection = () => {
                   Ana karakterlerin hikayeleri ve aralarındaki ilişkiler hakkında detaylı bilgiler edinebilirsiniz.
                 </p>
               </div>
+              
+              {/* Bottom shine effect */}
+              <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-[#FF4655]/70 to-[#FF4655] group-hover:w-full transition-all duration-700 z-20"></div>
             </Link>
           </div>
 
@@ -65,7 +75,7 @@ const CategoriesSection = () => {
               {/* Titans Card */}
               <Link 
                 href="/titans" 
-                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-blue-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-blue-500/10 hover:shadow-2xl"
+                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-blue-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-blue-500/10 hover:shadow-2xl bg-[#1A242D]/40 backdrop-blur-lg"
               >
                 <div className="relative h-40 overflow-hidden">
                   <Image 
@@ -75,11 +85,14 @@ const CategoriesSection = () => {
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923] via-[#0F1923]/70 to-transparent"></div>
+                  
+                  {/* Shine effect on hover */}
+                  <div className="absolute top-0 -inset-x-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />
                 </div>
                 
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="bg-blue-500/50 px-3 py-1 rounded-full text-xs text-white font-medium">
+                    <span className="bg-blue-500/50 px-3 py-1 rounded-full text-xs text-white font-medium backdrop-blur-sm">
                       Yaratıklar
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-400 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 20 20" fill="currentColor">
@@ -97,12 +110,15 @@ const CategoriesSection = () => {
                     Devasa titanların güçleri ve özelliklerini keşfedin.
                   </p>
                 </div>
+                
+                {/* Bottom shine effect */}
+                <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-blue-500/70 to-blue-500 group-hover:w-full transition-all duration-700 z-20"></div>
               </Link>
 
               {/* Episodes Card */}
               <Link 
                 href="/episodes" 
-                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-green-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-green-500/10 hover:shadow-2xl"
+                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-green-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-green-500/10 hover:shadow-2xl bg-[#1A242D]/40 backdrop-blur-lg"
               >
                 <div className="relative h-40 overflow-hidden">
                   <Image 
@@ -112,11 +128,14 @@ const CategoriesSection = () => {
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923] via-[#0F1923]/70 to-transparent"></div>
+                  
+                  {/* Shine effect on hover */}
+                  <div className="absolute top-0 -inset-x-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />
                 </div>
                 
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="bg-green-500/50 px-3 py-1 rounded-full text-xs text-white font-medium">
+                    <span className="bg-green-500/50 px-3 py-1 rounded-full text-xs text-white font-medium backdrop-blur-sm">
                       Anime
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-400 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 20 20" fill="currentColor">
@@ -134,12 +153,15 @@ const CategoriesSection = () => {
                     Tüm sezonların bölüm özetleri ve kilit olaylar.
                   </p>
                 </div>
+                
+                {/* Bottom shine effect */}
+                <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-green-500/70 to-green-500 group-hover:w-full transition-all duration-700 z-20"></div>
               </Link>
 
               {/* Locations Card */}
               <Link 
                 href="/locations" 
-                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-yellow-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-yellow-500/10 hover:shadow-2xl"
+                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-yellow-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-yellow-500/10 hover:shadow-2xl bg-[#1A242D]/40 backdrop-blur-lg"
               >
                 <div className="relative h-40 overflow-hidden">
                   <Image 
@@ -149,11 +171,14 @@ const CategoriesSection = () => {
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923] via-[#0F1923]/70 to-transparent"></div>
+                  
+                  {/* Shine effect on hover */}
+                  <div className="absolute top-0 -inset-x-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />
                 </div>
                 
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="bg-yellow-500/50 px-3 py-1 rounded-full text-xs text-white font-medium">
+                    <span className="bg-yellow-500/50 px-3 py-1 rounded-full text-xs text-white font-medium backdrop-blur-sm">
                       Dünya
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-400 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 20 20" fill="currentColor">
@@ -171,12 +196,15 @@ const CategoriesSection = () => {
                     Hikayenin geçtiği önemli mekanlar hakkında bilgiler.
                   </p>
                 </div>
+                
+                {/* Bottom shine effect */}
+                <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-yellow-500/70 to-yellow-500 group-hover:w-full transition-all duration-700 z-20"></div>
               </Link>
 
               {/* Organizations Card */}
               <Link 
                 href="/organizations" 
-                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-purple-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-purple-500/10 hover:shadow-2xl"
+                className="group relative rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-purple-500/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-purple-500/10 hover:shadow-2xl bg-[#1A242D]/40 backdrop-blur-lg"
               >
                 <div className="relative h-40 overflow-hidden">
                   <Image 
@@ -186,11 +214,14 @@ const CategoriesSection = () => {
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923] via-[#0F1923]/70 to-transparent"></div>
+                  
+                  {/* Shine effect on hover */}
+                  <div className="absolute top-0 -inset-x-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />
                 </div>
                 
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="bg-purple-500/50 px-3 py-1 rounded-full text-xs text-white font-medium">
+                    <span className="bg-purple-500/50 px-3 py-1 rounded-full text-xs text-white font-medium backdrop-blur-sm">
                       Gruplar
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-400 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 20 20" fill="currentColor">
@@ -205,9 +236,12 @@ const CategoriesSection = () => {
                   <div className="h-1 w-10 bg-purple-500 mb-2 group-hover:w-20 transition-all duration-500"></div>
                   
                   <p className="text-gray-300 text-sm">
-                    Askeri birliklerin yapısı ve diğer organizasyonlar.
+                    Askeri birimler ve önemli gruplar hakkında bilgiler.
                   </p>
                 </div>
+                
+                {/* Bottom shine effect */}
+                <div className="absolute bottom-0 h-1 w-0 bg-gradient-to-r from-purple-500/70 to-purple-500 group-hover:w-full transition-all duration-700 z-20"></div>
               </Link>
             </div>
           </div>

@@ -57,11 +57,12 @@ const NewsUpdatesSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 relative bg-aot-dark">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">        <div className="max-w-7xl mx-auto mb-16">
+    <section ref={sectionRef} className="py-24 relative bg-gradient-to-b from-[#0F1923]/10 via-[#1A242D]/5 to-[#0F1923]/10 backdrop-blur-md">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto mb-16">
           <div className="flex flex-col md:flex-row items-start justify-between">
             <div className={`transition-all duration-1000 transform ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-              <div className="mb-6 inline-block px-6 py-2 bg-gradient-to-r from-[#FF4655]/30 to-[#FF2238]/30 rounded-full backdrop-blur-sm border border-[#FF4655]/20">
+              <div className="mb-6 inline-block px-6 py-2 bg-[#FF4655]/20 rounded-full backdrop-blur-xl border border-[#FF4655]/20">
                 <span className="text-sm font-medium text-white tracking-wide uppercase">
                   Son Gelişmeler
                 </span>
@@ -74,99 +75,76 @@ const NewsUpdatesSection = () => {
                 </span>
               </h2>
               
-              <p className="text-gray-300 max-w-2xl text-lg md:text-xl mt-8">
+              <p className="text-gray-300 max-w-2xl text-lg md:text-xl mt-8 bg-[#0F1923]/20 backdrop-blur-xl p-4 rounded-lg border border-white/5 hover:border-white/10 transition-all duration-300">
                 Attack on Titan dünyasından en yeni gelişmeleri takip edin
               </p>
             </div>
             
-            <Link 
-              href="#" 
-              className={`mt-6 md:mt-20 inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white rounded-lg hover:shadow-lg hover:shadow-[#FF4655]/30 transition-all duration-300 transform ${isInView ? 'translate-y-0 opacity-100 delay-300' : 'translate-y-12 opacity-0'}`}
-            >
-              <span className="font-medium">Tüm Haberler</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </Link>
+            <div className={`mt-10 md:mt-0 transition-all duration-1000 transform ${isInView ? 'translate-y-0 opacity-100 delay-200' : 'translate-y-12 opacity-0'}`}>
+              <Link href="#" className="inline-flex items-center justify-center px-6 py-3 bg-[#0F1923]/20 backdrop-blur-xl border border-white/10 hover:border-white/20 text-white font-medium rounded-lg hover:bg-[#1A242D]/20 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <span>Tüm Haberleri Görüntüle</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </Link>
+            </div>
           </div>
-          
-          <div className="h-px w-24 bg-[#FF4655]/30 mt-10 mb-16"></div>
         </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-7xl">
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {newsItems.map((item, index) => (
             <div 
               key={item.id} 
-              className={`rounded-xl overflow-hidden shadow-xl border border-white/10 hover:border-[#FF4655]/30 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-[#FF4655]/10 hover:shadow-2xl group ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: `${index * 100 + 200}ms` }}
+              className={`bg-[#0F1923]/20 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-white/20 transition-all duration-500 transform hover:-translate-y-2 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: `${index * 100 + 300}ms` }}
             >
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
                 <Image 
                   src={item.image} 
                   alt={item.title} 
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover transform hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F1923]/90 via-[#0F1923]/50 to-[#0F1923]/20"></div>
                 
-                {/* Category Badge - Enhanced */}
-                <div className="absolute top-5 right-5">
-                  <span className="px-4 py-1.5 bg-gradient-to-r from-[#FF4655]/80 to-[#FF2238]/80 text-white text-xs font-medium rounded shadow-lg">
-                    {item.category}
-                  </span>
+                <div className="absolute top-4 left-4 bg-[#FF4655]/20 backdrop-blur-xl px-3 py-1 rounded-md border border-[#FF4655]/20 text-white text-sm font-medium">
+                  {item.category}
                 </div>
                 
-                {/* Date - Enhanced */}
-                <div className="absolute bottom-5 left-5 flex items-center text-white/80 text-sm bg-black/40 backdrop-blur-sm px-3 py-1 rounded">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span>{item.date}</span>
+                <div className="absolute top-4 right-4 bg-[#0F1923]/30 backdrop-blur-xl px-3 py-1 rounded-md border border-white/10 text-white text-xs">
+                  {item.date}
                 </div>
               </div>
               
-              <div className="p-7 bg-black/30">
-                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-[#FF4655] transition-colors line-clamp-2 min-h-[3.5rem]">
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-white mb-4 hover:text-[#FF4655] transition-colors">
                   {item.title}
                 </h3>
                 
-                <div className="h-0.5 w-12 bg-[#FF4655]/40 mb-4 group-hover:w-24 transition-all duration-500"></div>
-                
-                <p className="text-gray-300 text-sm mb-6 line-clamp-2 min-h-[2.5rem]">
+                <p className="text-gray-300 mb-6 text-sm">
                   {item.excerpt}
                 </p>
                 
-                <Link 
-                  href="#" 
-                  className="inline-flex items-center text-[#FF4655] font-medium text-sm group-hover:underline"
-                >
-                  Devamını Oku
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </Link>
+                <div className="flex justify-between items-center">
+                  <Link 
+                    href="#" 
+                    className="inline-flex items-center text-[#FF4655] hover:text-white transition-colors bg-[#0F1923]/30 hover:bg-[#FF4655]/20 px-4 py-2 rounded-md backdrop-blur-xl border border-[#FF4655]/20 hover:border-[#FF4655]/40 group"
+                  >
+                    <span>Devamını Oku</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1.5 transform transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                  
+                  <div className="w-8 h-8 bg-[#0F1923]/30 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
-        </div>
-        
-        {/* Newsletter Signup */}
-        <div className={`mt-16 p-8 rounded-xl border border-white/10 backdrop-blur-sm bg-black/20 max-w-5xl mx-auto shadow-xl transition-all duration-1000 transform ${isInView ? 'translate-y-0 opacity-100 delay-500' : 'translate-y-12 opacity-0'}`}>
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0 md:mr-8">
-              <h4 className="text-2xl font-bold text-white mb-2">En Son Haberler İçin Abone Olun</h4>
-              <p className="text-gray-300">Attack on Titan dünyasındaki gelişmelerden haberdar olun</p>
-            </div>
-            <div className="flex w-full md:w-auto">
-              <input 
-                type="email" 
-                placeholder="E-posta adresiniz" 
-                className="flex-grow md:w-64 px-4 py-3 bg-white/5 border border-white/10 rounded-l-lg text-white focus:outline-none focus:border-[#FF4655]"
-              />
-              <button className="bg-gradient-to-r from-[#FF4655] to-[#FF2238] px-5 py-3 text-white font-medium rounded-r-lg hover:shadow-lg hover:shadow-[#FF4655]/20 transition-all duration-300">
-                Abone Ol
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </section>

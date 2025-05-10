@@ -393,7 +393,7 @@ export default function Characters() {
   };
 
   return (
-    <div className="min-h-screen relative bg-[#0F1923] text-gray-100">
+    <div className="min-h-screen relative bg-gradient-to-b from-[#0F1923]/80 via-[#0F1923]/90 to-[#0F1923]/80 text-gray-100">
       {/* Background image with semi-transparent black overlay */}
       <div className="fixed inset-0 z-0">
         <Image 
@@ -508,7 +508,7 @@ export default function Characters() {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-[#1A242D]/60 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/5 mb-6 sm:mb-8"
+            className="bg-[#0F1923]/20 backdrop-blur-xl rounded-xl shadow-2xl overflow-hidden border border-white/5 mb-6 sm:mb-8"
           >
             <CharacterFilter
               nameFilter={nameFilter}
@@ -587,7 +587,7 @@ export default function Characters() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-4 md:p-8 border border-white/5 shadow-xl"
+                className="bg-[#0F1923]/20 backdrop-blur-xl rounded-xl p-4 md:p-8 border border-white/5 shadow-xl"
               >
                 <motion.div layout className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
                   <AnimatePresence>
@@ -621,7 +621,7 @@ export default function Characters() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="mt-8 mb-8 bg-[#1A242D]/40 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/5 shadow-xl"
+                  className="mt-8 mb-8 bg-[#0F1923]/20 backdrop-blur-xl rounded-xl p-4 sm:p-6 border border-white/5 shadow-xl"
                 >
                   <div className="flex flex-col items-center">
                     {/* Page information */}
@@ -635,7 +635,7 @@ export default function Characters() {
                     </div>
                     
                     {/* Page navigation - glassmorphism style with nested glass effect */}
-                    <div className="inline-flex flex-wrap justify-center bg-[#1A242D]/60 backdrop-blur-lg rounded-lg p-2 shadow-lg border border-white/5 max-w-full overflow-hidden">
+                    <div className="inline-flex flex-wrap justify-center bg-[#0F1923]/20 backdrop-blur-xl rounded-lg p-2 shadow-lg border border-white/5 max-w-full overflow-hidden">
                       {/* First page button */}
                       <button
                         onClick={() => handlePageChange(1)}
@@ -956,7 +956,7 @@ function CharacterDetail({ character, texts }: { character: Character, texts: ty
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1, duration: 0.4 }}
-              className="bg-[#0F1923]/70 backdrop-blur-lg p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg group"
+              className="bg-[#0F1923]/20 backdrop-blur-xl p-5 rounded-xl border border-white/5 hover:border-white/10 transition-all duration-500 shadow-lg"
             >
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-semibold text-white text-lg transition-colors">{group.name}</h3>

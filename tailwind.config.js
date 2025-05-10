@@ -51,6 +51,12 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)'],
       },
+      dropShadow: {
+        'glow': '0 0 8px rgba(255, 70, 85, 0.7)',
+        'glow-lg': '0 0 10px rgba(255, 70, 85, 0.8)',
+        'glow-white': '0 0 8px rgba(255, 255, 255, 0.8)',
+        'glow-blue': '0 0 8px rgba(59, 130, 246, 0.8)',
+      },
     },
   },
   plugins: [],

@@ -97,7 +97,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
 
   return (
     <motion.div 
-      className="p-3 sm:p-4 w-full" 
+      className="p-3 sm:p-4 w-full bg-[#0F1923]/5 backdrop-blur-md rounded-lg border border-white/5" 
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -115,7 +115,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
           {/* Mobile Toggle Button */}
           <button 
             onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)} 
-            className="ml-3 md:hidden bg-[#0F1923]/60 text-white p-1 rounded-md focus:outline-none"
+            className="ml-3 md:hidden bg-[#0F1923]/30 backdrop-blur-xl text-white p-1 rounded-md focus:outline-none border border-white/5 hover:border-white/10 transition-all duration-300"
             aria-expanded={isMobileFiltersOpen}
             aria-controls="filter-section"
           >
@@ -163,7 +163,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 value={nameFilter}
                 onChange={(e) => setNameFilter(e.target.value)}
                 placeholder="Karakter adı girin..."
-                className="w-full px-4 py-2 h-10 bg-[#0F1923]/50 backdrop-blur-lg border border-white/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4655]/50 focus:border-[#FF4655]/30 transition-all duration-200 pl-10 text-sm"
+                className="w-full px-4 py-2 h-10 bg-[#0F1923]/20 backdrop-blur-xl border border-white/5 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4655]/50 focus:border-[#FF4655]/30 transition-all duration-200 pl-10 text-sm"
                 aria-label="Karakter ismine göre filtrele"
                 autoComplete="off"
               />
@@ -179,7 +179,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                       e.stopPropagation();
                       setNameFilter('');
                     }}
-                    className="text-gray-400 hover:text-white transition-colors bg-[#1A242D]/40 hover:bg-[#1A242D]/60 rounded-full p-1 backdrop-blur-lg"
+                    className="text-gray-400 hover:text-white transition-colors bg-[#0F1923]/20 hover:bg-[#0F1923]/30 rounded-full p-1 backdrop-blur-xl"
                     aria-label="İsim filtresini temizle"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -203,7 +203,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               {/* Custom dropdown button */}
               <div
                 ref={statusDropdownRef}
-                className={`w-full px-4 py-2 h-10 bg-[#0F1923]/50 backdrop-blur-lg border ${statusDropdownOpen ? 'border-[#FF4655]/30 ring-2 ring-[#FF4655]/50' : 'border-white/10'} text-white rounded-lg cursor-pointer flex items-center justify-between transition-all duration-200`}
+                className={`w-full px-4 py-2 h-10 bg-[#0F1923]/20 backdrop-blur-xl border ${statusDropdownOpen ? 'border-[#FF4655]/30 ring-2 ring-[#FF4655]/50' : 'border-white/5'} text-white rounded-lg cursor-pointer flex items-center justify-between transition-all duration-300`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setStatusDropdownOpen(!statusDropdownOpen);
@@ -259,7 +259,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
               {/* Custom dropdown button */}
               <div
                 ref={genderDropdownRef}
-                className={`w-full px-4 py-2 h-10 bg-[#0F1923]/50 backdrop-blur-lg border ${genderDropdownOpen ? 'border-[#FF4655]/30 ring-2 ring-[#FF4655]/50' : 'border-white/10'} text-white rounded-lg cursor-pointer flex items-center justify-between transition-all duration-200`}
+                className={`w-full px-4 py-2 h-10 bg-[#0F1923]/20 backdrop-blur-xl border ${genderDropdownOpen ? 'border-[#FF4655]/30 ring-2 ring-[#FF4655]/50' : 'border-white/5'} text-white rounded-lg cursor-pointer flex items-center justify-between transition-all duration-300`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setGenderDropdownOpen(!genderDropdownOpen);
@@ -318,7 +318,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                 value={selectedOccupation}
                 onChange={(e) => setSelectedOccupation(e.target.value)}
                 placeholder="Meslek girin..."
-                className="w-full px-4 py-2 h-10 bg-[#0F1923]/50 backdrop-blur-lg border border-white/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4655]/50 focus:border-[#FF4655]/30 transition-all duration-200 pl-10 text-sm"
+                className="w-full px-4 py-2 h-10 bg-[#0F1923]/20 backdrop-blur-xl border border-white/5 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4655]/50 focus:border-[#FF4655]/30 transition-all duration-200 pl-10 text-sm"
                 aria-label="Mesleklere göre filtrele"
                 autoComplete="off"
               />
@@ -334,7 +334,7 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
                       e.stopPropagation();
                       setSelectedOccupation('');
                     }}
-                    className="text-gray-400 hover:text-white transition-colors bg-[#1A242D]/40 hover:bg-[#1A242D]/60 rounded-full p-1 backdrop-blur-lg"
+                    className="text-gray-400 hover:text-white transition-colors bg-[#0F1923]/20 hover:bg-[#0F1923]/30 rounded-full p-1 backdrop-blur-xl"
                     aria-label="Meslek filtresini temizle"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -351,10 +351,10 @@ const CharacterFilter: React.FC<CharacterFilterProps> = ({
             <button
               onClick={hasActiveFilters ? handleClearFilters : undefined}
               disabled={!hasActiveFilters}
-              className={`w-full px-4 py-2 h-10 rounded-lg flex items-center justify-center space-x-2 transition-all duration-300 backdrop-blur-lg
+              className={`w-full px-4 py-2 h-10 rounded-lg flex items-center justify-center space-x-2 transition-all duration-300 backdrop-blur-xl
                 ${hasActiveFilters 
-                  ? "bg-[#0F1923]/70 hover:bg-[#0F1923]/90 text-white border border-white/10 hover:border-white/20 shadow-lg" 
-                  : "bg-[#0F1923]/40 text-gray-500 cursor-not-allowed border border-white/5"}`}
+                  ? "bg-[#0F1923]/30 hover:bg-[#0F1923]/40 text-white border border-white/5 hover:border-white/10 shadow-lg" 
+                  : "bg-[#0F1923]/20 text-gray-500 cursor-not-allowed border border-white/5 backdrop-blur-xl"}`}
               aria-label="Tüm filtreleri temizle"
             >
               <svg xmlns="http://www.w3.org/2000/svg" 
