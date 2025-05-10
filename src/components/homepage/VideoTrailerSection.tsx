@@ -9,10 +9,10 @@ export default function VideoTrailerSection() {
   const handlePlayVideo = () => {
     setIsPlaying(true);
   };
-
-  return (    <section className="bg-aot-dark py-16 md:py-24 relative">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
+  return (    
+    <section className="bg-aot-dark py-16 md:py-24 min-h-screen flex flex-col justify-center relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 my-auto">
+        <div className="mb-10 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="text-[#FF4655]">Resmi</span> Fragman
           </h2>

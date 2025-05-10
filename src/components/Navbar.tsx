@@ -39,7 +39,7 @@ export default function Navbar() {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#0F1923]/90 backdrop-blur-md shadow-lg' 
+          ? 'glass-effect border-b border-white/5' 
           : 'bg-transparent'
       }`}
     >
@@ -60,11 +60,11 @@ export default function Navbar() {
               />
             </div>
             <span className="font-bold text-xl md:text-2xl text-white tracking-tight">
-              <span className="text-[#FF4655]">Attack</span> on Titan
+              <span className="text-red-600">Attack</span> on Titan
             </span>
           </Link>
           
-          {/* Desktop Navigation - Improved */}
+          {/* Desktop Navigation - Sadece altındaki çubuk animasyonlu */}
           <nav className="hidden md:flex space-x-3 lg:space-x-5">
             {navLinks.map((link) => {
               const isActive = pathname === link.path;
@@ -74,12 +74,12 @@ export default function Navbar() {
                   href={link.path}
                   className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 group focus:outline-none ${
                     isActive 
-                      ? 'text-[#FF4655] bg-[#FF4655]/10 rounded-md' 
-                      : 'text-gray-300 hover:text-white hover:bg-white/5 rounded-md'
+                      ? 'text-white' 
+                      : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {link.name}
-                  <span className={`absolute bottom-0 left-0 h-0.5 bg-[#FF4655]/70 rounded-full transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                  <span className={`absolute bottom-0 left-0 h-0.5 bg-red-600 rounded-full transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </Link>
               );
             })}
@@ -87,11 +87,11 @@ export default function Navbar() {
           
           {/* Language Switcher */}
           <div className="hidden md:flex items-center">
-            <div className="flex rounded-md overflow-hidden border border-white/10 backdrop-blur-sm shadow-lg ml-3">
+            <div className="flex rounded-md overflow-hidden border border-white/10 glass-effect ml-3">
               {/* Türkçe */}
               <button 
                 type="button"
-                className="group flex items-center justify-center p-2 bg-gradient-to-b from-[#FF4655]/20 to-[#FF4655]/10 hover:from-[#FF4655]/30 hover:to-[#FF4655]/20 transition-all duration-300 text-white relative overflow-hidden"
+                className="group flex items-center justify-center p-2 bg-gradient-to-b from-red-600/20 to-red-600/10 hover:from-red-600/30 hover:to-red-600/20 transition-all duration-300 text-white relative overflow-hidden"
                 aria-label="Türkçe"
                 title="Türkçe dilini seç"
               >
@@ -139,7 +139,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             type="button"
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-[#FF4655]/20 transition-colors duration-300"
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-red-600/20 transition-colors duration-300"
             aria-controls="mobile-menu"
             aria-expanded="false"
           >
@@ -178,7 +178,7 @@ export default function Navbar() {
         }`}
         id="mobile-menu"
       >
-        <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-[#0F1923]/95 backdrop-blur-md shadow-lg border-t border-white/5">
+        <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 glass-effect border-t border-white/5">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
             return (
@@ -187,12 +187,12 @@ export default function Navbar() {
                 href={link.path}
                 className={`block px-3 py-3 text-base font-medium relative group focus:outline-none ${
                   isActive 
-                    ? 'bg-[#FF4655]/10 text-[#FF4655]'
+                    ? 'text-red-600'
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 } rounded-md mb-1`}
               >
                 {link.name}
-                {isActive && <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#FF4655] rounded-r"></span>}
+                {isActive && <span className="absolute left-0 top-0 bottom-0 w-1 bg-red-600 rounded-r"></span>}
               </Link>
             );
           })}
@@ -200,16 +200,16 @@ export default function Navbar() {
           {/* Mobile Language Switcher */}
           <div className="px-3 py-3 flex flex-col gap-3">
             <div className="text-sm font-medium text-gray-300 pb-1 border-b border-white/10 mb-1 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
               </svg>
               Dil Seçenekleri
             </div>
             
-            <div className="overflow-hidden rounded-lg border border-white/10 bg-[#0F1923]/70 shadow-lg">
+            <div className="overflow-hidden rounded-lg border border-white/10 glass-effect">
               <button
                 type="button"
-                className="w-full flex items-center px-4 py-3 bg-gradient-to-r from-[#FF4655]/20 to-transparent text-white transition-all duration-300 border-b border-white/5 hover:bg-[#FF4655]/10 relative overflow-hidden group"
+                className="w-full flex items-center px-4 py-3 bg-gradient-to-r from-red-600/20 to-transparent text-white transition-all duration-300 border-b border-white/5 hover:bg-red-600/10 relative overflow-hidden group"
               >
                 <div className="w-6 h-5 relative overflow-hidden rounded-sm shadow-inner mr-3 flex-shrink-0 flex items-center justify-center">
                   <Image src="/icons/flags/tr.svg" alt="Türkçe" width={24} height={18} className="object-cover" style={{ height: "auto" }} />
@@ -219,7 +219,7 @@ export default function Navbar() {
                   <span className="text-xs text-gray-400">Varsayılan Dil</span>
                 </span>
                 <span className="absolute right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FF4655]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </span>

@@ -13,8 +13,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-aot-dark">
-      {/* Arka plan efekti */}
-      <div className="absolute inset-0 z-0">
+      {/* Arka plan efekti */}      <div className="absolute inset-0 z-0">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{ 
@@ -22,7 +21,7 @@ const HeroSection = () => {
             filter: 'blur(3px)'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-[#0F1923]/85 to-[#0F1923]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-aot-dark/85 to-aot-dark" />
       </div>
 
       {/* Dekoratif parçacıklar */}

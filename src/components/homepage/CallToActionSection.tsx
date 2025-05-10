@@ -27,10 +27,10 @@ const CallToActionSection = () => {
       if (sectionRef.current) observer.unobserve(sectionRef.current);
     };
   }, []);
-
-  return (    <section 
+  return (
+    <section 
       ref={sectionRef}
-      className="relative py-24 overflow-hidden bg-aot-dark"
+      className="bg-aot-dark py-16 md:py-24 min-h-screen flex flex-col justify-center relative"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(10, 16, 24, 0.9), rgba(10, 16, 24, 0.98)), url(/images/backgrounds/titan-bg.webp)`,
         backgroundSize: 'cover',

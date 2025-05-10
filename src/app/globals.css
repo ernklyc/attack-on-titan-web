@@ -7,22 +7,49 @@
   --background-start-rgb: 15, 25, 35;
   --background-end-rgb: 15, 25, 35;
   --color-aot-red: #FF4655;
-  --color-aot-dark: #0A1018;
-  --color-aot-dark-secondary: #10171F;
+  --color-aot-dark: #0F1923;
+  --color-aot-dark-secondary: #1A242D;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-aot-red) var(--color-aot-dark);
+}
+
+/* Kırmızı scrollbar stili */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0F1923;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF4655;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6b75;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: var(--color-aot-dark);
+  background-image: radial-gradient(
+    circle at center,
+    #1A242D 0%,
+    var(--color-aot-dark) 80%
+  );
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @layer components {
@@ -31,15 +58,15 @@ body {
   }
   
   .aot-btn {
-    @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-aot-red hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200;
+    @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-[#FF4655] hover:bg-[#FF4655]/90 focus:outline-none transition-all duration-200;
   }
   
   .aot-section {
-    @apply py-12 border-b border-gray-800;
+    @apply py-12 border-b border-white/5;
   }
   
   .aot-card {
-    @apply bg-gray-800 rounded-lg overflow-hidden shadow-md;
+    @apply bg-[#1A242D] rounded-lg overflow-hidden;
   }
   
   .social-icon {
@@ -47,39 +74,25 @@ body {
   }
   
   .aot-dark {
-    @apply bg-gray-900;
+    @apply bg-[#0F1923];
   }
   
   .aot-red {
-    @apply text-red-600;
+    @apply text-[#FF4655];
   }
 }
 
-/* Custom Scrollbar */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #4b5563 #1f2937;
+/* Kaydırma çubuğu - gerektiğinde gizlemek için */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #1f2937;
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #4b5563;
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
-}
-
-/* Animations */
+/* Animasyonlar */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -100,9 +113,17 @@ body {
   50% { opacity: 0.7; }
 }
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%) skew(-12deg); }
-  100% { transform: translateX(200%) skew(-12deg); }
+/* Parıltı animasyonu - karakterler sayfasındaki gibi tam olarak */
+@keyframes shine {
+  100% {
+    left: 125%;
+  }
+}
+
+.animate-shine {
+  animation: shine 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation-fill-mode: forwards;
+  position: absolute;
 }
 
 .animate-fade-in {
@@ -119,6 +140,93 @@ body {
 
 .animate-pulse-slow {
   animation: pulse 3s infinite ease-in-out;
+}
+
+/* Kart üzerine gelme efektleri */
+.hover-card-effect {
+  transition: all 0.3s ease;
+}
+
+.hover-card-effect:hover {
+  transform: translateY(-5px);
+}
+
+/* Focus stilleri - daha temiz */
+a:focus, button:focus {
+  outline: none;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: none;
+}
+
+/* Cam efekti - karakterler sayfasındaki gibi tam olarak */
+.glass-effect {
+  background: rgba(26, 36, 45, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Arkaplan Gradientleri */
+.bg-aot-gradient {
+  background: linear-gradient(to bottom, var(--color-aot-dark-secondary), var(--color-aot-dark));
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(90deg, #FF4655, #ff6b75);
+}
+
+/* Standart geçişler */
+.transition-standard {
+  transition: all 0.3s ease;
+}
+
+/* Kart stilleri - karakterler sayfası tarzında */
+.card {
+  background-color: rgba(26, 36, 45, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  border-color: rgba(255, 70, 85, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Karakter sayfası özel stilleri */
+.shadow-character {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-character:hover {
+  box-shadow: 0 10px 40px rgba(255, 70, 85, 0.1);
+}
+
+/* Son element şeffaflık özelliği */
+.last-element-fade {
+  mask-image: linear-gradient(to top, transparent, black 20%);
+  -webkit-mask-image: linear-gradient(to top, transparent, black 20%);
+}
+
+/* Animasyonlar */
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skew(-12deg); }
+  100% { transform: translateX(200%) skew(-12deg); }
 }
 
 .animate-shimmer {
@@ -154,16 +262,6 @@ body {
   animation-delay: 4s;
 }
 
-/* Card hover effects */
-.hover-card-effect {
-  transition: all 0.3s ease;
-}
-
-.hover-card-effect:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-}
-
 /* Dropdown styles */
 .character-dropdown {
   z-index: 99999 !important; /* Ensure dropdowns appear above modals */
@@ -189,13 +287,6 @@ a:focus, button:focus {
 }
 
 /* Glass morphism effect */
-.glass-effect {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Glass card effect */
 .glass-card {
   background: rgba(26, 36, 45, 0.7);
   backdrop-filter: blur(10px);
@@ -214,25 +305,6 @@ a:focus, button:focus {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(29, 78, 216, 0.15) 0%, transparent 70%);
   pointer-events: none;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(15, 25, 35, 0.8);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 70, 85, 0.5);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 70, 85, 0.8);
 }
 
 /* Smooth transitions */
@@ -279,24 +351,6 @@ a:focus, button:focus {
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0F1923;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #FF4655;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #e63e4c;
-}
-
 /* Custom selection color */
 ::selection {
   background: #FF4655;
@@ -304,19 +358,6 @@ a:focus, button:focus {
 }
 
 /* Custom animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 1s ease-out;
-}
-
 @keyframes scaleIn {
   from {
     transform: scale(0.9);
@@ -434,48 +475,14 @@ a:focus, button:focus {
   @apply text-xl md:text-2xl lg:text-3xl font-semibold;
 }
 
-/* globals.css dosyasının altına hide-scrollbar sınıfını ekliyorum */
-
-.hide-scrollbar {
-  -ms-overflow-style: none;  /* IE ve Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari ve Opera */
-}
-
-/* Ana tema renkleri için yeni tanımlar */
-:root {
-  --color-aot-red: #FF4655;
-  --color-aot-dark: #0A1018;
-  --color-aot-dark-secondary: #10171F;
-}
-
 /* Tutarlı kenar çizgileri için */
 .border-aot {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Tutarlı geçişler */
-.transition-standard {
-  transition: all 0.3s ease;
-}
-
 /* Daha yeni ve temiz bir gölge tanımı */
 .shadow-soft {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Kart kapsayıcılar için gölge düzeltmesi */
-.card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Buton gölgelerini standartlaştırma */

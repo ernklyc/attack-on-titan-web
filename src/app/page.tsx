@@ -27,7 +27,7 @@ interface AnimatedSectionProps {
   delay?: number;
 }
 
-// Kaydırma animasyonu için bileşen
+// Kaydırma animasyonu için bileşen - daha hızlı
 function AnimatedSection({ id, children, delay = 0 }: AnimatedSectionProps) {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -41,8 +41,8 @@ function AnimatedSection({ id, children, delay = 0 }: AnimatedSectionProps) {
         }
       },
       { 
-        threshold: 0.1,
-        rootMargin: '0px 0px -10% 0px'
+        threshold: 0.05, // Daha erken tetiklenme için eşik değeri düşürüldü
+        rootMargin: '0px 0px -2% 0px' // Görünür alan daha geniş
       }
     );
 
@@ -61,14 +61,15 @@ function AnimatedSection({ id, children, delay = 0 }: AnimatedSectionProps) {
     <section 
       id={id} 
       ref={sectionRef} 
-      className={`w-full transition-all duration-700 ease-out transform ${
+      className={`w-full transition-all duration-400 ease-out transform ${
         isVisible 
           ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-8'
+          : 'opacity-0 translate-y-4'
       }`}
       style={{ 
         transitionDelay: `${delay}ms`,
-        willChange: isVisible ? 'auto' : 'opacity, transform'
+        willChange: isVisible ? 'auto' : 'opacity, transform',
+        marginBottom: '3rem'
       }}
     >
       {children}
@@ -95,14 +96,14 @@ function ContentQuickMenu() {
   };
 
   return (
-    <div className="sticky top-20 z-20 bg-[#0F1923]/95 backdrop-blur-md py-2 flex justify-center shadow-lg">
+    <div className="sticky top-16 z-20 bg-[#1A242D]/80 backdrop-blur-xl py-2 flex justify-center border-b border-white/5">
       <div className="container flex items-center justify-center overflow-x-auto hide-scrollbar">
-        <div className="flex space-x-1 px-2 md:space-x-3 md:px-4">
+        <div className="flex space-x-1 px-1 md:space-x-3 md:px-4">
           {contentLinks.map((link) => (
             <button
               key={link.path}
               onClick={() => scrollToSection(link.path)}
-              className="whitespace-nowrap px-2 py-2 md:px-3 md:py-2 text-xs md:text-sm text-gray-300 hover:text-white hover:bg-[#FF4655]/20 rounded-md transition-all duration-200 flex items-center border border-transparent hover:border-[#FF4655]/20"
+              className="whitespace-nowrap px-3 py-2 text-xs md:text-sm text-gray-300 hover:text-white hover:bg-[#FF4655]/10 rounded-md transition-all duration-200 flex items-center border border-white/5 hover:border-[#FF4655]/30"
             >
               <svg className="w-4 h-4 md:mr-1.5 text-[#FF4655]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={link.icon}></path>
@@ -133,30 +134,17 @@ export default function Home() {
     }, 8000);
     return () => clearInterval(interval);
   }, [images.length]);
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
+  
+  // Sayfa kaydırma sorununu çözmek için
+  useEffect(() => {
+    document.body.style.overflowX = 'hidden';
+    return () => {
+      document.body.style.overflowX = '';
+    };
+  }, []);
 
   return (
-    <main className="flex flex-col items-center min-h-screen overflow-x-hidden bg-[#0A1018]">
+    <main className="flex flex-col items-center min-h-screen bg-[#0F1923] text-gray-100">
       {/* Hero Section */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
         {/* Arkaplan görüntüsü */}
@@ -166,33 +154,33 @@ export default function Home() {
             alt="Attack on Titan"
             fill
             priority
-            className="object-cover opacity-40"
+            className="object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-[#0A1018]/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0F1923]/80 via-[#0F1923]/60 to-[#0F1923]/95"></div>
         </div>
 
         {/* Hero içeriği */}
-        <div className="container mx-auto px-4 relative z-10 mt-20">
+        <div className="container mx-auto px-4 relative z-10 mt-16 md:mt-0">
           <motion.div 
             className="max-w-3xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
           >
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-4 text-white leading-tight text-shadow"
+              className="text-5xl md:text-7xl font-bold mb-4 text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
             >
               <span className="text-[#FF4655]">Attack</span> on Titan
             </motion.h1>
             
             <motion.p 
-              className="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl text-shadow"
+              className="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)]"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
             >
               Keşfet, derinleşen gizem içindeki devlerin dünyasına dal ve insanlığın son kalesi içindeki karakterlerin hikayesini öğren.
             </motion.p>
@@ -201,18 +189,18 @@ export default function Home() {
               className="flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
             >
               <Link 
                 href="/characters"
-                className="px-8 py-3 bg-[#FF4655] text-white font-medium rounded-md hover:bg-[#ff2238] transition-all duration-300 transform hover:scale-105 shadow-md"
+                className="px-6 py-3 bg-gradient-to-r from-[#FF4655]/90 to-[#FF4655] text-white font-medium rounded-md hover:from-[#FF4655] hover:to-[#FF4655] transition-all duration-300 transform hover:scale-105 shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
               >
                 Karakterleri Keşfet
               </Link>
               
               <Link 
                 href="/titans"
-                className="px-8 py-3 bg-transparent border border-white/30 text-white font-medium rounded-md hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
+                className="px-6 py-3 bg-[#1A242D]/60 backdrop-blur-lg border border-white/10 text-white font-medium rounded-md hover:bg-white/10 transition-all duration-300 transform hover:scale-105 shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
               >
                 Titanlar
               </Link>
@@ -224,7 +212,7 @@ export default function Home() {
         <motion.div 
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           animate={{ 
-            y: [0, 12, 0],
+            y: [0, 8, 0],
           }}
           transition={{ 
             repeat: Infinity, 
@@ -250,50 +238,52 @@ export default function Home() {
       {/* İçerik Menüsü */}
       <ContentQuickMenu />
 
-      {/* Categories Section */}
-      <AnimatedSection id="categories-section">
-        <CategoriesSection />
-      </AnimatedSection>
+      <div className="container mx-auto px-4 py-8">
+        {/* Categories Section */}
+        <AnimatedSection id="categories-section">
+          <CategoriesSection />
+        </AnimatedSection>
 
-      {/* Characters Showcase Section */}
-      <AnimatedSection id="characters-showcase" delay={100}>
-        <CharactersShowcase />
-      </AnimatedSection>
+        {/* Characters Showcase Section */}
+        <AnimatedSection id="characters-showcase" delay={100}>
+          <CharactersShowcase />
+        </AnimatedSection>
 
-      {/* Featured Section */}
-      <AnimatedSection id="featured-section" delay={200}>
-        <FeaturedSection />
-      </AnimatedSection>
+        {/* Featured Section */}
+        <AnimatedSection id="featured-section" delay={200}>
+          <FeaturedSection />
+        </AnimatedSection>
 
-      {/* Quote Section */}
-      <AnimatedSection id="quote-section" delay={300}>
-        <QuoteSection />
-      </AnimatedSection>
-      
-      {/* Timeline Section */}
-      <AnimatedSection id="timeline-section" delay={400}>
-        <TimelineSection />
-      </AnimatedSection>
-      
-      {/* Video Trailer Section */}
-      <AnimatedSection id="video-trailer" delay={500}>
-        <VideoTrailerSection />
-      </AnimatedSection>
-      
-      {/* News & Updates Section */}
-      <AnimatedSection id="news-updates" delay={600}>
-        <NewsUpdatesSection />
-      </AnimatedSection>
-      
-      {/* Fan Community Section */}
-      <AnimatedSection id="fan-community-section" delay={700}>
-        <FanCommunitySection />
-      </AnimatedSection>
-      
-      {/* Gallery Section */}
-      <AnimatedSection id="gallery-section" delay={800}>
-        <GallerySection />
-      </AnimatedSection>
+        {/* Quote Section */}
+        <AnimatedSection id="quote-section" delay={300}>
+          <QuoteSection />
+        </AnimatedSection>
+        
+        {/* Timeline Section */}
+        <AnimatedSection id="timeline-section" delay={400}>
+          <TimelineSection />
+        </AnimatedSection>
+        
+        {/* Video Trailer Section */}
+        <AnimatedSection id="video-trailer" delay={500}>
+          <VideoTrailerSection />
+        </AnimatedSection>
+        
+        {/* News & Updates Section */}
+        <AnimatedSection id="news-updates" delay={600}>
+          <NewsUpdatesSection />
+        </AnimatedSection>
+        
+        {/* Fan Community Section */}
+        <AnimatedSection id="fan-community-section" delay={700}>
+          <FanCommunitySection />
+        </AnimatedSection>
+        
+        {/* Gallery Section */}
+        <AnimatedSection id="gallery-section" delay={800}>
+          <GallerySection />
+        </AnimatedSection>
+      </div>
     </main>
   );
 }
