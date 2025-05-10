@@ -8,7 +8,7 @@ export default function CharactersShowcase() {
   // Ana karakterleri örnek verilerle tanımlıyorum
   const mainCharacters = [
     {
-      id: 1,
+      id: 1 as number,
       name: 'Eren Yeager',
       role: 'Ana Kahraman / Titan Taşıyıcısı',
       image: '/images/characters/eren-yeager.webp',
@@ -18,7 +18,7 @@ export default function CharactersShowcase() {
       species: ['İnsan', 'Titan']
     },
     {
-      id: 2,
+      id: 2 as number,
       name: 'Mikasa Ackerman',
       role: 'Savaşçı / Koruyucu',
       image: '/images/characters/mikasa-ackerman.webp',
@@ -28,7 +28,7 @@ export default function CharactersShowcase() {
       species: ['İnsan', 'Ackerman']
     },
     {
-      id: 3,
+      id: 3 as number,
       name: 'Armin Arlert',
       role: 'Stratejist / Titan Taşıyıcısı',
       image: '/images/characters/armin-arlert.webp',
@@ -38,7 +38,7 @@ export default function CharactersShowcase() {
       species: ['İnsan', 'Titan']
     },
     {
-      id: 4,
+      id: 4 as number,
       name: 'Levi Ackerman',
       role: 'Keşif Birliği Kaptanı',
       image: '/images/characters/levi-ackerman.webp',
@@ -96,7 +96,7 @@ export default function CharactersShowcase() {
             <div 
               key={character.id}
               className="group relative overflow-hidden cursor-pointer transition-all duration-500 h-full transform hover:-translate-y-1"
-              onMouseEnter={() => setHoveredCharacter(character.id)}
+              onMouseEnter={() => setHoveredCharacter(character.id as number)}
               onMouseLeave={() => setHoveredCharacter(null)}
             >
               {/* Ana kart konteyneri - Glass morphic tasarım */}
