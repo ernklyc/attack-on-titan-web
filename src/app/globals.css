@@ -80,16 +80,43 @@ body {
   .aot-red {
     @apply text-[#FF4655];
   }
+
+  /* Cam efekti için özel sınıf */
+  .glass-effect {
+    @apply bg-[#0F1923]/70 backdrop-blur-md;
+  }
+
+  /* Gölgeli metin efekti */
+  .drop-shadow-glow {
+    filter: drop-shadow(0 0 8px rgba(255, 70, 85, 0.7));
+  }
+  
+  .drop-shadow-glow-white {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+  }
+
+  /* Scrollbar gizleme */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE ve Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 }
 
-/* Kaydırma çubuğu - gerektiğinde gizlemek için */
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+@layer utilities {
+  /* Parlama animasyonu */
+  @keyframes shine {
+    to {
+      left: 125%;
+    }
+  }
+  
+  .animate-shine {
+    animation: shine 1.5s ease-in-out;
+  }
 }
 
 /* Animasyonlar */

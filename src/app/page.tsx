@@ -326,12 +326,8 @@ export default function Home() {
           
           {/* News & Updates Section */}
           <AnimatedSection id="news-updates" delay={600}>
-            <div className="bg-[#1A242D]/10 backdrop-blur-xl rounded-xl p-6 border border-white/10 shadow-xl mb-8 hover:shadow-2xl transition-all duration-500 relative">
-              {/* Dekoratif elementler */}
-              <div className="absolute top-0 right-0 -mt-10 mr-10 w-32 h-32 bg-gradient-to-br from-[#FF4655]/20 to-transparent rounded-full filter blur-2xl opacity-70"></div>
-              <div className="absolute bottom-0 left-0 -mb-16 ml-16 w-40 h-40 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full filter blur-3xl opacity-50"></div>
-              
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+            <div className="bg-[#1A242D]/10 backdrop-blur-xl rounded-xl p-6 border border-white/10 shadow-xl mb-8 hover:shadow-2xl transition-all duration-500">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
                 <div className="inline-flex items-center mb-4 md:mb-0">
                   <div className="w-10 h-10 flex items-center justify-center bg-[#FF4655]/20 rounded-full mr-3 backdrop-blur-xl border border-[#FF4655]/20">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FF4655]" viewBox="0 0 20 20" fill="currentColor">
@@ -339,15 +335,7 @@ export default function Home() {
                       <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
                     </svg>
                   </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-white drop-shadow-glow-white">Haberler & Güncellemeler</h2>
-                    <div className="h-1 w-16 bg-[#FF4655] mt-2"></div>
-                  </div>
-                </div>
-                <div className="mb-4 md:mb-0">
-                  <div className="rounded-full px-4 py-1 bg-[#FF4655]/30 backdrop-blur-xl border border-[#FF4655]/20 shadow-lg">
-                    <span className="text-xs font-bold text-white tracking-widest uppercase">HABERLER</span>
-                  </div>
+                  <h2 className="text-2xl font-bold text-white drop-shadow-glow-white">Haberler & Güncellemeler</h2>
                 </div>
               </div>
               <NewsUpdatesSection />

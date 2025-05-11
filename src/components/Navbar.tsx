@@ -39,7 +39,7 @@ export default function Navbar() {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'glass-effect border-b border-white/5' 
+          ? 'glass-effect' 
           : 'bg-transparent'
       }`}
     >
